@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frosty Haven — Handcrafted Ice Cream</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a href="#top" class="brand" aria-label="Frosty Haven home">
+      <img src="images/logo.jpg" alt="Frosty Haven" class="brand-logo">
+    </a>
+
+    <nav class="main-nav" id="mainNav" aria-label="Primary">
+      <a href="#menu">Menu</a>
+      <a href="#why">Why Us</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#locations">Locations</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="cart-toggle" id="cartToggle" aria-label="View cart" aria-expanded="false">
+        🛍️<span class="cart-badge" id="cartBadge" hidden>0</span>
+      </button>
+      <a href="tel:0211523246" class="btn btn-pink">Order for Pickup</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <div class="cart-panel" id="cartPanel" hidden>
+      <h3>Your Order</h3>
+      <ul class="cart-items" id="cartItems"></ul>
+      <p class="cart-empty" id="cartEmpty">Your cart is empty.</p>
+      <div class="cart-total" id="cartTotal" hidden>
+        <span>Total</span>
+        <strong id="cartTotalAmount">$0.00</strong>
+      </div>
+      <a href="#" target="_blank" rel="noopener" class="btn btn-pink cart-checkout" id="cartCheckout">Send Order on WhatsApp</a>
+      <a href="tel:0211523246" class="cart-call-fallback">or call us instead</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-inner">
+      <h1 class="hero-title">Cool down.<br>Light up.</h1>
+      <p class="hero-sub">Açaí bowls, creamy soft serve, thick milkshakes and protein shakes — plus over-the-top creations like loaded cookies, loaded brownies, frosty cheesecakes and frosty nachos. A dessert destination like no other.</p>
+      <div class="hero-ctas">
+        <a href="#menu" class="btn btn-pink btn-lg">See the Menu</a>
+        <a href="#locations" class="btn btn-outline btn-lg">Visit Us</a>
+      </div>
+    </div>
+    <div class="hero-float hero-float-1" aria-hidden="true"></div>
+    <div class="hero-float hero-float-2" aria-hidden="true"></div>
+    <div class="hero-float hero-float-3" aria-hidden="true"></div>
+
+    <svg class="drip-divider" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,0 L1440,0 L1440,40 C1380,40 1360,90 1300,90 C1240,90 1230,50 1180,50 C1120,50 1110,100 1050,100 C990,100 985,60 930,60 C860,60 850,110 790,110 C730,110 725,45 665,45 C600,45 590,95 525,95 C460,95 455,55 395,55 C330,55 320,105 255,105 C195,105 190,50 130,50 C75,50 65,90 0,90 Z" fill="#FFFCF7"/>
+    </svg>
+  </section>
+
+  <!-- ===== MENU ===== -->
+  <section class="section flavors" id="menu">
+    <p class="section-eyebrow">On The Menu · Everything Halal</p>
+    <h2 class="section-title">Treats worth <span class="text-pink">melting</span> for</h2>
+
+    <nav class="menu-categories" aria-label="Menu categories">
+      <button type="button" class="menu-cat-pill menu-cat-pill-active" data-target="all">All</button>
+      <button type="button" class="menu-cat-pill" data-target="cat-loaded-cups">Loaded Cups</button>
+      <button type="button" class="menu-cat-pill" data-target="cat-cakes">Cakes</button>
+      <button type="button" class="menu-cat-pill" data-target="cat-ice-cream">Ice Cream</button>
+      <button type="button" class="menu-cat-pill" data-target="cat-bowls">Bowls</button>
+      <button type="button" class="menu-cat-pill" data-target="cat-shakes">Shakes</button>
+      <button type="button" class="menu-cat-pill" data-target="cat-loaded-treats">Loaded Treats</button>
+      <button type="button" class="menu-cat-pill" data-target="cat-specials">Specials</button>
+    </nav>
+
+    <div class="menu-category" id="cat-loaded-cups">
+      <h3 class="menu-category-title">Loaded Cups</h3>
+    <div class="menu-feature" id="item-loaded-cup">
+      <div class="menu-feature-photo">
+        <img src="images/loaded-cup-hero.webp" alt="Frosty Haven loaded cup with soft serve, chocolate drizzle, churro, banana and strawberry, in front of the store's neon logo sign" loading="lazy">
+      </div>
+      <div class="menu-feature-copy">
+        <p class="menu-feature-label">Fan Favorite</p>
+        <h3>The Loaded Cup</h3>
+        <p class="menu-feature-desc">Swirled soft serve dipped in chocolate, stacked with a churro, fresh banana, and strawberry. Built to be shared — or not.</p>
+        <div class="size-options" role="group" aria-label="Choose a size">
+          <button type="button" class="size-btn" data-size="Small" data-price="8">Small <span>$8</span></button>
+          <button type="button" class="size-btn size-btn-active" data-size="Medium" data-price="11">Medium <span>$11</span></button>
+          <button type="button" class="size-btn" data-size="Large" data-price="14">Large <span>$14</span></button>
+        </div>
+        <div class="add-to-cart-row">
+          <div class="qty-stepper" role="group" aria-label="Quantity">
+            <button type="button" class="qty-btn qty-minus" aria-label="Decrease quantity">&minus;</button>
+            <span class="qty-value" data-qty="1">1</span>
+            <button type="button" class="qty-btn qty-plus" aria-label="Increase quantity">+</button>
+          </div>
+          <span class="menu-feature-price">$11.00</span>
+          <button type="button" class="btn btn-pink add-to-cart-btn" data-item="The Loaded Cup">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="menu-category" id="cat-cakes">
+      <h3 class="menu-category-title">Cakes</h3>
+    <div class="menu-feature menu-feature-reverse" id="item-lava-cake">
+      <div class="menu-feature-photo">
+        <img src="images/lava-cake.jpg" alt="Frosty Haven lava cake with melted centre, ice cream, and sauce drizzle" loading="lazy">
+      </div>
+      <div class="menu-feature-copy">
+        <p class="menu-feature-label">Warm &amp; Gooey</p>
+        <h3>Lava Cake</h3>
+        <p class="menu-feature-desc">A rich, molten-centre cake topped with ice cream and your choice of sauce. The perfect sweet escape.</p>
+        <div class="size-options" role="group" aria-label="Choose a flavour">
+          <button type="button" class="size-btn size-btn-active" data-size="Pistachio" data-price="8">Pistachio <span>$8</span></button>
+          <button type="button" class="size-btn" data-size="Biscoff" data-price="8">Biscoff <span>$8</span></button>
+          <button type="button" class="size-btn" data-size="Nutella" data-price="8">Nutella <span>$8</span></button>
+          <button type="button" class="size-btn" data-size="Bueno" data-price="8">Bueno <span>$8</span></button>
+          <button type="button" class="size-btn" data-size="Chocolate" data-price="8">Chocolate <span>$8</span></button>
+        </div>
+        <div class="add-to-cart-row">
+          <div class="qty-stepper" role="group" aria-label="Quantity">
+            <button type="button" class="qty-btn qty-minus" aria-label="Decrease quantity">&minus;</button>
+            <span class="qty-value" data-qty="1">1</span>
+            <button type="button" class="qty-btn qty-plus" aria-label="Increase quantity">+</button>
+          </div>
+          <span class="menu-feature-price">$8.00</span>
+          <button type="button" class="btn btn-pink add-to-cart-btn" data-item="Lava Cake">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+      <div class="flavor-grid flavor-grid-compact">
+        <article class="flavor-card" id="item-frosty-cheesecakes">
+          <div class="flavor-swatch swatch-mint">🍰</div>
+          <h3>Frosty Cheesecakes</h3>
+          <p>Rich, chilled cheesecake with a Frosty Haven twist.</p>
+        </article>
+      </div>
+    </div>
+
+    <div class="menu-category" id="cat-bowls">
+      <h3 class="menu-category-title">Bowls</h3>
+    <div class="menu-feature" id="item-acai-bowl">
+      <div class="menu-feature-photo">
+        <img src="images/acai-bowl.jpg" alt="Frosty Haven açaí bowl with matcha swirl, granola, banana and strawberry" loading="lazy">
+      </div>
+      <div class="menu-feature-copy">
+        <p class="menu-feature-label">Fresh &amp; Fruity</p>
+        <h3>Açaí Bowl</h3>
+        <p class="menu-feature-desc">Açaí blended smooth, swirled and piled high with granola, banana, and fresh strawberry.</p>
+        <div class="size-options" role="group" aria-label="Choose a size">
+          <button type="button" class="size-btn" data-size="Small" data-price="10">Small <span>$10</span></button>
+          <button type="button" class="size-btn size-btn-active" data-size="Medium" data-price="13">Medium <span>$13</span></button>
+          <button type="button" class="size-btn" data-size="Large" data-price="16">Large <span>$16</span></button>
+        </div>
+        <div class="add-to-cart-row">
+          <div class="qty-stepper" role="group" aria-label="Quantity">
+            <button type="button" class="qty-btn qty-minus" aria-label="Decrease quantity">&minus;</button>
+            <span class="qty-value" data-qty="1">1</span>
+            <button type="button" class="qty-btn qty-plus" aria-label="Increase quantity">+</button>
+          </div>
+          <span class="menu-feature-price">$13.00</span>
+          <button type="button" class="btn btn-pink add-to-cart-btn" data-item="Açaí Bowl">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="menu-category" id="cat-ice-cream">
+      <h3 class="menu-category-title">Ice Cream</h3>
+    <div class="menu-feature menu-feature-reverse" id="item-soft-serve">
+      <div class="menu-feature-photo">
+        <img src="images/soft-serve-twist.jpg" alt="Frosty Haven soft serve twist cone" loading="lazy">
+      </div>
+      <div class="menu-feature-copy">
+        <p class="menu-feature-label">The Classic</p>
+        <h3>Soft Serve Twist</h3>
+        <p class="menu-feature-desc">Creamy soft serve, swirled in a twist of two flavors, piled high on a crisp waffle cone.</p>
+        <div class="size-options" role="group" aria-label="Choose a size">
+          <button type="button" class="size-btn" data-size="Small" data-price="6">Small <span>$6</span></button>
+          <button type="button" class="size-btn size-btn-active" data-size="Medium" data-price="8">Medium <span>$8</span></button>
+          <button type="button" class="size-btn" data-size="Large" data-price="10">Large <span>$10</span></button>
+        </div>
+        <div class="add-to-cart-row">
+          <div class="qty-stepper" role="group" aria-label="Quantity">
+            <button type="button" class="qty-btn qty-minus" aria-label="Decrease quantity">&minus;</button>
+            <span class="qty-value" data-qty="1">1</span>
+            <button type="button" class="qty-btn qty-plus" aria-label="Increase quantity">+</button>
+          </div>
+          <span class="menu-feature-price">$8.00</span>
+          <button type="button" class="btn btn-pink add-to-cart-btn" data-item="Soft Serve Twist">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="menu-category" id="cat-shakes">
+      <h3 class="menu-category-title">Shakes</h3>
+      <div class="flavor-grid flavor-grid-compact">
+        <article class="flavor-card" id="item-milkshakes">
+          <div class="flavor-swatch swatch-mint">🥤</div>
+          <h3>Thick Milkshakes</h3>
+          <p>Indulgent, spoon-thick shakes in every flavor.</p>
+        </article>
+        <article class="flavor-card" id="item-protein-shakes">
+          <div class="flavor-swatch swatch-yellow">💪</div>
+          <h3>Protein Shakes</h3>
+          <p>All the flavor, built for your fitness goals.</p>
+        </article>
+      </div>
+    </div>
+
+    <div class="menu-category" id="cat-loaded-treats">
+      <h3 class="menu-category-title">Loaded Treats</h3>
+      <div class="flavor-grid flavor-grid-compact">
+        <article class="flavor-card" id="item-loaded-cookies">
+          <div class="flavor-swatch swatch-pink">🍪</div>
+          <h3>Loaded Cookies</h3>
+          <p>Warm, stacked, and piled high with toppings.</p>
+        </article>
+        <article class="flavor-card" id="item-loaded-brownies">
+          <div class="flavor-swatch swatch-turquoise">🍫</div>
+          <h3>Loaded Brownies</h3>
+          <p>Fudgy brownies buried under frosty toppings.</p>
+        </article>
+      </div>
+    </div>
+
+    <div class="menu-category" id="cat-specials">
+      <h3 class="menu-category-title">Specials</h3>
+      <div class="flavor-grid flavor-grid-compact">
+        <article class="flavor-card" id="item-frosty-nachos">
+          <div class="flavor-swatch swatch-yellow">🌟</div>
+          <h3>Frosty Nachos</h3>
+          <p>A must-try — our over-the-top dessert nachos.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHY US ===== -->
+  <section class="section why" id="why">
+    <div class="why-inner">
+      <div class="why-copy">
+        <p class="section-eyebrow section-eyebrow-light">The Frosty Haven Difference</p>
+        <h2 class="section-title section-title-light">Premium ingredients. <br>Zero compromises.</h2>
+        <p class="why-lede">Every batch is churned in-house, in small runs, so flavor never gets diluted for scale. Here's what that means for you.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon">🍦</div>
+          <h3>Churned Fresh</h3>
+          <p>New batches daily — nothing sits in the freezer for weeks.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">🌱</div>
+          <h3>Real Ingredients</h3>
+          <p>Real fruit, real cream, real cocoa. No artificial flavoring, ever.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">🎨</div>
+          <h3>Over-The-Top Creations</h3>
+          <p>Loaded cookies, frosty nachos, and desserts you won't find anywhere else.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">🕌</div>
+          <h3>100% Halal</h3>
+          <p>Everything on our menu is halal — no exceptions.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">💛</div>
+          <h3>Made With Love</h3>
+          <p>A dessert destination like no other, scoop by scoop.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== GALLERY ===== -->
+  <section class="section gallery" id="gallery">
+    <p class="section-eyebrow">Straight From the Shop</p>
+    <h2 class="section-title">Life at <span class="text-pink">Frosty Haven</span></h2>
+    <div class="gallery-photo">
+      <img src="images/interior-collage.jpg" alt="Inside the Frosty Haven store — seating, wall art, and the pick-up counter" loading="lazy">
+    </div>
+  </section>
+
+  <!-- ===== REVIEWS ===== -->
+  <section class="section reviews" id="reviews">
+    <p class="section-eyebrow">What People Are Saying</p>
+    <h2 class="section-title">Loved around <span class="text-pink">Palmerston North</span></h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-score">4.8<span>/5</span></div>
+        <p class="review-source">Google · 62 reviews</p>
+        <div class="review-stars" aria-hidden="true">★★★★★</div>
+      </div>
+      <div class="review-card">
+        <div class="review-score">5.0<span>/5</span></div>
+        <p class="review-source">Facebook · 2 votes</p>
+        <div class="review-stars" aria-hidden="true">★★★★★</div>
+      </div>
+      <div class="review-card review-card-quote">
+        <p>"A dessert destination like no other — from açaí bowls to frosty nachos, there's something for every craving."</p>
+        <p class="review-source">— Frosty Haven</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA / ORDER ===== -->
+  <section class="section cta" id="order">
+    <div class="cta-inner">
+      <h2>Ready for your happy place?</h2>
+      <p>Swing by our Palmerston North shop today, or call ahead to order.</p>
+      <div class="cta-actions">
+        <a href="tel:0211523246" class="btn btn-white btn-lg">Order for Pickup</a>
+        <a href="#locations" class="btn btn-outline-white btn-lg">Find a Location</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LOCATIONS ===== -->
+  <section class="section locations" id="locations">
+    <p class="section-eyebrow">Come Say Hi</p>
+    <h2 class="section-title">Find us in <span class="text-pink">Palmerston North</span></h2>
+    <div class="locations-layout">
+      <div class="location-card location-card-main">
+        <h3>Frosty Haven</h3>
+        <p class="location-line">📍 202A Featherston Street, Palmerston North Central, Palmerston North 4410</p>
+        <p class="location-line">📞 <a href="tel:0211523246">021 152 3246</a></p>
+        <p class="location-line">🕑 Open until 9:30pm most days · Saturdays from 11:30am</p>
+        <p class="location-note">Busiest around 2pm — most visits run about 15 minutes.</p>
+        <div class="location-actions">
+          <a href="https://www.google.com/maps/search/?api=1&query=202A+Featherston+Street+Palmerston+North+Central+Palmerston+North+4410" target="_blank" rel="noopener" class="btn btn-pink">Get Directions</a>
+          <a href="tel:0211523246" class="btn btn-outline">Call Us</a>
+        </div>
+      </div>
+      <div class="location-map">
+        <iframe
+          src="https://www.google.com/maps?q=202A+Featherston+Street,+Palmerston+North+Central,+Palmerston+North+4410&output=embed"
+          width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade" title="Frosty Haven location map">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <svg class="footer-drip" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,0 L1440,0 L1440,20 C1380,20 1370,55 1310,55 C1250,55 1240,25 1180,25 C1110,25 1100,58 1030,58 C960,58 955,30 890,30 C820,30 810,55 745,55 C680,55 675,22 610,22 C540,22 530,55 460,55 C395,55 390,28 325,28 C255,28 245,58 175,58 C110,58 105,25 40,25 C20,25 10,20 0,20 Z" fill="#241535"/>
+  </svg>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="images/logo.jpg" alt="Frosty Haven" class="footer-logo">
+      <p>A dessert destination like no other. 100% halal.</p>
+      <p class="footer-contact">202A Featherston Street, Palmerston North Central 4410<br><a href="tel:0211523246">021 152 3246</a></p>
+    </div>
+    <div class="footer-links">
+      <div>
+        <h4>Explore</h4>
+        <a href="#menu">Menu</a>
+        <a href="#why">Why Us</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#locations">Locations</a>
+      </div>
+      <div>
+        <h4>Follow</h4>
+        <a href="https://www.instagram.com/frostyhaven.nz" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.tiktok.com/@frostyhaven.nz" target="_blank" rel="noopener">TikTok</a>
+      </div>
+    </div>
+  </div>
+  <p class="footer-copy">© 2026 Frosty Haven. All rights reserved.</p>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>

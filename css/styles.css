@@ -2,8 +2,8 @@
    Frosty Haven — design tokens
    ========================================================================== */
 :root {
-  --pink: #FF2D95;
-  --pink-deep: #C4127A;
+  --pink: #F32379;
+  --pink-deep: #BB0E63;
   --turquoise: #2FE0DE;
   --turquoise-deep: #17B6B8;
   --mint: #8CF08A;
@@ -25,7 +25,7 @@
   --radius-pill: 999px;
 
   --shadow-soft: 0 20px 40px -20px rgba(36, 21, 53, 0.25);
-  --shadow-pink: 0 14px 30px -10px rgba(255, 45, 149, 0.55);
+  --shadow-pink: 0 14px 30px -10px rgba(243, 35, 121, 0.55);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -102,7 +102,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .btn-pink:hover {
   background: var(--gradient-pink-hover);
   transform: translateY(-3px);
-  box-shadow: 0 20px 36px -12px rgba(255, 45, 149, 0.65);
+  box-shadow: 0 20px 36px -12px rgba(243, 35, 121, 0.65);
 }
 
 .btn-outline {
@@ -329,6 +329,26 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   overflow: hidden;
   isolation: isolate;
 }
+
+.hero-photo {
+  padding: 0;
+  background: #FBD8E4;
+}
+.hero-photo-img {
+  width: 100%;
+  height: auto;
+  max-height: 88vh;
+  object-fit: cover;
+  object-position: center;
+}
+.hero-hotspot {
+  position: absolute;
+  top: 66%;
+  height: 6.5%;
+  z-index: 2;
+}
+.hero-hotspot-order { left: 9%; width: 12.5%; }
+.hero-hotspot-explore { left: 21.5%; width: 13.5%; }
 
 .hero-inner {
   max-width: 780px;

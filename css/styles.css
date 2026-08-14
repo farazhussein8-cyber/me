@@ -203,11 +203,14 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   position: relative;
   background: none;
   border: none;
-  font-size: 1.4rem;
+  color: var(--ink);
   cursor: pointer;
   padding: 6px;
   line-height: 1;
+  transition: color .2s ease, transform .2s ease;
 }
+.cart-toggle:hover { color: var(--pink); transform: translateY(-1px); }
+.cart-icon { display: block; }
 .cart-badge {
   position: absolute;
   top: -2px;
@@ -225,6 +228,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   justify-content: center;
   padding: 0 4px;
 }
+.cart-badge[hidden] { display: none; }
 
 .cart-panel {
   position: absolute;
@@ -291,7 +295,9 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   color: var(--ink-soft);
 }
 .cart-total strong { color: var(--pink); font-size: 1.15rem; }
+.cart-total[hidden] { display: none; }
 .cart-checkout { display: flex; width: 100%; }
+.cart-checkout[hidden] { display: none; }
 .cart-call-fallback {
   display: block;
   text-align: center;
@@ -333,6 +339,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .hero-photo {
   padding: 0;
   background: #FBD8E4;
+  max-width: 1717px;
+  margin: 0 auto;
 }
 .hero-photo-img {
   width: 100%;
@@ -343,12 +351,12 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 }
 .hero-hotspot {
   position: absolute;
-  top: 66%;
-  height: 6.5%;
+  top: 68.5%;
+  height: 8%;
   z-index: 2;
 }
-.hero-hotspot-order { left: 9%; width: 12.5%; }
-.hero-hotspot-explore { left: 21.5%; width: 13.5%; }
+.hero-hotspot-order { left: 9.9%; width: 12.2%; }
+.hero-hotspot-explore { left: 21.3%; width: 13%; }
 
 .hero-inner {
   max-width: 780px;
@@ -869,6 +877,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   .why-grid { grid-template-columns: 1fr; }
   .footer-inner { flex-direction: column; }
   .hero { padding-top: 130px; }
+  .hero-photo { padding-top: 0; }
   .hero-inner { padding-bottom: 100px; }
 }
 

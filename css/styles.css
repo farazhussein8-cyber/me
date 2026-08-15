@@ -159,12 +159,13 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   position: relative;
 }
 
-.brand { display: flex; align-items: center; }
+.brand { display: flex; align-items: center; flex-shrink: 0; }
 .brand-logo {
   height: 60px;
   width: auto;
   border-radius: 8px;
   display: block;
+  flex-shrink: 0;
 }
 
 .footer-logo {
@@ -951,6 +952,12 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   .why-grid { grid-template-columns: 1fr; }
   .footer-inner { flex-direction: column; }
   .hero { padding: 130px 20px 100px; }
+
+  /* logo.webp is a wide 1717x916 file, not a compact mark — at the full
+     60px header height its natural width doesn't leave room for the cart
+     icon, order button and menu toggle on a phone-width row. */
+  .brand-logo { height: 40px; }
+  .header-actions { gap: 10px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

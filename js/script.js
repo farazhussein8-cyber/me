@@ -15,7 +15,7 @@ mainNav.querySelectorAll('a').forEach((link) => {
 });
 
 /* ==========================================================================
-   Menu — sticky horizontal category bar + scroll-spy
+   Menu — sticky horizontal category bar (filters to one category at a time)
    ========================================================================== */
 (() => {
   const catBar = document.getElementById('menuCatBar');
@@ -46,54 +46,31 @@ mainNav.querySelectorAll('a').forEach((link) => {
     underline.style.transform = `translateX(${tab.offsetLeft + 12}px)`;
   }
 
-  function setActiveTab(tab, { scrollTabIntoView = false } = {}) {
-    if (!tab || tab.classList.contains('menu-cat-tab-active')) {
-      if (tab) moveUnderline(tab);
-      return;
-    }
+  // ---- Only the selected category's section stays visible ----
+  function showCategory(targetId) {
+    sections.forEach((sec) => {
+      sec.hidden = sec.id !== targetId;
+    });
+  }
+
+  function setActiveTab(tab) {
     tabs.forEach((t) => t.classList.remove('menu-cat-tab-active'));
     tab.classList.add('menu-cat-tab-active');
     moveUnderline(tab);
-    if (scrollTabIntoView) {
-      const navRect = nav.getBoundingClientRect();
-      const tabRect = tab.getBoundingClientRect();
-      if (tabRect.left < navRect.left || tabRect.right > navRect.right) {
-        tab.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest', inline: 'center' });
-      }
+    const navRect = nav.getBoundingClientRect();
+    const tabRect = tab.getBoundingClientRect();
+    if (tabRect.left < navRect.left || tabRect.right > navRect.right) {
+      tab.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest', inline: 'center' });
     }
   }
 
-  // ---- Click a tab: jump to its section ----
-  let clickScrollGuardUntil = 0;
   tabs.forEach((tab) => {
     tab.addEventListener('click', () => {
-      const targetId = tab.dataset.target;
-      const section = document.getElementById(targetId);
-      if (!section) return;
-      setActiveTab(tab, { scrollTabIntoView: true });
-      clickScrollGuardUntil = Date.now() + 900;
-      section.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+      if (tab.classList.contains('menu-cat-tab-active')) return;
+      setActiveTab(tab);
+      showCategory(tab.dataset.target);
     });
   });
-
-  // ---- Scroll-spy: highlight the tab for whichever section is in view ----
-  const tabByTarget = new Map(tabs.map((t) => [t.dataset.target, t]));
-  function initSpy() {
-    const offset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--menu-content-offset')) || 140;
-    const spy = new IntersectionObserver(
-      (entries) => {
-        if (Date.now() < clickScrollGuardUntil) return;
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const tab = tabByTarget.get(entry.target.id);
-            if (tab) setActiveTab(tab, { scrollTabIntoView: true });
-          }
-        });
-      },
-      { rootMargin: `-${offset}px 0px -65% 0px`, threshold: 0 }
-    );
-    sections.forEach((sec) => spy.observe(sec));
-  }
 
   // ---- Left/right arrows: show only when there's overflow that way ----
   function updateArrows() {
@@ -114,29 +91,6 @@ mainNav.querySelectorAll('a').forEach((link) => {
     e.preventDefault();
   }, { passive: false });
 
-  // ---- Mouse drag-to-scroll (touch swipe works natively) ----
-  let isDragging = false;
-  let dragStartX = 0;
-  let dragStartScroll = 0;
-  nav.addEventListener('pointerdown', (e) => {
-    if (e.pointerType === 'touch') return;
-    isDragging = true;
-    nav.classList.add('is-dragging');
-    dragStartX = e.clientX;
-    dragStartScroll = nav.scrollLeft;
-    nav.setPointerCapture(e.pointerId);
-  });
-  nav.addEventListener('pointermove', (e) => {
-    if (!isDragging) return;
-    nav.scrollLeft = dragStartScroll - (e.clientX - dragStartX);
-  });
-  function endDrag() {
-    isDragging = false;
-    nav.classList.remove('is-dragging');
-  }
-  nav.addEventListener('pointerup', endDrag);
-  nav.addEventListener('pointercancel', endDrag);
-
   window.addEventListener('resize', () => {
     updateStickyOffset();
     updateArrows();
@@ -147,7 +101,7 @@ mainNav.querySelectorAll('a').forEach((link) => {
   updateStickyOffset();
   updateArrows();
   moveUnderline(tabs[0]);
-  initSpy();
+  showCategory(tabs[0].dataset.target);
 })();
 
 const tiltPhoto = document.querySelector('.gallery-photo');

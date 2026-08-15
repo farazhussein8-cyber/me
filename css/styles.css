@@ -429,9 +429,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   padding: 0 24px;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  cursor: grab;
 }
-.menu-categories.is-dragging { cursor: grabbing; scroll-behavior: auto; }
 .menu-categories::-webkit-scrollbar { display: none; }
 
 .menu-cat-tab {

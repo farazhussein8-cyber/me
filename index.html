@@ -90,6 +90,7 @@
         <button type="button" class="menu-cat-tab" data-target="cat-shakes">Shakes</button>
         <button type="button" class="menu-cat-tab" data-target="cat-loaded-treats">Loaded Treats</button>
         <button type="button" class="menu-cat-tab" data-target="cat-specials">Specials</button>
+        <button type="button" class="menu-cat-tab" data-target="cat-protein-shakes">Protein Shakes</button>
         <span class="menu-cat-underline" id="menuCatUnderline" aria-hidden="true"></span>
       </nav>
       <button type="button" class="menu-cat-arrow menu-cat-arrow-right" id="menuCatArrowRight" aria-label="Scroll categories right" tabindex="-1">
@@ -102,20 +103,19 @@
       <div class="menu-product-grid">
         <article class="menu-product-card" id="item-loaded-cup">
           <div class="menu-product-photo">
-            <img src="images/loaded-cup-hero.webp" alt="Frosty Haven loaded cup with soft serve, chocolate drizzle, churro, banana and strawberry, in front of the store's neon logo sign" loading="lazy">
+            <img src="images/loaded-cup-hero.webp" alt="Frosty Haven loaded cup with soft serve, chocolate drizzle, churro, banana and strawberry, in front of the store's neon logo sign" loading="eager">
             <span class="menu-product-tag">Fan Favorite</span>
           </div>
           <div class="menu-product-body">
             <h3 class="menu-product-name">The Loaded Cup</h3>
             <p class="menu-product-desc">Swirled soft serve dipped in chocolate, stacked with a churro, fresh banana, and strawberry. Built to be shared — or not.</p>
-            <div class="size-options" role="group" aria-label="Choose a size">
-              <button type="button" class="size-btn" data-size="Small" data-price="8">Small <span>$8</span></button>
-              <button type="button" class="size-btn size-btn-active" data-size="Medium" data-price="11">Medium <span>$11</span></button>
-              <button type="button" class="size-btn" data-size="Large" data-price="14">Large <span>$14</span></button>
+            <div class="size-options" role="group" aria-label="Available sizes">
+              <button type="button" class="size-btn" data-size="Small">Small</button>
+              <button type="button" class="size-btn size-btn-active" data-size="Medium">Medium</button>
+              <button type="button" class="size-btn" data-size="Large">Large</button>
             </div>
-            <div class="menu-product-footer">
-              <span class="menu-product-price">$11.00</span>
-              <button type="button" class="btn btn-pink btn-sm add-to-cart-btn" data-item="The Loaded Cup">Add to Cart</button>
+            <div class="menu-product-footer menu-product-footer-note">
+              <span class="menu-product-note">In-store only</span>
             </div>
           </div>
         </article>
@@ -127,22 +127,21 @@
       <div class="menu-product-grid">
         <article class="menu-product-card" id="item-lava-cake">
           <div class="menu-product-photo">
-            <img src="images/lava-cake.webp" alt="Frosty Haven lava cake with matcha ice cream scoop and drizzle, in front of the store's neon logo sign" loading="lazy">
+            <img src="images/lava-cake.webp" alt="Frosty Haven lava cake with matcha ice cream scoop and drizzle, in front of the store's neon logo sign" loading="eager">
             <span class="menu-product-tag">Warm &amp; Gooey</span>
           </div>
           <div class="menu-product-body">
             <h3 class="menu-product-name">Lava Cake</h3>
             <p class="menu-product-desc">A rich, molten-centre cake topped with ice cream and your choice of sauce. The perfect sweet escape.</p>
-            <div class="size-options" role="group" aria-label="Choose a flavour">
-              <button type="button" class="size-btn size-btn-active" data-size="Pistachio" data-price="8">Pistachio <span>$8</span></button>
-              <button type="button" class="size-btn" data-size="Biscoff" data-price="8">Biscoff <span>$8</span></button>
-              <button type="button" class="size-btn" data-size="Nutella" data-price="8">Nutella <span>$8</span></button>
-              <button type="button" class="size-btn" data-size="Bueno" data-price="8">Bueno <span>$8</span></button>
-              <button type="button" class="size-btn" data-size="Chocolate" data-price="8">Chocolate <span>$8</span></button>
+            <div class="size-options" role="group" aria-label="Available flavours">
+              <button type="button" class="size-btn size-btn-active" data-size="Pistachio">Pistachio</button>
+              <button type="button" class="size-btn" data-size="Biscoff">Biscoff</button>
+              <button type="button" class="size-btn" data-size="Nutella">Nutella</button>
+              <button type="button" class="size-btn" data-size="Bueno">Bueno</button>
+              <button type="button" class="size-btn" data-size="Chocolate">Chocolate</button>
             </div>
-            <div class="menu-product-footer">
-              <span class="menu-product-price">$8.00</span>
-              <button type="button" class="btn btn-pink btn-sm add-to-cart-btn" data-item="Lava Cake">Add to Cart</button>
+            <div class="menu-product-footer menu-product-footer-note">
+              <span class="menu-product-note">In-store only</span>
             </div>
           </div>
         </article>
@@ -167,20 +166,19 @@
       <div class="menu-product-grid">
         <article class="menu-product-card" id="item-soft-serve">
           <div class="menu-product-photo">
-            <img src="images/soft-serve-twist.webp" alt="Frosty Haven purple and vanilla soft serve twist cone held up in front of the store's neon logo sign" loading="lazy">
+            <img src="images/soft-serve-twist.webp" alt="Frosty Haven purple and vanilla soft serve twist cone held up in front of the store's neon logo sign" loading="eager">
             <span class="menu-product-tag">The Classic</span>
           </div>
           <div class="menu-product-body">
             <h3 class="menu-product-name">Soft Serve Twist</h3>
             <p class="menu-product-desc">Creamy soft serve, swirled in a twist of two flavors, piled high on a crisp waffle cone.</p>
-            <div class="size-options" role="group" aria-label="Choose a size">
-              <button type="button" class="size-btn" data-size="Small" data-price="6">Small <span>$6</span></button>
-              <button type="button" class="size-btn size-btn-active" data-size="Medium" data-price="8">Medium <span>$8</span></button>
-              <button type="button" class="size-btn" data-size="Large" data-price="10">Large <span>$10</span></button>
+            <div class="size-options" role="group" aria-label="Available sizes">
+              <button type="button" class="size-btn" data-size="Small">Small</button>
+              <button type="button" class="size-btn size-btn-active" data-size="Medium">Medium</button>
+              <button type="button" class="size-btn" data-size="Large">Large</button>
             </div>
-            <div class="menu-product-footer">
-              <span class="menu-product-price">$8.00</span>
-              <button type="button" class="btn btn-pink btn-sm add-to-cart-btn" data-item="Soft Serve Twist">Add to Cart</button>
+            <div class="menu-product-footer menu-product-footer-note">
+              <span class="menu-product-note">In-store only</span>
             </div>
           </div>
         </article>
@@ -192,20 +190,19 @@
       <div class="menu-product-grid">
         <article class="menu-product-card" id="item-acai-bowl">
           <div class="menu-product-photo">
-            <img src="images/acai-bowl.png" alt="Frosty Haven açaí bowl with matcha soft serve swirl, granola and strawberry, in front of the store's neon logo sign" loading="lazy">
+            <img src="images/acai-bowl.png" alt="Frosty Haven açaí bowl with matcha soft serve swirl, granola and strawberry, in front of the store's neon logo sign" loading="eager">
             <span class="menu-product-tag">Fresh &amp; Fruity</span>
           </div>
           <div class="menu-product-body">
             <h3 class="menu-product-name">Açaí Bowl</h3>
             <p class="menu-product-desc">Açaí blended smooth, swirled and piled high with granola, banana, and fresh strawberry.</p>
-            <div class="size-options" role="group" aria-label="Choose a size">
-              <button type="button" class="size-btn" data-size="Small" data-price="10">Small <span>$10</span></button>
-              <button type="button" class="size-btn size-btn-active" data-size="Medium" data-price="13">Medium <span>$13</span></button>
-              <button type="button" class="size-btn" data-size="Large" data-price="16">Large <span>$16</span></button>
+            <div class="size-options" role="group" aria-label="Available sizes">
+              <button type="button" class="size-btn" data-size="Small">Small</button>
+              <button type="button" class="size-btn size-btn-active" data-size="Medium">Medium</button>
+              <button type="button" class="size-btn" data-size="Large">Large</button>
             </div>
-            <div class="menu-product-footer">
-              <span class="menu-product-price">$13.00</span>
-              <button type="button" class="btn btn-pink btn-sm add-to-cart-btn" data-item="Açaí Bowl">Add to Cart</button>
+            <div class="menu-product-footer menu-product-footer-note">
+              <span class="menu-product-note">In-store only</span>
             </div>
           </div>
         </article>
@@ -217,7 +214,7 @@
       <div class="menu-product-grid">
         <article class="menu-product-card" id="item-milkshakes">
           <div class="menu-product-photo">
-            <img src="images/milkshakes-trio.webp" alt="Three Frosty Haven thick milkshakes topped with whipped cream and strawberry, chocolate, and caramel drizzle" loading="lazy">
+            <img src="images/milkshakes-trio.webp" alt="Three Frosty Haven thick milkshakes topped with whipped cream and strawberry, chocolate, and caramel drizzle" loading="eager">
             <span class="menu-product-tag">Spoon-Thick</span>
           </div>
           <div class="menu-product-body">
@@ -231,19 +228,6 @@
             <div class="menu-product-footer">
               <span class="menu-product-price">$9.00</span>
               <button type="button" class="btn btn-pink btn-sm add-to-cart-btn" data-item="Thick Milkshake">Add to Cart</button>
-            </div>
-          </div>
-        </article>
-        <article class="menu-product-card" id="item-protein-shakes">
-          <div class="menu-product-photo menu-product-photo-placeholder swatch-yellow">
-            <span aria-hidden="true">💪</span>
-            <span class="menu-product-soon">Photo coming soon</span>
-          </div>
-          <div class="menu-product-body">
-            <h3 class="menu-product-name">Protein Shakes</h3>
-            <p class="menu-product-desc">All the flavor, built for your fitness goals.</p>
-            <div class="menu-product-footer menu-product-footer-note">
-              <span class="menu-product-note">Ask in-store</span>
             </div>
           </div>
         </article>
@@ -293,6 +277,25 @@
           <div class="menu-product-body">
             <h3 class="menu-product-name">Frosty Nachos</h3>
             <p class="menu-product-desc">A must-try — our over-the-top dessert nachos.</p>
+            <div class="menu-product-footer menu-product-footer-note">
+              <span class="menu-product-note">Ask in-store</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="menu-category" id="cat-protein-shakes">
+      <h3 class="menu-category-title">Protein Shakes</h3>
+      <div class="menu-product-grid">
+        <article class="menu-product-card" id="item-protein-shakes">
+          <div class="menu-product-photo menu-product-photo-placeholder swatch-yellow">
+            <span aria-hidden="true">💪</span>
+            <span class="menu-product-soon">Photo coming soon</span>
+          </div>
+          <div class="menu-product-body">
+            <h3 class="menu-product-name">Protein Shakes</h3>
+            <p class="menu-product-desc">All the flavor, built for your fitness goals.</p>
             <div class="menu-product-footer menu-product-footer-note">
               <span class="menu-product-note">Ask in-store</span>
             </div>

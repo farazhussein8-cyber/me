@@ -331,43 +331,39 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
    ========================================================================== */
 .hero {
   position: relative;
-  background: var(--cream-alt);
-  padding: 150px 24px 120px;
   overflow: hidden;
   isolation: isolate;
 }
 
-.hero-shop-inner {
-  max-width: 1200px;
-  margin: 0 auto;
+.hero-swirl {
+  background:
+    linear-gradient(100deg, var(--cream) 0%, rgba(255,252,247,0.88) 32%, rgba(255,252,247,0.28) 58%, rgba(255,252,247,0) 74%),
+    url("../images/hero-swirl.png") center 55% / cover no-repeat,
+    var(--cream);
+  min-height: 620px;
   display: flex;
   align-items: center;
-  gap: 56px;
+  padding: 150px 24px 110px;
+}
+
+.hero-swirl-copy {
+  max-width: 560px;
   position: relative;
   z-index: 2;
 }
 
-.hero-shop-copy { flex: 1 1 420px; min-width: 0; }
-
-.eyebrow {
-  display: inline-block;
-  font-family: var(--font-display);
-  font-weight: 600;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  font-size: .8rem;
-  color: var(--pink-deep);
-  background: rgba(243, 35, 121, 0.08);
-  padding: 7px 16px;
-  border-radius: var(--radius-pill);
+.hero-wordmark {
+  width: min(300px, 80%);
+  height: auto;
   margin-bottom: 22px;
 }
 
 .hero-title {
   font-size: clamp(2.4rem, 4.4vw, 3.6rem);
-  color: var(--ink);
+  color: var(--pink-deep);
   margin-bottom: 18px;
 }
+.hero-title strong { display: block; font-weight: 700; }
 
 .hero-sub {
   font-size: 1.1rem;
@@ -383,58 +379,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   flex-wrap: wrap;
 }
 
-.hero-stat-row {
-  display: flex;
-  gap: 30px;
-  margin-top: 34px;
-  padding-top: 24px;
-  border-top: 1px solid rgba(36, 21, 53, 0.1);
-}
-.hero-stat-row dt {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.3rem;
-  color: var(--pink-deep);
-}
-.hero-stat-row dd {
-  margin-top: 2px;
-  font-size: .76rem;
-  color: var(--ink-soft);
-  text-transform: uppercase;
-  letter-spacing: .03em;
-}
-
-.hero-shop-photo {
-  position: relative;
-  flex: 0 0 420px;
-  max-width: 420px;
-  aspect-ratio: 1 / 1;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-soft);
-}
-.hero-shop-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-.hero-shop-badge {
-  position: absolute;
-  top: 16px; left: 16px;
-  z-index: 2;
-  font-family: var(--font-display);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: .04em;
-  font-size: .78rem;
-  color: var(--pink-deep);
-  background: #fff;
-  padding: 7px 14px;
-  border-radius: var(--radius-pill);
-  box-shadow: var(--shadow-soft);
-}
-
 .drip-divider {
   position: absolute;
   bottom: 0; left: 0;
@@ -444,11 +388,18 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 }
 
 @media (max-width: 860px) {
-  .hero-shop-inner { flex-direction: column; text-align: center; }
+  .hero-swirl {
+    min-height: 0;
+    background:
+      linear-gradient(180deg, var(--cream) 0%, rgba(255,252,247,0.9) 42%, rgba(255,252,247,0.55) 68%, rgba(255,252,247,0.25) 100%),
+      url("../images/hero-swirl.png") center 40% / cover no-repeat,
+      var(--cream);
+    padding: 130px 20px 260px;
+  }
+  .hero-swirl-copy { max-width: none; text-align: center; }
+  .hero-wordmark { margin-left: auto; margin-right: auto; }
   .hero-sub { margin-left: auto; margin-right: auto; }
   .hero-ctas { justify-content: center; }
-  .hero-stat-row { justify-content: center; }
-  .hero-shop-photo { flex: 0 0 auto; width: 100%; max-width: 340px; }
 }
 
 /* ==========================================================================

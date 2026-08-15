@@ -14,25 +14,141 @@ mainNav.querySelectorAll('a').forEach((link) => {
   });
 });
 
-const menuCatPills = document.querySelectorAll('.menu-cat-pill');
-const menuCategories = document.querySelectorAll('.menu-category');
+/* ==========================================================================
+   Menu — sticky horizontal category bar + scroll-spy
+   ========================================================================== */
+(() => {
+  const catBar = document.getElementById('menuCatBar');
+  const nav = document.getElementById('menuCategoriesNav');
+  const underline = document.getElementById('menuCatUnderline');
+  const arrowLeft = document.getElementById('menuCatArrowLeft');
+  const arrowRight = document.getElementById('menuCatArrowRight');
+  const tabs = Array.from(document.querySelectorAll('.menu-cat-tab'));
+  const sections = Array.from(document.querySelectorAll('.menu-category'));
+  if (!catBar || !nav || tabs.length === 0) return;
 
-menuCatPills.forEach((pill) => {
-  pill.addEventListener('click', () => {
-    const target = pill.dataset.target;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    menuCatPills.forEach((p) => p.classList.remove('menu-cat-pill-active'));
-    pill.classList.add('menu-cat-pill-active');
+  // ---- Sticky offset: header height + this bar's own height ----
+  function updateStickyOffset() {
+    const header = document.getElementById('siteHeader');
+    const headerH = header ? header.getBoundingClientRect().height : 0;
+    document.documentElement.style.setProperty('--menu-sticky-top', `${headerH}px`);
+    // The bar itself needs to sit right under the header; its own height
+    // is added on top when computing where a section's content starts.
+    const barH = catBar.getBoundingClientRect().height;
+    document.documentElement.style.setProperty('--menu-content-offset', `${headerH + barH}px`);
+  }
 
-    menuCategories.forEach((cat) => {
-      cat.hidden = target !== 'all' && cat.id !== target;
-    });
+  // ---- Underline follows the active tab ----
+  function moveUnderline(tab) {
+    underline.style.width = `${tab.offsetWidth - 24}px`;
+    underline.style.transform = `translateX(${tab.offsetLeft + 12}px)`;
+  }
 
-    if (target !== 'all') {
-      document.getElementById(target).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  function setActiveTab(tab, { scrollTabIntoView = false } = {}) {
+    if (!tab || tab.classList.contains('menu-cat-tab-active')) {
+      if (tab) moveUnderline(tab);
+      return;
     }
+    tabs.forEach((t) => t.classList.remove('menu-cat-tab-active'));
+    tab.classList.add('menu-cat-tab-active');
+    moveUnderline(tab);
+    if (scrollTabIntoView) {
+      const navRect = nav.getBoundingClientRect();
+      const tabRect = tab.getBoundingClientRect();
+      if (tabRect.left < navRect.left || tabRect.right > navRect.right) {
+        tab.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest', inline: 'center' });
+      }
+    }
+  }
+
+  // ---- Click a tab: jump to its section ----
+  let clickScrollGuardUntil = 0;
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const targetId = tab.dataset.target;
+      const section = document.getElementById(targetId);
+      if (!section) return;
+      setActiveTab(tab, { scrollTabIntoView: true });
+      clickScrollGuardUntil = Date.now() + 900;
+      section.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+    });
   });
-});
+
+  // ---- Scroll-spy: highlight the tab for whichever section is in view ----
+  const tabByTarget = new Map(tabs.map((t) => [t.dataset.target, t]));
+  function initSpy() {
+    const offset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--menu-content-offset')) || 140;
+    const spy = new IntersectionObserver(
+      (entries) => {
+        if (Date.now() < clickScrollGuardUntil) return;
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const tab = tabByTarget.get(entry.target.id);
+            if (tab) setActiveTab(tab, { scrollTabIntoView: true });
+          }
+        });
+      },
+      { rootMargin: `-${offset}px 0px -65% 0px`, threshold: 0 }
+    );
+    sections.forEach((sec) => spy.observe(sec));
+  }
+
+  // ---- Left/right arrows: show only when there's overflow that way ----
+  function updateArrows() {
+    const maxScroll = nav.scrollWidth - nav.clientWidth;
+    arrowLeft.hidden = nav.scrollLeft <= 4;
+    arrowRight.hidden = nav.scrollLeft >= maxScroll - 4;
+  }
+  arrowLeft.addEventListener('click', () => nav.scrollBy({ left: -nav.clientWidth * 0.6, behavior: reduceMotion ? 'auto' : 'smooth' }));
+  arrowRight.addEventListener('click', () => nav.scrollBy({ left: nav.clientWidth * 0.6, behavior: reduceMotion ? 'auto' : 'smooth' }));
+  nav.addEventListener('scroll', updateArrows, { passive: true });
+
+  // ---- Vertical wheel/trackpad input scrolls the bar horizontally ----
+  nav.addEventListener('wheel', (e) => {
+    const maxScroll = nav.scrollWidth - nav.clientWidth;
+    if (maxScroll <= 0) return;
+    const delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+    nav.scrollLeft += delta;
+    e.preventDefault();
+  }, { passive: false });
+
+  // ---- Mouse drag-to-scroll (touch swipe works natively) ----
+  let isDragging = false;
+  let dragStartX = 0;
+  let dragStartScroll = 0;
+  nav.addEventListener('pointerdown', (e) => {
+    if (e.pointerType === 'touch') return;
+    isDragging = true;
+    nav.classList.add('is-dragging');
+    dragStartX = e.clientX;
+    dragStartScroll = nav.scrollLeft;
+    nav.setPointerCapture(e.pointerId);
+  });
+  nav.addEventListener('pointermove', (e) => {
+    if (!isDragging) return;
+    nav.scrollLeft = dragStartScroll - (e.clientX - dragStartX);
+  });
+  function endDrag() {
+    isDragging = false;
+    nav.classList.remove('is-dragging');
+  }
+  nav.addEventListener('pointerup', endDrag);
+  nav.addEventListener('pointercancel', endDrag);
+
+  window.addEventListener('resize', () => {
+    updateStickyOffset();
+    updateArrows();
+    const active = document.querySelector('.menu-cat-tab-active');
+    if (active) moveUnderline(active);
+  });
+
+  updateStickyOffset();
+  updateArrows();
+  moveUnderline(tabs[0]);
+  initSpy();
+})();
 
 const tiltPhoto = document.querySelector('.gallery-photo');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -56,9 +172,8 @@ if (tiltPhoto && !reduceMotion) {
 
 document.querySelectorAll('.size-options').forEach((group) => {
   const buttons = group.querySelectorAll('.size-btn');
-  const copy = group.closest('.menu-feature-copy');
-  const priceEl = copy.querySelector('.menu-feature-price');
-  const qtyValueEl = copy.querySelector('.qty-value');
+  const body = group.closest('.menu-product-body');
+  const priceEl = body.querySelector('.menu-product-price');
 
   buttons.forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -67,27 +182,8 @@ document.querySelectorAll('.size-options').forEach((group) => {
       if (priceEl) {
         priceEl.textContent = `$${Number(btn.dataset.price).toFixed(2)}`;
       }
-      if (qtyValueEl) {
-        qtyValueEl.textContent = '1';
-        qtyValueEl.dataset.qty = '1';
-      }
     });
   });
-});
-
-document.querySelectorAll('.qty-stepper').forEach((stepper) => {
-  const valueEl = stepper.querySelector('.qty-value');
-  const minusBtn = stepper.querySelector('.qty-minus');
-  const plusBtn = stepper.querySelector('.qty-plus');
-
-  const setQty = (n) => {
-    const qty = Math.max(1, n);
-    valueEl.textContent = String(qty);
-    valueEl.dataset.qty = String(qty);
-  };
-
-  minusBtn.addEventListener('click', () => setQty(Number(valueEl.dataset.qty) - 1));
-  plusBtn.addEventListener('click', () => setQty(Number(valueEl.dataset.qty) + 1));
 });
 
 const cartToggle = document.getElementById('cartToggle');
@@ -190,24 +286,18 @@ function updateWhatsAppLink(total) {
 document.querySelectorAll('.add-to-cart-btn').forEach((btn) => {
   btn.addEventListener('click', (e) => {
     e.stopPropagation();
-    const container = btn.closest('.menu-feature-copy');
+    const container = btn.closest('.menu-product-body');
     const name = btn.dataset.item;
     const activeSize = container.querySelector('.size-btn-active');
     const size = activeSize ? activeSize.dataset.size : 'Medium';
     const price = activeSize ? Number(activeSize.dataset.price) : 0;
-    const qtyEl = container.querySelector('.qty-value');
-    const qty = qtyEl ? Number(qtyEl.dataset.qty) : 1;
+    const qty = 1;
 
     const existing = cart.find((item) => item.name === name && item.size === size);
     if (existing) {
       existing.qty += qty;
     } else {
       cart.push({ name, size, price, qty });
-    }
-
-    if (qtyEl) {
-      qtyEl.textContent = '1';
-      qtyEl.dataset.qty = '1';
     }
 
     saveCart();

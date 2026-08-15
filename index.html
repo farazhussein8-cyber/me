@@ -555,6 +555,56 @@
     </div>
   </section>
 
+  <!-- ===== OPENING HOURS ===== -->
+  <section class="section hours" id="hours">
+    <div class="hours-card">
+      <div class="hours-card-head">
+        <h2 class="hours-title">
+          <svg class="hours-clock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 7v5l3.5 2"/>
+          </svg>
+          Opening Hours 🍦
+        </h2>
+        <span class="hours-status" id="hoursStatus" hidden></span>
+      </div>
+
+      <ul class="hours-list">
+        <li class="hours-row">
+          <span class="hours-day">Sunday</span>
+          <span class="hours-time">11:30 am – 7:30 pm</span>
+        </li>
+        <li class="hours-row hours-row-closed">
+          <span class="hours-day">Monday</span>
+          <span class="hours-time hours-closed-tag">Closed</span>
+        </li>
+        <li class="hours-row">
+          <span class="hours-day">Tuesday</span>
+          <span class="hours-time">11:00 am – 7:30 pm</span>
+        </li>
+        <li class="hours-row">
+          <span class="hours-day">Wednesday</span>
+          <span class="hours-time">11:00 am – 7:30 pm</span>
+        </li>
+        <li class="hours-row">
+          <span class="hours-day">Thursday</span>
+          <span class="hours-time">11:00 am – 9:30 pm</span>
+        </li>
+        <li class="hours-row">
+          <span class="hours-day">Friday</span>
+          <span class="hours-time hours-time-split">
+            <span>11:00 am – 12:30 pm</span>
+            <span>1:30 pm – 9:30 pm</span>
+          </span>
+        </li>
+        <li class="hours-row">
+          <span class="hours-day">Saturday</span>
+          <span class="hours-time">11:30 am – 9:30 pm</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
 </main>
 
 <!-- ===== FOOTER ===== -->
@@ -595,6 +645,15 @@
         <a href="https://www.instagram.com/frostyhaven.nz" target="_blank" rel="noopener">Instagram</a>
         <a href="https://www.tiktok.com/@frostyhaven.nz" target="_blank" rel="noopener">TikTok</a>
       </div>
+      <div class="footer-hours">
+        <h4>Hours</h4>
+        <p><span>Sun</span> 11:30am–7:30pm</p>
+        <p><span>Mon</span> Closed</p>
+        <p><span>Tue–Wed</span> 11am–7:30pm</p>
+        <p><span>Thu</span> 11am–9:30pm</p>
+        <p><span>Fri</span> 11am–12:30pm &amp; 1:30–9:30pm</p>
+        <p><span>Sat</span> 11:30am–9:30pm</p>
+      </div>
     </div>
   </div>
   <p class="footer-copy">© 2026 Frosty Haven. All rights reserved.</p>
@@ -602,5 +661,6 @@
 
 <script src="js/script.js"></script>
 <script src="js/reviews.js"></script>
+<script src="js/hours.js"></script>
 </body>
 </html>

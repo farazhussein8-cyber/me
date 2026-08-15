@@ -1215,3 +1215,125 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 }
 .footer-social-icon:hover { background: var(--gradient-pink); transform: translateY(-3px); }
 .footer-social-icon svg { width: 18px; height: 18px; }
+
+/* ==========================================================================
+   Opening Hours
+   ========================================================================== */
+.hours {
+  max-width: none;
+  padding: 100px 24px 120px;
+  background: linear-gradient(180deg, var(--cream) 0%, #FFE7F1 100%);
+}
+
+.hours-card {
+  position: relative;
+  max-width: 640px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  box-shadow: var(--shadow-soft), 0 0 60px -20px rgba(243, 35, 121, 0.35);
+  padding: 40px 40px 28px;
+}
+
+.hours-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+.hours-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  color: var(--pink-deep);
+  margin: 0;
+}
+.hours-clock-icon { width: 28px; height: 28px; flex-shrink: 0; color: var(--pink); }
+
+.hours-status {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: .78rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+}
+.hours-status-open {
+  background: rgba(140, 240, 138, 0.28);
+  color: #1c7a3e;
+}
+.hours-status-closed {
+  background: rgba(243, 35, 121, 0.1);
+  color: var(--pink-deep);
+}
+
+.hours-list { list-style: none; }
+.hours-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 13px 4px;
+  border-bottom: 1px solid rgba(36, 21, 53, 0.08);
+}
+.hours-row:last-child { border-bottom: none; }
+
+.hours-day {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--ink);
+}
+.hours-time {
+  color: var(--ink-soft);
+  font-weight: 500;
+  text-align: right;
+}
+.hours-time-split {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hours-row-closed { background: rgba(243, 35, 121, 0.05); border-radius: var(--radius-md); }
+.hours-closed-tag {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: .82rem;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  color: var(--pink-deep);
+  background: rgba(243, 35, 121, 0.12);
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+}
+
+@media (max-width: 560px) {
+  .hours-card { padding: 32px 22px 20px; }
+  .hours-row { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .hours-time { text-align: left; }
+}
+
+/* ---- Footer hours summary ---- */
+.footer-links { flex-wrap: wrap; row-gap: 28px; }
+.footer-hours p {
+  color: rgba(255, 255, 255, .7);
+  font-size: .88rem;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+.footer-hours p span {
+  display: inline-block;
+  min-width: 62px;
+  color: rgba(255, 255, 255, .95);
+  font-weight: 600;
+}

@@ -102,6 +102,23 @@ mainNav.querySelectorAll('a').forEach((link) => {
   updateArrows();
   moveUnderline(tabs[0]);
   showCategory(tabs[0].dataset.target);
+
+  // ---- Menu section stays hidden until "Menu" or "Explore Menu" is clicked ----
+  const menuSection = document.getElementById('menu');
+  const menuTriggers = document.querySelectorAll('a[href="#menu"]');
+
+  function revealMenu(e) {
+    if (e) e.preventDefault();
+    if (menuSection.hidden) {
+      menuSection.hidden = false;
+      updateStickyOffset();
+      updateArrows();
+      moveUnderline(document.querySelector('.menu-cat-tab-active') || tabs[0]);
+    }
+    menuSection.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+  }
+
+  menuTriggers.forEach((trigger) => trigger.addEventListener('click', revealMenu));
 })();
 
 const tiltPhoto = document.querySelector('.gallery-photo');

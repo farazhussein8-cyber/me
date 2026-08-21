@@ -492,6 +492,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .menu-category:first-of-type .menu-category-title { padding-top: 0; }
 
 /* ---- Product cards ---- */
+.section.flavors { max-width: 1600px; }
+
 .menu-product-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

@@ -340,7 +340,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
     linear-gradient(100deg, var(--cream) 0%, rgba(255,252,247,0.88) 32%, rgba(255,252,247,0.28) 58%, rgba(255,252,247,0) 74%),
     url("../images/hero-swirl.png") center 55% / cover no-repeat,
     var(--cream);
-  min-height: 620px;
+  min-height: clamp(620px, 45vw, 960px);
   display: flex;
   align-items: center;
   padding: 150px 24px 110px;

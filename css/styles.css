@@ -1404,6 +1404,11 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
    Featured Desserts
    ========================================================================== */
 .section.featured-desserts { max-width: 1400px; padding-top: 62px; padding-bottom: 40px; }
+.featured-desserts .section-title {
+  font-family: 'Quicksand', var(--font-display);
+  font-weight: 500;
+  letter-spacing: .01em;
+}
 
 .featured-desserts-grid {
   display: grid;

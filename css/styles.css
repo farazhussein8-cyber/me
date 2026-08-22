@@ -416,16 +416,16 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
       linear-gradient(180deg, #FFF1F6 0%, rgba(255,241,246,0.72) 42%, rgba(255,241,246,0.44) 68%, rgba(255,241,246,0.2) 100%);
   }
   .hero-swirl-copy {
-    max-width: none;
-    text-align: center;
+    max-width: 322px;
+    text-align: left;
     margin-top: -32px;
     background: rgba(255, 241, 246, 0.42);
-    border-radius: 28px;
-    padding: 22px 4px 18px;
+    border-radius: 0;
+    padding: 18px 18px 16px;
   }
-  .hero-wordmark { margin-left: auto; margin-right: auto; }
-  .hero-sub { margin-left: auto; margin-right: auto; }
-  .hero-ctas { justify-content: center; }
+  .hero-wordmark { margin-left: 0; margin-right: 0; }
+  .hero-sub { margin-left: 0; margin-right: 0; }
+  .hero-ctas { justify-content: flex-start; }
 }
 
 /* ==========================================================================

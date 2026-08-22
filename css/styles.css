@@ -1403,7 +1403,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 /* ==========================================================================
    Featured Desserts
    ========================================================================== */
-.featured-desserts { padding-top: 62px; }
+.section.featured-desserts { max-width: 1400px; padding-top: 62px; }
 
 .featured-desserts-grid {
   display: grid;

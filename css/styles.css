@@ -1403,6 +1403,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 /* ==========================================================================
    Featured Desserts
    ========================================================================== */
+.featured-desserts { padding-top: 62px; }
+
 .featured-desserts-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1432,6 +1434,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 }
 
 @media (max-width: 860px) {
+  .featured-desserts { padding-top: 46px; }
   .featured-desserts-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;

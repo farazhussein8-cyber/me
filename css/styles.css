@@ -364,8 +364,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   inset: 0;
   z-index: 1;
   background:
-    radial-gradient(55% 65% at 22% 45%, rgba(243, 35, 121, 0.2) 0%, rgba(243, 35, 121, 0) 70%),
-    linear-gradient(100deg, #FBDCE8 0%, rgba(251,220,232,0.9) 32%, rgba(251,220,232,0.32) 58%, rgba(251,220,232,0) 74%);
+    radial-gradient(55% 50% at 12% 5%, #F8A7AD 0%, #F8A7AD 40%, rgba(248,167,173,0) 78%),
+    linear-gradient(100deg, #F8A7AD 0%, rgba(248,167,173,0.92) 32%, rgba(248,167,173,0.45) 58%, rgba(248,167,173,0) 76%);
 }
 
 .hero-swirl-copy {

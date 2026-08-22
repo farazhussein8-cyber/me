@@ -401,12 +401,12 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   }
   .hero-swirl::before {
     background: url("../images/hero-swirl.png") 72% 40% / cover no-repeat;
-    filter: brightness(0.85) saturate(0.9);
+    filter: brightness(1) contrast(1.18) saturate(1.05);
   }
   .hero-swirl::after {
     background:
       radial-gradient(70% 40% at 50% 30%, rgba(243, 35, 121, 0.14) 0%, rgba(243, 35, 121, 0) 70%),
-      linear-gradient(180deg, #FFF1F6 0%, rgba(255,241,246,0.9) 42%, rgba(255,241,246,0.55) 68%, rgba(255,241,246,0.25) 100%);
+      linear-gradient(180deg, #FFF1F6 0%, rgba(255,241,246,0.72) 42%, rgba(255,241,246,0.44) 68%, rgba(255,241,246,0.2) 100%);
   }
   .hero-swirl-copy { max-width: none; text-align: center; }
   .hero-wordmark { margin-left: auto; margin-right: auto; }

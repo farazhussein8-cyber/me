@@ -720,7 +720,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   padding: 110px 24px;
 }
 .why-inner { max-width: 1200px; margin: 0 auto; }
-.why-lede { color: rgba(255,255,255,.75); font-size: 1.05rem; max-width: 420px; }
+.why-lede { color: rgba(255,255,255,.85); font-size: 1.05rem; max-width: 420px; }
 
 .why-inner {
   display: grid;
@@ -748,7 +748,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 }
 .why-icon { font-size: 1.8rem; margin-bottom: 14px; }
 .why-card h3 { color: #fff; font-size: 1.05rem; margin-bottom: 8px; }
-.why-card p { color: rgba(255,255,255,.65); font-size: .9rem; line-height: 1.5; }
+.why-card p { color: rgba(255,255,255,.8); font-size: .9rem; line-height: 1.5; }
 
 /* ==========================================================================
    Gallery

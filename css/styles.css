@@ -1399,3 +1399,41 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   .hours-row { flex-direction: column; align-items: flex-start; gap: 4px; }
   .hours-time { text-align: left; }
 }
+
+/* ==========================================================================
+   Featured Desserts
+   ========================================================================== */
+.featured-desserts-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 44px;
+}
+
+.featured-dessert-card {
+  margin: 0;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+.featured-dessert-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+
+.featured-desserts-cta { display: flex; justify-content: center; }
+.featured-desserts-cta .btn {
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+@media (max-width: 860px) {
+  .featured-desserts-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}

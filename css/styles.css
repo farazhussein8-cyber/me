@@ -1403,7 +1403,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 /* ==========================================================================
    Featured Desserts
    ========================================================================== */
-.section.featured-desserts { max-width: 1400px; padding-top: 62px; }
+.section.featured-desserts { max-width: 1400px; padding-top: 62px; padding-bottom: 40px; }
 
 .featured-desserts-grid {
   display: grid;
@@ -1434,7 +1434,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 }
 
 @media (max-width: 860px) {
-  .featured-desserts { padding-top: 46px; }
+  .featured-desserts { padding-top: 46px; padding-bottom: 36px; }
   .featured-desserts-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;

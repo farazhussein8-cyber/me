@@ -89,7 +89,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   align-items: center;
   justify-content: center;
   padding: 14px 30px;
-  border-radius: var(--radius-pill);
+  border-radius: 0;
+  text-transform: uppercase;
   font-family: var(--font-display);
   font-weight: 600;
   font-size: .95rem;
@@ -650,7 +651,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   font-weight: 600;
   font-size: .78rem;
   padding: 7px 13px;
-  border-radius: var(--radius-pill);
+  border-radius: 0;
+  text-transform: uppercase;
   border: 2px solid var(--pink);
   background: transparent;
   color: var(--pink-deep);

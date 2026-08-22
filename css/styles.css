@@ -384,7 +384,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
     min-height: 0;
     background:
       linear-gradient(180deg, var(--cream) 0%, rgba(255,252,247,0.9) 42%, rgba(255,252,247,0.55) 68%, rgba(255,252,247,0.25) 100%),
-      url("../images/hero-swirl.png") center 40% / cover no-repeat,
+      url("../images/hero-swirl.png") 72% 40% / cover no-repeat,
       var(--cream);
     padding: 130px 20px 260px;
   }

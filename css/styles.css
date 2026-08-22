@@ -532,6 +532,12 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 }
 .menu-product-card:hover .menu-product-photo img { transform: scale(1.06); }
 
+#item-blue-lagoon .menu-product-photo img,
+#item-guava-splash .menu-product-photo img,
+#item-melon-zest .menu-product-photo img {
+  object-position: center bottom;
+}
+
 .menu-product-photo-placeholder {
   display: flex;
   align-items: center;

@@ -585,6 +585,45 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   overflow: hidden;
 }
 
+.menu-product-topping-offer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--cream-alt);
+  border: 1px solid rgba(243, 35, 121, 0.18);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  margin-bottom: 14px;
+}
+.menu-topping-badge {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 6px;
+  border-radius: var(--radius-pill);
+  background: var(--gradient-pink);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: .92rem;
+  box-shadow: var(--shadow-pink);
+}
+.menu-topping-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.menu-topping-text strong {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: .85rem;
+  color: var(--pink-deep);
+  line-height: 1.3;
+}
+.menu-topping-options {
+  font-size: .78rem;
+  color: var(--ink-soft);
+}
+
 .size-options {
   display: flex;
   gap: 8px;

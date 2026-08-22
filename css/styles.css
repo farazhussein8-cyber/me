@@ -38,6 +38,12 @@ body {
   background: var(--cream);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+body.is-loading,
+body.is-transitioning {
+  opacity: 0;
 }
 
 img, svg { display: block; max-width: 100%; }

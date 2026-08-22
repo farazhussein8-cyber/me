@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body class="is-loading">
 
 <!-- ===== HEADER ===== -->
 <header class="site-header" id="siteHeader">
@@ -19,7 +19,7 @@
     </a>
 
     <nav class="main-nav" id="mainNav" aria-label="Primary">
-      <a href="#menu">Menu</a>
+      <a href="/menu">Menu</a>
       <a href="#why">Why Us</a>
       <a href="#gallery">Gallery</a>
       <a href="#locations">Locations</a>
@@ -63,372 +63,7 @@
       <p class="hero-sub">Freshly made desserts and drinks.</p>
       <div class="hero-ctas">
         <a href="tel:0211523246" class="btn btn-pink btn-lg">Order Now</a>
-        <a href="#menu" class="btn btn-outline btn-lg">Explore Menu</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== MENU ===== -->
-  <section class="section flavors" id="menu" hidden>
-    <p class="section-eyebrow">On The Menu · Everything Halal</p>
-    <h2 class="section-title">Treats worth <span class="text-pink">melting</span> for</h2>
-
-    <div class="menu-cat-bar" id="menuCatBar">
-      <button type="button" class="menu-cat-arrow menu-cat-arrow-left" id="menuCatArrowLeft" aria-label="Scroll categories left" tabindex="-1">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-      </button>
-      <nav class="menu-categories" aria-label="Menu categories" id="menuCategoriesNav">
-        <button type="button" class="menu-cat-tab menu-cat-tab-active" data-target="cat-loaded-cups">Loaded Cups</button>
-        <button type="button" class="menu-cat-tab" data-target="cat-cakes">Cakes</button>
-        <button type="button" class="menu-cat-tab" data-target="cat-ice-cream">Ice Cream</button>
-        <button type="button" class="menu-cat-tab" data-target="cat-bowls">Bowls</button>
-        <button type="button" class="menu-cat-tab" data-target="cat-shakes">Shakes</button>
-        <button type="button" class="menu-cat-tab" data-target="cat-loaded-treats">Loaded Treats</button>
-        <button type="button" class="menu-cat-tab" data-target="cat-specials">Specials</button>
-        <button type="button" class="menu-cat-tab" data-target="cat-protein-shakes">Protein Shakes</button>
-        <button type="button" class="menu-cat-tab" data-target="cat-drinks">Drinks</button>
-        <span class="menu-cat-underline" id="menuCatUnderline" aria-hidden="true"></span>
-      </nav>
-      <button type="button" class="menu-cat-arrow menu-cat-arrow-right" id="menuCatArrowRight" aria-label="Scroll categories right" tabindex="-1">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-      </button>
-    </div>
-
-    <div class="menu-category" id="cat-loaded-cups">
-      <h3 class="menu-category-title">Loaded Cups</h3>
-      <div class="menu-product-grid">
-        <article class="menu-product-card" id="item-loaded-cup">
-          <div class="menu-product-photo">
-            <img src="images/loaded-cup-hero.webp" alt="Frosty Haven loaded cup with soft serve, chocolate drizzle, churro, banana and strawberry, in front of the store's neon logo sign" loading="eager">
-            <span class="menu-product-tag">Fan Favorite</span>
-          </div>
-          <div class="menu-product-body">
-            <h3 class="menu-product-name">The Loaded Cup</h3>
-            <p class="menu-product-desc">Swirled soft serve dipped in chocolate, stacked with a churro, fresh banana, and strawberry. Built to be shared — or not.</p>
-            <div class="size-options" role="group" aria-label="Available sizes">
-              <button type="button" class="size-btn" data-size="Small">Small</button>
-              <button type="button" class="size-btn size-btn-active" data-size="Medium">Medium</button>
-              <button type="button" class="size-btn" data-size="Large">Large</button>
-            </div>
-            <div class="menu-product-footer menu-product-footer-note">
-              <span class="menu-product-note">In-store only</span>
-            </div>
-          </div>
-        </article>
-      </div>
-    </div>
-
-    <div class="menu-category" id="cat-cakes">
-      <h3 class="menu-category-title">Cakes</h3>
-      <div class="menu-product-grid">
-        <article class="menu-product-card" id="item-lava-cake">
-          <div class="menu-product-photo">
-            <img src="images/lava-cake.webp" alt="Frosty Haven lava cake with matcha ice cream scoop and drizzle, in front of the store's neon logo sign" loading="eager">
-            <span class="menu-product-tag">Warm &amp; Gooey</span>
-          </div>
-          <div class="menu-product-body">
-            <h3 class="menu-product-name">Lava Cake</h3>
-            <p class="menu-product-desc">A rich, molten-centre cake topped with ice cream and your choice of sauce. The perfect sweet escape.</p>
-            <div class="size-options" role="group" aria-label="Available flavours">
-              <button type="button" class="size-btn size-btn-active" data-size="Pistachio">Pistachio</button>
-              <button type="button" class="size-btn" data-size="Biscoff">Biscoff</button>
-              <button type="button" class="size-btn" data-size="Nutella">Nutella</button>
-              <button type="button" class="size-btn" data-size="Bueno">Bueno</button>
-              <button type="button" class="size-btn" data-size="Chocolate">Chocolate</button>
-            </div>
-            <div class="menu-product-footer menu-product-footer-note">
-              <span class="menu-product-note">In-store only</span>
-            </div>
-          </div>
-        </article>
-        <article class="menu-product-card" id="item-frosty-cheesecakes">
-          <div class="menu-product-photo menu-product-photo-placeholder swatch-mint">
-            <span aria-hidden="true">🍰</span>
-            <span class="menu-product-soon">Photo coming soon</span>
-          </div>
-          <div class="menu-product-body">
-            <h3 class="menu-product-name">Frosty Cheesecakes</h3>
-            <p class="menu-product-desc">Rich, chilled cheesecake with a Frosty Haven twist.</p>
-            <div class="menu-product-footer menu-product-footer-note">
-              <span class="menu-product-note">Ask in-store</span>
-            </div>
-          </div>
-        </article>
-      </div>
-    </div>
-
-    <div class="menu-category" id="cat-ice-cream">
-      <h3 class="menu-category-title">Ice Cream</h3>
-      <div class="menu-product-grid">
-        <article class="menu-product-card" id="item-soft-serve">
-          <div class="menu-product-photo">
-            <img src="images/soft-serve-twist.webp" alt="Frosty Haven purple and vanilla soft serve twist cone held up in front of the store's neon logo sign" loading="eager">
-            <span class="menu-product-tag">The Classic</span>
-          </div>
-          <div class="menu-product-body">
-            <h3 class="menu-product-name">Soft Serve Twist</h3>
-            <p class="menu-product-desc">Creamy soft serve, swirled in a twist of two flavors, piled high on a crisp waffle cone.</p>
-            <div class="size-options" role="group" aria-label="Available sizes">
-              <button type="button" class="size-btn" data-size="Small">Small</button>
-              <button type="button" class="size-btn size-btn-active" data-size="Medium">Medium</button>
-              <button type="button" class="size-btn" data-size="Large">Large</button>
-            </div>
-            <div class="menu-product-footer menu-product-footer-note">
-              <span class="menu-product-note">In-store only</span>
-            </div>
-          </div>
-        </article>
-      </div>
-    </div>
-
-    <div class="menu-category" id="cat-bowls">
-      <h3 class="menu-category-title">Bowls</h3>
-      <div class="menu-product-grid">
-        <article class="menu-product-card" id="item-acai-bowl">
-          <div class="menu-product-photo">
-            <img src="images/acai-bowl.png" alt="Frosty Haven açaí bowl with matcha soft serve swirl, granola and strawberry, in front of the store's neon logo sign" loading="eager">
-            <span class="menu-product-tag">Fresh &amp; Fruity</span>
-          </div>
-          <div class="menu-product-body">
-            <h3 class="menu-product-name">Açaí Bowl</h3>
-            <p class="menu-product-desc">Açaí blended smooth, swirled and piled high with granola, banana, and fresh strawberry.</p>
-            <div class="size-options" role="group" aria-label="Available sizes">
-              <button type="button" class="size-btn" data-size="Small">Small</button>
-              <button type="button" class="size-btn size-btn-active" data-size="Medium">Medium</button>
-              <button type="button" class="size-btn" data-size="Large">Large</button>
-            </div>
-            <div class="menu-product-footer menu-product-footer-note">
-              <span class="menu-product-note">In-store only</span>
-            </div>
-          </div>
-        </article>
-        <article class="menu-product-card" id="item-flurr-custom">
-          <div class="menu-product-photo">
-            <img src="images/flurr-custom.png" alt="Frosty Haven Custom Flurr with soft serve, strawberries, granola and chocolate drizzle, in front of the store's neon logo sign" loading="eager">
-            <span class="menu-product-tag">Build Your Own</span>
-          </div>
-          <div class="menu-product-body">
-            <h3 class="menu-product-name">Custom Flurr</h3>
-            <p class="menu-product-desc">Creamy vanilla soft serve with a sauce and topping of choice.</p>
-            <p class="menu-product-note">Extra toppings &amp; sauce available at an additional cost.</p>
-            <div class="menu-product-footer menu-product-footer-note">
-              <span class="menu-product-note">In-store only</span>
-            </div>
-          </div>
-        </article>
-        <article class="menu-product-card" id="item-flurr-nutella">
-          <div class="menu-product-photo">
-            <img src="images/flurr-nutella.png" alt="Frosty Haven Nutella Flurr with soft serve, Nutella drizzle and cookie crumble, in front of the store's neon logo sign" loading="eager">
-            <span class="menu-product-tag">Rich &amp; Chocolatey</span>
-          </div>
-          <div class="menu-product-body">
-            <h3 class="menu-product-name">Nutella Flurr</h3>
-            <p class="menu-product-desc">Soft serve swirled with Nutella and a generous crumble of chocolate cookie.</p>
-            <p class="menu-product-note">Extra toppings &amp; sauce available at an additional cost.</p>
-            <div class="menu-product-footer menu-product-footer-note">
-              <span class="menu-product-note">In-store only</span>
-            </div>
-          </div>
-        </article>
-        <article class="menu-product-card" id="item-flurr-bueno">
-          <div class="menu-product-photo">
-            <img src="images/flurr-bueno.png" alt="Frosty Haven Bueno Flurr with soft serve, crushed Bueno bar and caramel drizzle, in front of the store's neon logo sign" loading="eager">
-            <span class="menu-product-tag">Crunchy &amp; Sweet</span>
-          </div>
-          <div class="menu-product-body">
-            <h3 class="menu-product-name">Bueno Flurr</h3>
-            <p class="menu-product-desc">Soft serve loaded with crushed Bueno, granola and a caramel drizzle.</p>
-            <p class="menu-product-note">Extra toppings &amp; sauce available at an additional cost.</p>
-            <div class="menu-product-footer menu-product-footer-note">
-              <span class="menu-product-note">In-store only</span>
-            </div>
-          </div>
-        </article>
-        <article class="menu-product-card" id="item-flurr-pista">
-          <div class="menu-product-photo">
-            <img src="images/flurr-pista.png" alt="Frosty Haven Pista Flurr with pistachio soft serve and crushed pistachio, in front of the store's neon logo sign" loading="eager">
-            <span class="menu-product-tag">Nutty &amp; Smooth</span>
-          </div>
-          <div class="menu-product-body">
-            <h3 class="menu-product-name">Pista Flurr</h3>
-            <p class="menu-product-desc">Pistachio soft serve, swirled and showered in crushed pistachio.</p>
-            <p class="menu-product-note">Extra toppings &amp; sauce available at an additional cost.</p>
-            <div class="menu-product-footer menu-product-footer-note">
-              <span class="menu-product-note">In-store only</span>
-            </div>
-          </div>
-        </article>
-        <article class="menu-product-card" id="item-flurr-biscoff">
-          <div class="menu-product-photo">
-            <img src="images/flurr-biscoff.png" alt="Frosty Haven Biscoff Flurr with soft serve, Biscoff crumble and caramel drizzle, in front of the store's neon logo sign" loading="eager">
-            <span class="menu-product-tag">Caramel Crunch</span>
-          </div>
-          <div class="menu-product-body">
-            <h3 class="menu-product-name">Biscoff Flurr</h3>
-            <p class="menu-product-desc">Soft serve swirled with Biscoff crumble and a warm caramel drizzle.</p>
-            <p class="menu-product-note">Extra toppings &amp; sauce available at an additional cost.</p>
-            <div class="menu-product-footer menu-product-footer-note">
-              <span class="menu-product-note">In-store only</span>
-            </div>
-          </div>
-        </article>
-      </div>
-    </div>
-
-    <div class="menu-category" id="cat-shakes">
-      <h3 class="menu-category-title">Shakes</h3>
-      <div class="menu-product-grid">
-        <article class="menu-product-card" id="item-milkshakes">
-          <div class="menu-product-photo">
-            <img src="images/milkshakes-trio.webp" alt="Three Frosty Haven thick milkshakes topped with whipped cream and strawberry, chocolate, and caramel drizzle" loading="eager">
-            <span class="menu-product-tag">Spoon-Thick</span>
-          </div>
-          <div class="menu-product-body">
-            <h3 class="menu-product-name">Thick Milkshakes</h3>
-            <p class="menu-product-desc">Indulgent, spoon-thick shakes piled with whipped cream and finished with a drizzle. Every flavor, every craving.</p>
-            <div class="size-options" role="group" aria-label="Choose a flavour">
-              <button type="button" class="size-btn size-btn-active" data-size="Strawberry" data-price="9">Strawberry <span>$9</span></button>
-              <button type="button" class="size-btn" data-size="Chocolate" data-price="9">Chocolate <span>$9</span></button>
-              <button type="button" class="size-btn" data-size="Caramel" data-price="9">Caramel <span>$9</span></button>
-            </div>
-            <div class="menu-product-footer">
-              <span class="menu-product-price">$9.00</span>
-              <button type="button" class="btn btn-pink btn-sm add-to-cart-btn" data-item="Thick Milkshake">Add to Cart</button>
-            </div>
-          </div>
-        </article>
-      </div>
-    </div>
-
-    <div class="menu-category" id="cat-loaded-treats">
-      <h3 class="menu-category-title">Loaded Treats</h3>
-      <div class="menu-product-grid">
-        <article class="menu-product-card" id="item-loaded-cookies">
-          <div class="menu-product-photo menu-product-photo-placeholder swatch-pink">
-            <span aria-hidden="true">🍪</span>
-            <span class="menu-product-soon">Photo coming soon</span>
-          </div>
-          <div class="menu-product-body">
-            <h3 class="menu-product-name">Loaded Cookies</h3>
-            <p class="menu-product-desc">Warm, stacked, and piled high with toppings.</p>
-            <div class="menu-product-footer menu-product-footer-note">
-              <span class="menu-product-note">Ask in-store</span>
-            </div>
-          </div>
-        </article>
-        <article class="menu-product-card" id="item-loaded-brownies">
-          <div class="menu-product-photo menu-product-photo-placeholder swatch-turquoise">
-            <span aria-hidden="true">🍫</span>
-            <span class="menu-product-soon">Photo coming soon</span>
-          </div>
-          <div class="menu-product-body">
-            <h3 class="menu-product-name">Loaded Brownies</h3>
-            <p class="menu-product-desc">Fudgy brownies buried under frosty toppings.</p>
-            <div class="menu-product-footer menu-product-footer-note">
-              <span class="menu-product-note">Ask in-store</span>
-            </div>
-          </div>
-        </article>
-      </div>
-    </div>
-
-    <div class="menu-category" id="cat-specials">
-      <h3 class="menu-category-title">Specials</h3>
-      <div class="menu-product-grid">
-        <article class="menu-product-card" id="item-frosty-nachos">
-          <div class="menu-product-photo menu-product-photo-placeholder swatch-yellow">
-            <span aria-hidden="true">🌟</span>
-            <span class="menu-product-soon">Photo coming soon</span>
-          </div>
-          <div class="menu-product-body">
-            <h3 class="menu-product-name">Frosty Nachos</h3>
-            <p class="menu-product-desc">A must-try — our over-the-top dessert nachos.</p>
-            <div class="menu-product-footer menu-product-footer-note">
-              <span class="menu-product-note">Ask in-store</span>
-            </div>
-          </div>
-        </article>
-      </div>
-    </div>
-
-    <div class="menu-category" id="cat-protein-shakes">
-      <h3 class="menu-category-title">Protein Shakes</h3>
-      <div class="menu-product-grid">
-        <article class="menu-product-card" id="item-protein-shakes">
-          <div class="menu-product-photo menu-product-photo-placeholder swatch-yellow">
-            <span aria-hidden="true">💪</span>
-            <span class="menu-product-soon">Photo coming soon</span>
-          </div>
-          <div class="menu-product-body">
-            <h3 class="menu-product-name">Protein Shakes</h3>
-            <p class="menu-product-desc">All the flavor, built for your fitness goals.</p>
-            <div class="menu-product-footer menu-product-footer-note">
-              <span class="menu-product-note">Ask in-store</span>
-            </div>
-          </div>
-        </article>
-      </div>
-    </div>
-
-    <div class="menu-category" id="cat-drinks">
-      <h3 class="menu-category-title">Drinks</h3>
-      <div class="menu-product-grid">
-        <article class="menu-product-card" id="item-blue-lagoon">
-          <div class="menu-product-photo">
-            <img src="images/drink-blue-lagoon.png" alt="Frosty Haven Blue Lagoon drink with boba toppings, beach-themed background" loading="eager">
-          </div>
-          <div class="menu-product-body">
-            <h3 class="menu-product-name">Blue Lagoon</h3>
-            <p class="menu-product-desc">A tropical blue splash bursting with sweet, refreshing flavour.</p>
-            <div class="menu-product-topping-offer">
-              <div class="menu-topping-text">
-                <strong>Add a boba topping for only $1</strong>
-                <span class="menu-topping-options">Blueberry · Green Apple · Lychee</span>
-              </div>
-            </div>
-            <div class="menu-product-footer menu-product-footer-note">
-              <span class="menu-product-note">In-store only</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="menu-product-card" id="item-guava-splash">
-          <div class="menu-product-photo">
-            <img src="images/drink-guava-splash.png" alt="Frosty Haven Guava Splash drink with boba toppings, guava fruit background" loading="eager">
-          </div>
-          <div class="menu-product-body">
-            <h3 class="menu-product-name">Guava Splash</h3>
-            <p class="menu-product-desc">Juicy guava soda with a bright, fruity fizz.</p>
-            <div class="menu-product-topping-offer">
-              <div class="menu-topping-text">
-                <strong>Add a boba topping for only $1</strong>
-                <span class="menu-topping-options">Blueberry · Green Apple · Lychee</span>
-              </div>
-            </div>
-            <div class="menu-product-footer menu-product-footer-note">
-              <span class="menu-product-note">In-store only</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="menu-product-card" id="item-melon-zest">
-          <div class="menu-product-photo">
-            <img src="images/drink-melon-zest.png" alt="Frosty Haven Melon Zest drink with boba toppings, watermelon-patterned background" loading="eager">
-          </div>
-          <div class="menu-product-body">
-            <h3 class="menu-product-name">Melon Zest</h3>
-            <p class="menu-product-desc">Crisp, chilled melon soda with a light citrus twist.</p>
-            <div class="menu-product-topping-offer">
-              <div class="menu-topping-text">
-                <strong>Add a boba topping for only $1</strong>
-                <span class="menu-topping-options">Blueberry · Green Apple · Lychee</span>
-              </div>
-            </div>
-            <div class="menu-product-footer menu-product-footer-note">
-              <span class="menu-product-note">In-store only</span>
-            </div>
-          </div>
-        </article>
+        <a href="/menu" class="btn btn-outline btn-lg">Explore Menu</a>
       </div>
     </div>
   </section>
@@ -693,7 +328,7 @@
     <div class="footer-links">
       <div>
         <h4>Explore</h4>
-        <a href="#menu">Menu</a>
+        <a href="/menu">Menu</a>
         <a href="#why">Why Us</a>
         <a href="#gallery">Gallery</a>
         <a href="#locations">Locations</a>
@@ -711,5 +346,6 @@
 <script src="js/script.js"></script>
 <script src="js/reviews.js"></script>
 <script src="js/hours.js"></script>
+<script src="js/page-transition.js"></script>
 </body>
 </html>

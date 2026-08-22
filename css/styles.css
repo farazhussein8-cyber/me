@@ -595,22 +595,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   padding: 10px 14px;
   margin-bottom: 14px;
 }
-.menu-topping-badge {
-  flex: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 40px;
-  height: 40px;
-  padding: 0 6px;
-  border-radius: var(--radius-pill);
-  background: var(--gradient-pink);
-  color: #fff;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: .92rem;
-  box-shadow: var(--shadow-pink);
-}
 .menu-topping-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .menu-topping-text strong {
   font-family: var(--font-display);

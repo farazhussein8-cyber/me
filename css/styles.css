@@ -1406,7 +1406,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .section.featured-desserts { max-width: 1400px; padding-top: 62px; padding-bottom: 40px; }
 .featured-desserts .section-title {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0;
 }
 

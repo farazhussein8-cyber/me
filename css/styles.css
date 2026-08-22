@@ -381,11 +381,12 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 }
 
 .hero-title {
-  font-size: clamp(2.4rem, 4.4vw, 3.6rem);
+  font-size: clamp(2.1rem, 4vw, 3.2rem);
+  line-height: 1.25;
   color: var(--pink-deep);
   margin-bottom: 18px;
 }
-.hero-title strong { display: block; font-weight: 700; }
+.hero-title strong { display: block; font-weight: 600; }
 
 .hero-sub {
   font-size: 1.1rem;

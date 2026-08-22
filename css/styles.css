@@ -798,15 +798,15 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .review-source { color: var(--ink-soft); font-size: .9rem; margin-top: 4px; }
 .review-stars { color: var(--yellow); font-size: 1.3rem; letter-spacing: .1em; margin-top: 10px; text-shadow: 0 1px 0 rgba(0,0,0,.08); }
 .review-card-quote {
-  background: linear-gradient(135deg, var(--ink) 0%, var(--ink-soft) 100%);
-  color: #fff;
+  background: var(--cream-alt);
+  color: var(--ink);
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: left;
 }
 .review-card-quote p:first-child { font-size: 1.05rem; font-style: italic; line-height: 1.5; margin-bottom: 14px; }
-.review-card-quote .review-source { color: rgba(255,255,255,.85); }
+.review-card-quote .review-source { color: var(--ink); }
 
 /* ==========================================================================
    CTA

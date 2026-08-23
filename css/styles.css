@@ -355,23 +355,15 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: url("../images/hero-swirl.png") center 55% / cover no-repeat;
-  filter: brightness(0.8) contrast(0.94) saturate(0.8);
+  background: url("../images/hero-swirl.png") center 50% / cover no-repeat;
+  filter: brightness(0.94) saturate(1.02);
 }
 .hero-swirl::after {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 1;
-  background:
-    /* grounding shadow beneath the dessert/podium */
-    radial-gradient(26% 10% at 66% 91%, rgba(36, 21, 53, 0.4) 0%, rgba(36, 21, 53, 0) 75%),
-    /* deep-plum vignette: mutes ice-cube/snowflake clutter, gives a pink-to-plum sweep */
-    radial-gradient(65% 75% at 94% 4%, rgba(36, 21, 53, 0.32) 0%, rgba(36, 21, 53, 0) 60%),
-    /* corner patch masking the drip motif, in the refined pink tone */
-    radial-gradient(55% 50% at 12% 5%, #F5B9CE 0%, #F5B9CE 40%, rgba(245,185,206,0) 78%),
-    /* refined pink wash behind the text for legible, on-brand contrast */
-    linear-gradient(100deg, #F5B9CE 0%, rgba(245,185,206,0.94) 30%, rgba(245,185,206,0.48) 56%, rgba(245,185,206,0) 74%);
+  background: linear-gradient(100deg, rgba(18, 9, 26, 0.6) 0%, rgba(18, 9, 26, 0.32) 32%, rgba(18, 9, 26, 0) 56%);
 }
 
 .hero-swirl-copy {
@@ -393,15 +385,16 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   font-weight: 700;
   line-height: 1.18;
   letter-spacing: -0.01em;
-  color: var(--pink-deep);
+  color: #fff;
+  text-shadow: 0 4px 24px rgba(18, 9, 26, 0.4);
   margin-bottom: 20px;
 }
-.hero-title strong { display: block; font-weight: 700; }
+.hero-title strong { display: block; font-weight: 700; color: var(--pink); }
 
 .hero-sub {
   font-family: 'Manrope', sans-serif;
   font-size: 1.1rem;
-  color: var(--ink-soft);
+  color: rgba(255, 255, 255, 0.82);
   max-width: 40ch;
   margin-bottom: 36px;
   font-weight: 500;
@@ -423,20 +416,17 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
     padding: 130px 20px 260px;
   }
   .hero-swirl::before {
-    background: url("../images/hero-swirl.png") 72% 40% / cover no-repeat;
-    filter: brightness(0.92) contrast(1.08) saturate(0.92);
+    background: url("../images/hero-swirl.png") 68% 45% / cover no-repeat;
+    filter: brightness(0.96) saturate(1.02);
   }
   .hero-swirl::after {
-    background:
-      radial-gradient(30% 12% at 60% 78%, rgba(36, 21, 53, 0.32) 0%, rgba(36, 21, 53, 0) 75%),
-      radial-gradient(70% 40% at 50% 8%, rgba(36, 21, 53, 0.22) 0%, rgba(36, 21, 53, 0) 68%),
-      linear-gradient(180deg, #F5B9CE 0%, rgba(245,185,206,0.76) 42%, rgba(245,185,206,0.46) 68%, rgba(245,185,206,0.2) 100%);
+    background: linear-gradient(180deg, rgba(18, 9, 26, 0.7) 0%, rgba(18, 9, 26, 0.4) 42%, rgba(18, 9, 26, 0.15) 68%, rgba(18, 9, 26, 0) 100%);
   }
   .hero-swirl-copy {
     max-width: 322px;
     text-align: left;
     margin-top: -32px;
-    background: rgba(245, 185, 206, 0.55);
+    background: rgba(18, 9, 26, 0.42);
     border-radius: 0;
     padding: 20px 18px 18px;
   }

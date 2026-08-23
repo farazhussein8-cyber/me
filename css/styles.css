@@ -387,20 +387,26 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 }
 
 .hero-title {
-  font-size: clamp(2.1rem, 4vw, 3.2rem);
-  line-height: 1.28;
+  font-family: 'Fraunces', serif;
+  font-optical-sizing: auto;
+  font-size: clamp(2.2rem, 4.2vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.18;
   letter-spacing: -0.01em;
   color: var(--pink-deep);
   margin-bottom: 20px;
 }
-.hero-title strong { display: block; font-weight: 600; }
+.hero-title strong { display: block; font-weight: 700; }
 
 .hero-sub {
+  font-family: 'Manrope', sans-serif;
   font-size: 1.1rem;
   color: var(--ink-soft);
   max-width: 40ch;
   margin-bottom: 36px;
   font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.6;
 }
 
 .hero-ctas {
@@ -434,6 +440,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
     border-radius: 0;
     padding: 20px 18px 18px;
   }
+  .hero-title { font-size: clamp(1.7rem, 5.6vw, 2.05rem); }
   .hero-wordmark { margin-left: 0; margin-right: 0; }
   .hero-sub { margin-left: 0; margin-right: 0; }
   .hero-ctas { justify-content: flex-start; }

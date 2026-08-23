@@ -409,29 +409,39 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 
 @media (max-width: 860px) {
   .hero-swirl {
+    display: block;
     min-height: 0;
-    background: var(--cream);
-    padding: 130px 20px 260px;
+    background: var(--ink);
+    padding: 0;
   }
+  /* Image layer moves out of the full-bleed background role and becomes a
+     normal-flow block that renders after (below) the text, sized to
+     `contain` the photo so none of the three desserts get cropped. */
   .hero-swirl::before {
-    background: url("../images/hero-swirl.png") 68% 45% / cover no-repeat;
-    filter: brightness(0.96) saturate(1.02);
+    content: none;
   }
   .hero-swirl::after {
-    background: linear-gradient(180deg, rgba(18, 9, 26, 0.7) 0%, rgba(18, 9, 26, 0.4) 42%, rgba(18, 9, 26, 0.15) 68%, rgba(18, 9, 26, 0) 100%);
+    content: "";
+    display: block;
+    position: static;
+    width: 100%;
+    height: 68vw;
+    max-height: 330px;
+    background: var(--ink) url("../images/hero-swirl.png") center 44% / contain no-repeat;
   }
   .hero-swirl-copy {
-    max-width: 322px;
+    max-width: none;
     text-align: left;
-    margin-top: -32px;
-    background: rgba(18, 9, 26, 0.42);
+    margin-top: 0;
+    background: var(--ink);
     border-radius: 0;
-    padding: 20px 18px 18px;
+    padding: 28px 20px 22px;
   }
   .hero-title { font-size: clamp(1.7rem, 5.6vw, 2.05rem); }
   .hero-wordmark { margin-left: 0; margin-right: 0; }
   .hero-sub { margin-left: 0; margin-right: 0; }
-  .hero-ctas { justify-content: flex-start; }
+  .hero-ctas { flex-direction: column; align-items: stretch; justify-content: flex-start; }
+  .hero-ctas .btn { width: 100%; }
 }
 
 /* ==========================================================================
@@ -990,7 +1000,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   /* logo.png is a wide 1717x916 file, not a compact mark — at the full
      60px header height its natural width doesn't leave room for the cart
      icon, order button and menu toggle on a phone-width row. */
-  .brand-logo { height: 40px; }
+  .brand-logo { height: 46px; }
   .header-actions { gap: 10px; }
 }
 

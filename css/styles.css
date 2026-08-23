@@ -170,7 +170,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .brand-logo {
   height: 60px;
   width: auto;
-  border-radius: 8px;
   display: block;
   flex-shrink: 0;
 }
@@ -178,7 +177,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .footer-logo {
   height: 68px;
   width: auto;
-  border-radius: 10px;
   display: block;
 }
 
@@ -989,7 +987,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   .footer-inner { flex-direction: column; }
   .hero { padding: 130px 20px 100px; }
 
-  /* logo.webp is a wide 1717x916 file, not a compact mark — at the full
+  /* logo.png is a wide 1717x916 file, not a compact mark — at the full
      60px header height its natural width doesn't leave room for the cart
      icon, order button and menu toggle on a phone-width row. */
   .brand-logo { height: 40px; }

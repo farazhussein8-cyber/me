@@ -348,7 +348,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   min-height: clamp(620px, 45vw, 960px);
   display: flex;
   align-items: center;
-  padding: 150px 24px 110px;
+  padding: 150px 24px 120px;
 }
 .hero-swirl::before {
   content: "";
@@ -356,7 +356,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   inset: 0;
   z-index: 0;
   background: url("../images/hero-swirl.png") center 55% / cover no-repeat;
-  filter: brightness(0.85) saturate(0.9);
+  filter: brightness(0.8) contrast(0.94) saturate(0.8);
 }
 .hero-swirl::after {
   content: "";
@@ -364,8 +364,14 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   inset: 0;
   z-index: 1;
   background:
-    radial-gradient(55% 50% at 12% 5%, #F8A7AD 0%, #F8A7AD 40%, rgba(248,167,173,0) 78%),
-    linear-gradient(100deg, #F8A7AD 0%, rgba(248,167,173,0.92) 32%, rgba(248,167,173,0.45) 58%, rgba(248,167,173,0) 76%);
+    /* grounding shadow beneath the dessert/podium */
+    radial-gradient(26% 10% at 66% 91%, rgba(36, 21, 53, 0.4) 0%, rgba(36, 21, 53, 0) 75%),
+    /* deep-plum vignette: mutes ice-cube/snowflake clutter, gives a pink-to-plum sweep */
+    radial-gradient(65% 75% at 94% 4%, rgba(36, 21, 53, 0.32) 0%, rgba(36, 21, 53, 0) 60%),
+    /* corner patch masking the drip motif, in the refined pink tone */
+    radial-gradient(55% 50% at 12% 5%, #F5B9CE 0%, #F5B9CE 40%, rgba(245,185,206,0) 78%),
+    /* refined pink wash behind the text for legible, on-brand contrast */
+    linear-gradient(100deg, #F5B9CE 0%, rgba(245,185,206,0.94) 30%, rgba(245,185,206,0.48) 56%, rgba(245,185,206,0) 74%);
 }
 
 .hero-swirl-copy {
@@ -382,9 +388,10 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 
 .hero-title {
   font-size: clamp(2.1rem, 4vw, 3.2rem);
-  line-height: 1.25;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
   color: var(--pink-deep);
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 .hero-title strong { display: block; font-weight: 600; }
 
@@ -392,13 +399,14 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   font-size: 1.1rem;
   color: var(--ink-soft);
   max-width: 40ch;
-  margin-bottom: 34px;
+  margin-bottom: 36px;
   font-weight: 500;
 }
 
 .hero-ctas {
   display: flex;
-  gap: 16px;
+  align-items: stretch;
+  gap: 18px;
   flex-wrap: wrap;
 }
 
@@ -410,20 +418,21 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   }
   .hero-swirl::before {
     background: url("../images/hero-swirl.png") 72% 40% / cover no-repeat;
-    filter: brightness(1) contrast(1.18) saturate(1.05);
+    filter: brightness(0.92) contrast(1.08) saturate(0.92);
   }
   .hero-swirl::after {
     background:
-      radial-gradient(70% 40% at 50% 30%, rgba(243, 35, 121, 0.14) 0%, rgba(243, 35, 121, 0) 70%),
-      linear-gradient(180deg, #FFF1F6 0%, rgba(255,241,246,0.72) 42%, rgba(255,241,246,0.44) 68%, rgba(255,241,246,0.2) 100%);
+      radial-gradient(30% 12% at 60% 78%, rgba(36, 21, 53, 0.32) 0%, rgba(36, 21, 53, 0) 75%),
+      radial-gradient(70% 40% at 50% 8%, rgba(36, 21, 53, 0.22) 0%, rgba(36, 21, 53, 0) 68%),
+      linear-gradient(180deg, #F5B9CE 0%, rgba(245,185,206,0.76) 42%, rgba(245,185,206,0.46) 68%, rgba(245,185,206,0.2) 100%);
   }
   .hero-swirl-copy {
     max-width: 322px;
     text-align: left;
     margin-top: -32px;
-    background: rgba(255, 241, 246, 0.42);
+    background: rgba(245, 185, 206, 0.55);
     border-radius: 0;
-    padding: 18px 18px 16px;
+    padding: 20px 18px 18px;
   }
   .hero-wordmark { margin-left: 0; margin-right: 0; }
   .hero-sub { margin-left: 0; margin-right: 0; }

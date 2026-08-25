@@ -37,7 +37,11 @@ body {
   color: var(--ink);
   background: var(--cream);
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  /* `clip` rather than `hidden`: 100vw full-bleed children (.value-promo)
+     overhang by the scrollbar width on desktop, and `hidden` would turn the
+     page into a scroll container that still reports/allows that overflow —
+     and would break position: sticky. `clip` just clips it. */
+  overflow-x: clip;
   opacity: 1;
   transition: opacity 0.2s ease;
 }
@@ -796,6 +800,59 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   display: block;
 }
 
+/* ---- Value promo band ---- */
+.value-promo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  /* Full-bleed break-out of the centred .section container (max-width 1200px
+     + side padding). body already carries overflow-x: hidden, which absorbs
+     the few px by which 100vw exceeds the client area when a desktop
+     scrollbar is present. */
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  margin-top: 0;
+  overflow: hidden;
+}
+/* Two selectors deep so it still wins over the `.section` padding reset
+   inside the max-width: 640px block further down the file. */
+.section.gallery { padding-bottom: 0; }
+.value-promo-copy {
+  background: var(--gradient-pink);
+  color: #fff;
+  padding: clamp(36px, 5vw, 64px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.value-promo-title {
+  font-size: clamp(1.6rem, 2.6vw, 2.3rem);
+  line-height: 1.15;
+  margin-bottom: 18px;
+}
+.value-promo-text {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 42ch;
+}
+.value-promo-media { position: relative; }
+.value-promo-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 860px) {
+  .value-promo { grid-template-columns: 1fr; }
+  /* Photo leads on a stacked layout so the band still opens on the dessert. */
+  .value-promo-media { order: -1; }
+  .value-promo-media img { height: auto; aspect-ratio: 16 / 11; }
+}
+
 /* ==========================================================================
    Reviews
    ========================================================================== */
@@ -1000,8 +1057,32 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   /* logo.png is a wide 1717x916 file, not a compact mark — at the full
      60px header height its natural width doesn't leave room for the cart
      icon, order button and menu toggle on a phone-width row. */
-  .brand-logo { height: 46px; }
+  .brand-logo { height: 52px; }
   .header-actions { gap: 10px; }
+  /* The wider logo would push the menu toggle off-screen (the row already
+     overflowed slightly at 46px), so the row reclaims the space it needs
+     from its own padding, gap and the CTA's side padding. */
+  .header-inner { padding-left: 14px; padding-right: 14px; gap: 12px; }
+  .header-actions .btn { padding-left: 20px; padding-right: 20px; }
+}
+
+/* Phone-portrait hero photo: at these widths `contain` always fits the image
+   by width, so the only way to grow it is to reclaim the .hero side padding
+   (full-bleed) and then overscan a little past that. Combined that's ~18%
+   larger than the inset `contain` size. Kept off tablet widths (>560px),
+   where the box height caps at 330px and overscanning would crop the
+   desserts vertically instead. */
+@media (max-width: 560px) {
+  .hero-swirl::after {
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+    /* 88% x-anchor takes the overscan crop off the empty purple left side
+       rather than the açaí cup on the right. */
+    background-position: 88% 44%;
+    background-size: 106% auto;
+    filter: brightness(1.09) saturate(1.05);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

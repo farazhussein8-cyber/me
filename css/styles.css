@@ -148,6 +148,35 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 }
 
 /* ==========================================================================
+   Announcement bar
+   ========================================================================== */
+/* Sits in normal flow above the sticky header, so it scrolls away while the
+   navbar still pins to the top. Full width comes from being a plain block at
+   body level — no 100vw, which would overhang by the scrollbar width. */
+.announcement-bar {
+  /* Sampled from the supplied 1920x120 plum strip, which has no vertical
+     variation — so it reproduces exactly as a gradient and scales to any
+     width instead of shipping the PNG. Scoped to this bar only; --ink and
+     every other surface are untouched. */
+  background: linear-gradient(to right,
+    #1D0C1D 0%,
+    #2B1227 16%,
+    #3B1934 35%,
+    #441D3B 45%,
+    #481F3D 55%,
+    #3D1A34 78%,
+    #32142B 100%);
+  color: #fff;
+  text-align: center;
+  padding: 9px 16px;
+  font-family: var(--font-body);
+  font-size: clamp(0.78rem, 2.6vw, 0.875rem);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+}
+
+/* ==========================================================================
    Header
    ========================================================================== */
 .site-header {

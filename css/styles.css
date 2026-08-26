@@ -889,11 +889,56 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   object-position: center;
 }
 
+/* ---- "Made With Love" variant: photo left, copy right ---- */
+/* The cup photo is cropped straight out of the supplied banner (the baked-in
+   headline sat to the right of x=832, so the crop drops it) and shown with
+   `contain` rather than `cover` — the cup is portrait and cover would slice
+   the top and bottom off it. The band's own crimson is a radial gradient
+   sampled from that photo, so the contained photo's edges sit on a matching
+   field instead of a letterbox. */
+.value-promo-love {
+  /* The vertical layer is the photo's own right-edge column, sampled at five
+     heights, so at the 50% panel boundary the band matches the photo exactly
+     and the joint disappears. The horizontal layer above it then darkens
+     toward the right, which is what the original banner does behind its
+     headline. */
+  background:
+    linear-gradient(to right,
+      rgba(10, 0, 5, 0) 50%,
+      rgba(10, 0, 5, 0.45) 82%,
+      rgba(10, 0, 5, 0.62) 100%),
+    linear-gradient(to bottom,
+      #1E010C 3%,
+      #3A0518 30%,
+      #370316 50%,
+      #2B0312 70%,
+      #2A020F 97%);
+}
+.value-promo-love .value-promo-copy {
+  background: none;
+}
+/* Scoped to this band so the churro band's copy keeps its current size. */
+.value-promo-love .value-promo-title {
+  font-size: clamp(2.5rem, 5.2vw, 4.6rem);
+  line-height: 1.05;
+  margin-bottom: 22px;
+}
+.value-promo-love .value-promo-text {
+  font-size: clamp(1.05rem, 1.7vw, 1.45rem);
+  max-width: 26ch;
+}
+.value-promo-love .value-promo-media img {
+  object-fit: contain;
+  object-position: center;
+}
+
 @media (max-width: 860px) {
   .value-promo { grid-template-columns: 1fr; }
   /* Photo leads on a stacked layout so the band still opens on the dessert. */
   .value-promo-media { order: -1; }
   .value-promo-media img { height: auto; aspect-ratio: 16 / 11; }
+  /* The cup is portrait, so a 16/11 letterbox would shrink it to a sliver. */
+  .value-promo-love .value-promo-media img { aspect-ratio: 1 / 1; }
 }
 
 /* ==========================================================================

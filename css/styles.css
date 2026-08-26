@@ -863,8 +863,11 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
    inside the max-width: 640px block further down the file. */
 .section.gallery { padding-bottom: 0; }
 .value-promo-copy {
-  background: var(--gradient-pink);
-  color: #fff;
+  /* Warm cream rather than transparent: it's the closest palette token to the
+     churro photo's beige, so the two halves still read as one band. The text
+     goes dark to keep contrast — white on cream would be unreadable. */
+  background: var(--cream-alt);
+  color: var(--ink);
   padding: clamp(36px, 5vw, 64px);
   display: flex;
   flex-direction: column;
@@ -878,7 +881,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .value-promo-text {
   font-size: 1.05rem;
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--ink-soft);
   max-width: 42ch;
 }
 .value-promo-media { position: relative; }
@@ -914,9 +917,10 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
       #2B0312 70%,
       #2A020F 97%);
 }
-.value-promo-love .value-promo-copy {
-  background: none;
-}
+/* The copy panel is opaque cream, matching the churro band, so the crimson
+   above only shows behind the photo — which is where it's needed, to blend
+   the contained photo's edges. The type inherits the dark ink from the base
+   rule for contrast. */
 /* Scoped to this band so the churro band's copy keeps its current size. */
 .value-promo-love .value-promo-title {
   font-size: clamp(2.5rem, 5.2vw, 4.6rem);
@@ -927,9 +931,33 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   font-size: clamp(1.05rem, 1.7vw, 1.45rem);
   max-width: 26ch;
 }
-.value-promo-love .value-promo-media img {
-  object-fit: contain;
-  object-position: center;
+/* The dessert is made smaller in the image itself, not in CSS: the source was
+   re-exported onto a canvas 11% larger with its plum edge extended outward, so
+   the cup occupies 10% less of the frame while the photo still fills the whole
+   panel. Shrinking it in CSS instead leaves a gap that has to be filled, and
+   nothing fills it cleanly — a fixed gradient matches the photo along only one
+   edge (dark bars top and bottom), and a blurred copy of the photo shifts
+   luminance, so its own edge shows as a halo. Filling the panel means there is
+   no gap, so no bars and no seam. The panel keeps `object-fit: cover` from the
+   base rule.
+
+   The band's height follows from the same file: the photo fills the 50% panel,
+   so height = panel width / photo aspect. Widening the canvas again (924 ->
+   1086, height untouched) took the band 15% shorter and scaled the cup by the
+   same 15%, since it still occupies the same fraction of the frame. */
+
+/* Churro band, ~14% shorter. This photo can't be widened the way the plum one
+   was — its tray runs off both side edges, so extending the background would
+   smear the tray sideways. Instead the panel takes a wider ratio and the crop
+   is biased to the clean beige: 92px of it sits above the dessert and 33px
+   below, and `center 75%` splits the 122px crop in that proportion, so the
+   tray survives intact with a couple of pixels to spare. Desktop only; the
+   stacked layout already crops tighter at 16/11. */
+@media (min-width: 861px) {
+  .value-promo:not(.value-promo-love) .value-promo-media img {
+    aspect-ratio: 1.238;
+    object-position: center 75%;
+  }
 }
 
 @media (max-width: 860px) {
@@ -937,8 +965,10 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   /* Photo leads on a stacked layout so the band still opens on the dessert. */
   .value-promo-media { order: -1; }
   .value-promo-media img { height: auto; aspect-ratio: 16 / 11; }
-  /* The cup is portrait, so a 16/11 letterbox would shrink it to a sliver. */
-  .value-promo-love .value-promo-media img { aspect-ratio: 1 / 1; }
+  /* Was a square; 15% shorter to match the desktop reduction. `cover` trims
+     ~22px top and bottom, which the extended plum margin absorbs, so the cup
+     stays whole and no bars appear. */
+  .value-promo-love .value-promo-media img { aspect-ratio: 1 / 0.85; }
 }
 
 /* ==========================================================================

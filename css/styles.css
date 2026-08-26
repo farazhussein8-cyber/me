@@ -412,34 +412,48 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 }
 
 @media (max-width: 860px) {
-  .hero-swirl {
-    display: block;
+  /* The photo IS the hero here: full-bleed, flush under the header, and drawn
+     with `contain` so all three desserts stay uncropped. `cover` can't do both
+     — at phone aspect ratios it shows only ~31% of this 16:9 frame, which cuts
+     two of the three desserts off. The area the photo doesn't reach is filled
+     by a blurred, stretched copy of itself, and the photo's lower edge is
+     masked out so the two melt together rather than meeting at a hard seam.
+     Two-class selector so it beats the later `.hero { padding: ... }` rule in
+     the 640px block. */
+  .hero.hero-swirl {
+    display: flex;
+    align-items: flex-end;
     min-height: 0;
     background: var(--ink);
-    padding: 0;
+    padding: 0 20px 40px;
   }
-  /* Image layer moves out of the full-bleed background role and becomes a
-     normal-flow block that renders after (below) the text, sized to
-     `contain` the photo so none of the three desserts get cropped. */
   .hero-swirl::before {
-    content: none;
+    background: url("../images/hero-swirl.png") center / 100% 100% no-repeat;
+    /* Stretched rather than `cover` so its vertical colour run matches the
+       photo's, which is what keeps the joint invisible. Scaled up so the
+       blur's soft edge never reaches the hero bounds. */
+    filter: blur(48px) brightness(0.72) saturate(1.15);
+    transform: scale(1.3);
   }
   .hero-swirl::after {
-    content: "";
-    display: block;
-    position: static;
-    width: 100%;
-    height: 68vw;
-    max-height: 330px;
-    background: var(--ink) url("../images/hero-swirl.png") center 44% / contain no-repeat;
+    background: url("../images/hero-swirl.png") center top / contain no-repeat;
+    -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 60%, transparent 100%);
   }
   .hero-swirl-copy {
     max-width: none;
     text-align: left;
-    margin-top: 0;
-    background: var(--ink);
-    border-radius: 0;
-    padding: 28px 20px 22px;
+    /* Full-bleed so the scrim reaches both edges; the text itself stays inset
+       by the hero's 20px padding. 56.3vw is the photo's height at 16:9, so the
+       copy always starts just below it. */
+    width: calc(100% + 40px);
+    flex: 0 0 auto;
+    margin: 0 -20px;
+    padding: calc(56.3vw + 24px) 20px 0;
+    background: linear-gradient(to top,
+      rgba(18, 9, 26, 0.95) 0%,
+      rgba(18, 9, 26, 0.9) 45%,
+      rgba(18, 9, 26, 0) 100%);
   }
   .hero-title { font-size: clamp(1.7rem, 5.6vw, 2.05rem); }
   .hero-wordmark { margin-left: 0; margin-right: 0; }
@@ -1064,25 +1078,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
      from its own padding, gap and the CTA's side padding. */
   .header-inner { padding-left: 14px; padding-right: 14px; gap: 12px; }
   .header-actions .btn { padding-left: 20px; padding-right: 20px; }
-}
-
-/* Phone-portrait hero photo: at these widths `contain` always fits the image
-   by width, so the only way to grow it is to reclaim the .hero side padding
-   (full-bleed) and then overscan a little past that. Combined that's ~18%
-   larger than the inset `contain` size. Kept off tablet widths (>560px),
-   where the box height caps at 330px and overscanning would crop the
-   desserts vertically instead. */
-@media (max-width: 560px) {
-  .hero-swirl::after {
-    width: calc(100% + 40px);
-    margin-left: -20px;
-    margin-right: -20px;
-    /* 88% x-anchor takes the overscan crop off the empty purple left side
-       rather than the açaí cup on the right. */
-    background-position: 88% 44%;
-    background-size: 106% auto;
-    filter: brightness(1.09) saturate(1.05);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

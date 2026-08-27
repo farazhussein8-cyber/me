@@ -1281,8 +1281,19 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   /* The wider logo would push the menu toggle off-screen (the row already
      overflowed slightly at 46px), so the row reclaims the space it needs
      from its own padding, gap and the CTA's side padding. */
-  .header-inner { padding-left: 14px; padding-right: 14px; gap: 12px; }
-  .header-actions .btn { padding-left: 20px; padding-right: 20px; }
+  /* Vertical padding trimmed from 14px so the row sits closer to the top edge
+     and the header stops covering as much of the hero. The logo is the tallest
+     item in the row, so header height is 52px + this padding. */
+  .header-inner { padding: 6px 14px 10px; gap: 12px; }
+  /* width: auto lets the label set the width; height pins the box. Global
+     border-box means the 9px vertical padding sits inside the 36px, so it
+     doesn't add to it. nowrap comes from .btn, so the label stays on one line. */
+  .header-actions .btn-pink {
+    width: auto;
+    height: 36px;
+    padding: 9px 12px;
+    font-size: 10px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

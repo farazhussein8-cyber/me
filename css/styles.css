@@ -116,6 +116,21 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   box-shadow: 0 20px 36px -12px rgba(243, 35, 121, 0.65);
 }
 
+/* Raspberry treatment for the two order CTAs only — the header's "Order for
+   Pickup" and the hero's "Order Now". Targeted by their containers rather than
+   .btn-pink, which is shared with Explore Full Menu, Send Order on WhatsApp,
+   Leave Us a Google Review, Get Directions and Add to Cart. Each container
+   holds exactly one .btn-pink. Applies on both pages and at every width. */
+.header-actions .btn-pink,
+.hero-ctas .btn-pink {
+  background: #C91462;
+  color: #FFFFFF;
+}
+.header-actions .btn-pink:hover,
+.hero-ctas .btn-pink:hover {
+  background: #A80E4F;
+}
+
 .btn-outline {
   background: rgba(255,255,255,.35);
   border-color: #fff;
@@ -946,18 +961,14 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
    1086, height untouched) took the band 15% shorter and scaled the cup by the
    same 15%, since it still occupies the same fraction of the frame. */
 
-/* Churro band, ~14% shorter. This photo can't be widened the way the plum one
-   was — its tray runs off both side edges, so extending the background would
-   smear the tray sideways. Instead the panel takes a wider ratio and the crop
-   is biased to the clean beige: 92px of it sits above the dessert and 33px
-   below, and `center 75%` splits the 122px crop in that proportion, so the
-   tray survives intact with a couple of pixels to spare. Desktop only; the
-   stacked layout already crops tighter at 16/11. */
-@media (min-width: 861px) {
-  .value-promo:not(.value-promo-love) .value-promo-media img {
-    aspect-ratio: 1.238;
-    object-position: center 75%;
-  }
+/* The milkshake photo is 1.798:1 and all three cups have to stay in frame, so
+   the panel takes the photo's exact ratio — `cover` then has nothing to crop
+   at any width. This replaces the churro photo's biased-crop rule, which was
+   tuned to that image's beige margins and would have cut the outer two cups.
+   Unscoped by width for the same reason: the stacked layout's 16/11 would
+   crop them too. */
+.value-promo:not(.value-promo-love) .value-promo-media img {
+  aspect-ratio: 1.798;
 }
 
 @media (max-width: 860px) {

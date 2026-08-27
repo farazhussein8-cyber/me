@@ -442,16 +442,16 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   position: absolute;
   inset: 0;
   z-index: 1;
-  /* Holds 0.62 flat across the copy column before fading, rather than falling
-     away from 0.6 immediately. The previous photo had empty plum behind the
-     copy so a quick fade was enough; this one has lit desserts and cream right
-     there, and the old ramp left white text at 1.63:1. Flat-then-fade measures
-     5.4:1 at the brightest point under the copy, and 0.62 is the lightest
-     value that clears 4.5:1 — anything less starts failing on the cream. */
+  /* Neutral black rather than the old plum tint, and lighter with it: black
+     darkens more per unit alpha, so 0.55 here measures 4.78:1 on the brightest
+     point under the copy where the plum needed 0.62 for 5.4:1. It stays flat
+     across the copy column before fading — a plain ramp fails at the column's
+     right edge, where it has already fallen away and the photo's cream shows
+     through. 0.55 is the lightest black that still clears 4.5:1. */
   background: linear-gradient(100deg,
-    rgba(18, 9, 26, 0.62) 0%,
-    rgba(18, 9, 26, 0.62) 45%,
-    rgba(18, 9, 26, 0) 72%);
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.55) 45%,
+    rgba(0, 0, 0, 0) 72%);
 }
 
 .hero-swirl-copy {
@@ -498,14 +498,9 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 }
 
 @media (max-width: 860px) {
-  /* The photo IS the hero here: full-bleed, flush under the header, and drawn
-     with `contain` so all three desserts stay uncropped. `cover` can't do both
-     — at phone aspect ratios it shows only ~31% of this 16:9 frame, which cuts
-     two of the three desserts off. The area the photo doesn't reach is filled
-     by a blurred, stretched copy of itself, and the photo's lower edge is
-     masked out so the two melt together rather than meeting at a hard seam.
-     Two-class selector so it beats the later `.hero { padding: ... }` rule in
-     the 640px block. */
+  /* The photo fills the whole hero and the copy sits over its lower half.
+     Two-class selector on .hero.hero-swirl so it beats the later
+     `.hero { padding: ... }` rule in the 640px block. */
   .hero.hero-swirl {
     display: flex;
     align-items: flex-end;
@@ -526,10 +521,15 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
     filter: blur(48px) brightness(0.72) saturate(1.15);
     transform: scale(1.3);
   }
+  /* Fills the hero rather than sitting as a contained band at the top, so the
+     photo runs on behind the copy. `auto 112%` overshoots the height a little
+     and anchors to the bottom, which trims the top of the frame and carries the
+     products down clear of the overlaid nav. No mask now — the photo no longer
+     needs to melt into the blurred layer, it reaches the hero's foot itself. */
   .hero-swirl::after {
-    background: url("../images/hero-desserts.jpg") center top / contain no-repeat;
-    -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent 100%);
-    mask-image: linear-gradient(to bottom, #000 60%, transparent 100%);
+    background: url("../images/hero-desserts.jpg") center bottom / auto 112% no-repeat;
+    -webkit-mask-image: none;
+    mask-image: none;
   }
   .hero-swirl-copy {
     max-width: none;
@@ -541,10 +541,18 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
     flex: 0 0 auto;
     margin: 0 -20px;
     padding: calc(56.3vw + 24px) 20px 32px;
+    /* The copy box spans the full hero, so these stops map to the hero itself:
+       clear at the top where the products are, strong only across the bottom
+       third where the text sits. It has to be strong there — below the photo's
+       top fifth the brightest patches (cream, white cups, the lit table) reach
+       L≈0.99, where white text is 1.0:1 unscrimmed and still only 2.1:1 under a
+       0.55 wash. 0.85 brings it to about 5.3:1. */
     background: linear-gradient(to top,
-      rgba(18, 9, 26, 0.95) 0%,
-      rgba(18, 9, 26, 0.9) 45%,
-      rgba(18, 9, 26, 0) 100%);
+      rgba(0, 0, 0, 0.88) 0%,
+      rgba(0, 0, 0, 0.85) 25%,
+      rgba(0, 0, 0, 0.5) 45%,
+      rgba(0, 0, 0, 0.15) 70%,
+      rgba(0, 0, 0, 0) 100%);
   }
   .hero-title { font-size: clamp(1.7rem, 5.6vw, 2.05rem); }
   .hero-wordmark { margin-left: 0; margin-right: 0; }

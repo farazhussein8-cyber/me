@@ -961,13 +961,13 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
    1086, height untouched) took the band 15% shorter and scaled the cup by the
    same 15%, since it still occupies the same fraction of the frame. */
 
-/* The milkshake photo is 1.798:1 and all three cups have to stay in frame, so
-   the panel takes the photo's exact ratio — `cover` then has nothing to crop
-   at any width. This replaces the churro photo's biased-crop rule, which was
-   tuned to that image's beige margins and would have cut the outer two cups.
-   Unscoped by width for the same reason: the stacked layout's 16/11 would
-   crop them too. */
-.value-promo:not(.value-promo-love) .value-promo-media img {
+/* Both promo panels share one ratio, so the two image panels are identical in
+   size. 1.798:1 is the milkshake photo's own ratio — all three cups have to
+   stay in frame, so `cover` must have nothing to crop. The plum photo was
+   re-exported to match it (1086 -> 1881 wide, height untouched), rather than
+   cropped to it, which at this ratio would have cut 42% off the cup. Not
+   width-scoped: the stacked layout's 16/11 would crop both photos. */
+.value-promo .value-promo-media img {
   aspect-ratio: 1.798;
 }
 
@@ -975,11 +975,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   .value-promo { grid-template-columns: 1fr; }
   /* Photo leads on a stacked layout so the band still opens on the dessert. */
   .value-promo-media { order: -1; }
-  .value-promo-media img { height: auto; aspect-ratio: 16 / 11; }
-  /* Was a square; 15% shorter to match the desktop reduction. `cover` trims
-     ~22px top and bottom, which the extended plum margin absorbs, so the cup
-     stays whole and no bars appear. */
-  .value-promo-love .value-promo-media img { aspect-ratio: 1 / 0.85; }
+  .value-promo-media img { height: auto; }
 }
 
 /* ==========================================================================

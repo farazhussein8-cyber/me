@@ -203,6 +203,39 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   border-bottom: 1px solid rgba(36, 21, 53, 0.06);
 }
 
+/* Home page only: the header lifts out of flow and sits over the hero, so the
+   photo runs behind it and there is no band between the two. Scoped by
+   .has-hero because menu.html has no hero — a fixed header there would cover
+   the first rows of the menu.
+
+   It turns solid again once the hero has scrolled past. Without that the white
+   nav would end up over cream sections and be unreadable, which the transparent
+   state can't avoid on its own: no single link colour works over both a dark
+   photo and a cream background. */
+.has-hero .site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: transparent;
+  backdrop-filter: none;
+  border-bottom-color: transparent;
+}
+/* :not(.nav-open) so the mobile dropdown — which has its own cream panel —
+   keeps dark links when it opens. */
+.has-hero .site-header:not(.is-solid) .main-nav:not(.nav-open) a,
+.has-hero .site-header:not(.is-solid) .cart-toggle {
+  color: #fff;
+}
+.has-hero .site-header:not(.is-solid) .nav-toggle span {
+  background: #fff;
+}
+.has-hero .site-header.is-solid {
+  background: rgba(255, 252, 247, 0.85);
+  backdrop-filter: blur(14px);
+  border-bottom-color: rgba(36, 21, 53, 0.06);
+}
+
 .header-inner {
   max-width: 1280px;
   margin: 0 auto;
@@ -401,7 +434,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: url("../images/hero-swirl.png") center 50% / cover no-repeat;
+  background: url("../images/hero-desserts.jpg") center 50% / cover no-repeat;
   filter: brightness(0.94) saturate(1.02);
 }
 .hero-swirl::after {
@@ -409,7 +442,16 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(100deg, rgba(18, 9, 26, 0.6) 0%, rgba(18, 9, 26, 0.32) 32%, rgba(18, 9, 26, 0) 56%);
+  /* Holds 0.62 flat across the copy column before fading, rather than falling
+     away from 0.6 immediately. The previous photo had empty plum behind the
+     copy so a quick fade was enough; this one has lit desserts and cream right
+     there, and the old ramp left white text at 1.63:1. Flat-then-fade measures
+     5.4:1 at the brightest point under the copy, and 0.62 is the lightest
+     value that clears 4.5:1 — anything less starts failing on the cream. */
+  background: linear-gradient(100deg,
+    rgba(18, 9, 26, 0.62) 0%,
+    rgba(18, 9, 26, 0.62) 45%,
+    rgba(18, 9, 26, 0) 72%);
 }
 
 .hero-swirl-copy {
@@ -469,10 +511,15 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
     align-items: flex-end;
     min-height: 0;
     background: var(--ink);
-    padding: 0 20px 40px;
+    /* No bottom padding here — it would sit outside .hero-swirl-copy, leaving a
+       band at the hero's foot where the copy's scrim has ended and the blurred
+       backdrop still shows as a warm strip. The same 32px lives on the copy's
+       own padding-bottom instead, so the gap below the text is unchanged and
+       the scrim runs to the hero's edge. */
+    padding: 0 20px 0;
   }
   .hero-swirl::before {
-    background: url("../images/hero-swirl.png") center / 100% 100% no-repeat;
+    background: url("../images/hero-desserts.jpg") center / 100% 100% no-repeat;
     /* Stretched rather than `cover` so its vertical colour run matches the
        photo's, which is what keeps the joint invisible. Scaled up so the
        blur's soft edge never reaches the hero bounds. */
@@ -480,7 +527,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
     transform: scale(1.3);
   }
   .hero-swirl::after {
-    background: url("../images/hero-swirl.png") center top / contain no-repeat;
+    background: url("../images/hero-desserts.jpg") center top / contain no-repeat;
     -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent 100%);
     mask-image: linear-gradient(to bottom, #000 60%, transparent 100%);
   }
@@ -493,7 +540,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
     width: calc(100% + 40px);
     flex: 0 0 auto;
     margin: 0 -20px;
-    padding: calc(56.3vw + 24px) 20px 0;
+    padding: calc(56.3vw + 24px) 20px 32px;
     background: linear-gradient(to top,
       rgba(18, 9, 26, 0.95) 0%,
       rgba(18, 9, 26, 0.9) 45%,
@@ -501,9 +548,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   }
   .hero-title { font-size: clamp(1.7rem, 5.6vw, 2.05rem); }
   .hero-wordmark { margin-left: 0; margin-right: 0; }
-  .hero-sub { margin-left: 0; margin-right: 0; }
-  .hero-ctas { flex-direction: column; align-items: stretch; justify-content: flex-start; }
-  .hero-ctas .btn { width: 100%; }
+  .hero-swirl .hero-sub { margin: 0; }
 }
 
 /* ==========================================================================
@@ -888,6 +933,29 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   flex-direction: column;
   justify-content: center;
 }
+/* Confetti backdrop for the thick shakes band's copy panel.
+
+   Anchored `left top`: the gold confetti runs along the top of the artwork and
+   the deep pink sits on its left, so this keeps both in frame and puts the
+   text over the darker half.
+
+   The type goes white. This background is mid-luminance, so dark text fails
+   everywhere on it — --ink measures 3.16:1 at worst and --ink-soft 2.52:1,
+   both under the 4.5:1 minimum. White reaches 4.50:1 over the left text zone,
+   which only just passes, so a 12% scrim sits over the image to lift it to
+   about 4.97:1. --pink-deep is the fallback so white type stays legible if the
+   image fails. */
+.value-promo:not(.value-promo-love) .value-promo-copy {
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12)),
+    url("../images/thick-shakes-confetti-bg.jpg") left top / cover no-repeat,
+    var(--pink-deep);
+  color: #fff;
+}
+.value-promo:not(.value-promo-love) .value-promo-text {
+  color: #fff;
+}
+
 /* Both promo headings use Cormorant Garamond, as the "Find a new favourite"
    heading does, and the closest face the site loads to the serif wordmark in
    the supplied banner. It is loaded at 500/600 only, so 600 rather than the h3
@@ -940,10 +1008,21 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
       #2B0312 70%,
       #2A020F 97%);
 }
-/* The copy panel is opaque cream, matching the churro band, so the crimson
-   above only shows behind the photo — which is where it's needed, to blend
-   the contained photo's edges. The type inherits the dark ink from the base
-   rule for contrast. */
+/* Sparkle backdrop for this band's copy panel. Opaque, so the crimson above
+   still only shows behind the photo — which is where it is needed, to blend
+   the contained photo's edges.
+
+   Anchored left because the sparkle ring sits in the left third of the
+   artwork; centring it would crop the ring out and leave flat pink. --cream-alt
+   is the fallback. The type stays dark: --ink holds 5.84:1 at this gradient's
+   darkest patch, but --ink-soft drops to 3.52:1, so the body text is pulled up
+   to --ink. */
+.value-promo-love .value-promo-copy {
+  background: var(--cream-alt) url("../images/promo-sparkle-bg.jpg") left center / cover no-repeat;
+}
+.value-promo-love .value-promo-text {
+  color: var(--ink);
+}
 /* Scoped to this band so the churro band's copy keeps its current size. */
 /* Face and weight come from the shared rule above; this band keeps its own
    larger size. */

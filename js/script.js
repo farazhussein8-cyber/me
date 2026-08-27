@@ -15,6 +15,26 @@ mainNav.querySelectorAll('a').forEach((link) => {
 });
 
 /* ==========================================================================
+   Home — header overlays the hero, then turns solid past it
+   ========================================================================== */
+(() => {
+  const header = document.getElementById('siteHeader');
+  const hero = document.querySelector('.hero');
+  if (!header || !hero || !document.body.classList.contains('has-hero')) return;
+
+  const sync = () => {
+    // Solid from the moment the header would clear the hero, so the nav never
+    // sits white-on-cream.
+    const past = window.scrollY > hero.offsetHeight - header.offsetHeight;
+    header.classList.toggle('is-solid', past);
+  };
+
+  sync();
+  window.addEventListener('scroll', sync, { passive: true });
+  window.addEventListener('resize', sync);
+})();
+
+/* ==========================================================================
    Menu — sticky horizontal category bar (filters to one category at a time)
    ========================================================================== */
 (() => {

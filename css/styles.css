@@ -1040,7 +1040,12 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
    ========================================================================== */
 .cta {
   max-width: none;
-  background: var(--gradient-pink);
+  /* The dessert photo replaces the pink gradient. --ink sits behind it as the
+     fallback so the white text still has a dark ground if the image fails —
+     on the old gradient that was guaranteed by the colour itself. The photo
+     is composed with its desserts at the edges and a dark centre, which is
+     where .cta-inner sits. */
+  background: var(--ink) url("../images/cta-dessert-backdrop.jpg") center / cover no-repeat;
   text-align: center;
   padding: 100px 24px;
   position: relative;

@@ -888,9 +888,17 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   flex-direction: column;
   justify-content: center;
 }
+/* Both promo headings use Cormorant Garamond, as the "Find a new favourite"
+   heading does, and the closest face the site loads to the serif wordmark in
+   the supplied banner. It is loaded at 500/600 only, so 600 rather than the h3
+   default. It also runs small and light for its point size next to Fredoka,
+   hence the size bump on both bands. */
 .value-promo-title {
-  font-size: clamp(1.6rem, 2.6vw, 2.3rem);
-  line-height: 1.15;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: clamp(1.85rem, 3.05vw, 2.7rem);
+  letter-spacing: -0.01em;
+  line-height: 1.12;
   margin-bottom: 18px;
 }
 .value-promo-text {
@@ -937,9 +945,11 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
    the contained photo's edges. The type inherits the dark ink from the base
    rule for contrast. */
 /* Scoped to this band so the churro band's copy keeps its current size. */
+/* Face and weight come from the shared rule above; this band keeps its own
+   larger size. */
 .value-promo-love .value-promo-title {
-  font-size: clamp(2.5rem, 5.2vw, 4.6rem);
-  line-height: 1.05;
+  font-size: clamp(2.9rem, 6vw, 5.4rem);
+  line-height: 1.02;
   margin-bottom: 22px;
 }
 .value-promo-love .value-promo-text {

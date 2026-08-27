@@ -10,11 +10,7 @@
   --yellow: #FFE94D;
   --ink: #241535;
   --ink-soft: #4A3A5C;
-  /* Was #FFFCF7, which read as white. This token is only ever used as a
-     background or a gradient stop, never as text or icon colour, so warming
-     it recolours every page surface at once — body, hero base, sticky menu
-     bar, mobile nav panel — on desktop and mobile alike. */
-  --cream: #FFF6E9;
+  --cream: #FFFCF7;
   --cream-alt: #FFF6E9;
 
   --gradient-logo: linear-gradient(135deg, var(--turquoise) 0%, var(--mint) 52%, var(--yellow) 100%);
@@ -202,8 +198,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   position: sticky;
   top: 0;
   z-index: 100;
-  /* Translucent form of --cream; kept in step with it by hand. */
-  background: rgba(255, 246, 233, 0.85);
+  background: rgba(255, 252, 247, 0.85);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(36, 21, 53, 0.06);
 }
@@ -295,7 +290,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   top: calc(100% + 12px);
   right: 24px;
   width: 300px;
-  background: var(--cream-alt);
+  background: #fff;
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-soft);
   padding: 20px;
@@ -613,7 +608,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .menu-product-card {
   display: flex;
   flex-direction: column;
-  background: var(--cream-alt);
+  background: #fff;
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-soft);

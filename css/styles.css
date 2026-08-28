@@ -10,7 +10,11 @@
   --yellow: #FFE94D;
   --ink: #241535;
   --ink-soft: #4A3A5C;
-  --cream: #FFFCF7;
+  /* One cream for every page surface. These were #FFFCF7 and #FFF6E9, close
+     enough to look like a mistake where they met — the promo copy panels sat
+     visibly warmer than the page behind them. Both are only ever used as a
+     background or a gradient stop, never as text or icon colour. */
+  --cream: #FFF6E9;
   --cream-alt: #FFF6E9;
 
   --gradient-logo: linear-gradient(135deg, var(--turquoise) 0%, var(--mint) 52%, var(--yellow) 100%);
@@ -198,7 +202,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(255, 252, 247, 0.85);
+  background: rgba(255, 246, 233, 0.85);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(36, 21, 53, 0.06);
 }
@@ -231,7 +235,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   background: #fff;
 }
 .has-hero .site-header.is-solid {
-  background: rgba(255, 252, 247, 0.85);
+  background: rgba(255, 246, 233, 0.85);
   backdrop-filter: blur(14px);
   border-bottom-color: rgba(36, 21, 53, 0.06);
 }
@@ -328,7 +332,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   top: calc(100% + 12px);
   right: 24px;
   width: 300px;
-  background: #fff;
+  background: var(--cream-alt);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-soft);
   padding: 20px;
@@ -551,12 +555,14 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
        third where the text sits. It has to be strong there — below the photo's
        top fifth the brightest patches (cream, white cups, the lit table) reach
        L≈0.99, where white text is 1.0:1 unscrimmed and still only 2.1:1 under a
-       0.55 wash. 0.85 brings it to about 5.3:1. */
+       0.55 wash. The neon lineup that replaced it is far darker down there, so
+       this could come back from 0.85 to 0.62 and still measure 6.2:1 — the
+       photo now reads through behind the text instead of being blacked out. */
     background: linear-gradient(to top,
-      rgba(0, 0, 0, 0.88) 0%,
-      rgba(0, 0, 0, 0.85) 25%,
-      rgba(0, 0, 0, 0.5) 45%,
-      rgba(0, 0, 0, 0.15) 70%,
+      rgba(0, 0, 0, 0.65) 0%,
+      rgba(0, 0, 0, 0.62) 25%,
+      rgba(0, 0, 0, 0.36) 45%,
+      rgba(0, 0, 0, 0.12) 70%,
       rgba(0, 0, 0, 0) 100%);
   }
   .hero-title { font-size: clamp(1.7rem, 5.6vw, 2.05rem); }
@@ -666,7 +672,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .menu-product-card {
   display: flex;
   flex-direction: column;
-  background: #fff;
+  background: var(--cream-alt);
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-soft);
@@ -946,28 +952,10 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   flex-direction: column;
   justify-content: center;
 }
-/* Confetti backdrop for the thick shakes band's copy panel.
-
-   Anchored `left top`: the gold confetti runs along the top of the artwork and
-   the deep pink sits on its left, so this keeps both in frame and puts the
-   text over the darker half.
-
-   The type goes white. This background is mid-luminance, so dark text fails
-   everywhere on it — --ink measures 3.16:1 at worst and --ink-soft 2.52:1,
-   both under the 4.5:1 minimum. White reaches 4.50:1 over the left text zone,
-   which only just passes, so a 12% scrim sits over the image to lift it to
-   about 4.97:1. --pink-deep is the fallback so white type stays legible if the
-   image fails. */
-.value-promo:not(.value-promo-love) .value-promo-copy {
-  background:
-    linear-gradient(rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12)),
-    url("../images/thick-shakes-confetti-bg.jpg") left top / cover no-repeat,
-    var(--pink-deep);
-  color: #fff;
-}
-.value-promo:not(.value-promo-love) .value-promo-text {
-  color: #fff;
-}
+/* The thick shakes panel has no backdrop of its own — it falls back to the
+   base rule's --cream-alt with dark type. The white text that went with the
+   confetti artwork is dropped along with it; on a pale panel it would be
+   invisible. */
 
 /* Both promo headings use Cormorant Garamond, as the "Find a new favourite"
    heading does, and the closest face the site loads to the serif wordmark in
@@ -1021,21 +1009,10 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
       #2B0312 70%,
       #2A020F 97%);
 }
-/* Sparkle backdrop for this band's copy panel. Opaque, so the crimson above
-   still only shows behind the photo — which is where it is needed, to blend
-   the contained photo's edges.
-
-   Anchored left because the sparkle ring sits in the left third of the
-   artwork; centring it would crop the ring out and leave flat pink. --cream-alt
-   is the fallback. The type stays dark: --ink holds 5.84:1 at this gradient's
-   darkest patch, but --ink-soft drops to 3.52:1, so the body text is pulled up
-   to --ink. */
-.value-promo-love .value-promo-copy {
-  background: var(--cream-alt) url("../images/promo-sparkle-bg.jpg") left center / cover no-repeat;
-}
-.value-promo-love .value-promo-text {
-  color: var(--ink);
-}
+/* This panel has no backdrop of its own — it falls back to the base rule's
+   --cream-alt, matching the thick shakes band. The body text goes back to the
+   base --ink-soft too: it was raised to --ink only because it measured 3.52:1
+   over the sparkle artwork, which is no longer there. */
 /* Scoped to this band so the churro band's copy keeps its current size. */
 /* Face and weight come from the shared rule above; this band keeps its own
    larger size. */
@@ -1320,10 +1297,10 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   position: relative;
   max-width: none;
   padding: 110px 24px 120px;
-  background:
-    radial-gradient(55% 50% at 12% 8%, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0) 60%),
-    radial-gradient(50% 45% at 92% 90%, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 65%),
-    linear-gradient(180deg, var(--cream) 0%, #FFE1EF 45%, var(--cream) 100%);
+  /* Flat cream — was a #FFE1EF band through the middle with two white radial
+     highlights over it. The highlights go too: they only registered against
+     the pink, and on cream they'd be an invisible white wash. */
+  background: var(--cream);
   overflow: hidden;
 }
 
@@ -1477,10 +1454,10 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   position: relative;
   max-width: none;
   padding: 110px 24px 120px;
-  background:
-    radial-gradient(55% 50% at 88% 12%, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0) 60%),
-    radial-gradient(50% 45% at 8% 88%, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 65%),
-    linear-gradient(180deg, var(--cream) 0%, #FFE1EF 45%, var(--cream) 100%);
+  /* Flat cream — was a #FFE1EF band through the middle with two white radial
+     highlights over it. The highlights go too: they only registered against
+     the pink, and on cream they'd be an invisible white wash. */
+  background: var(--cream);
   overflow: hidden;
   text-align: center;
 }
@@ -1622,7 +1599,9 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .hours {
   max-width: none;
   padding: 100px 24px 120px;
-  background: linear-gradient(180deg, var(--cream) 0%, #FFE7F1 100%);
+  /* Flat cream — was a gradient fading into #FFE7F1, which read as a pink glow
+     at the foot of the section. */
+  background: var(--cream);
 }
 
 .hours-card {

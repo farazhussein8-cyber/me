@@ -1153,7 +1153,46 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 /* ==========================================================================
    Reviews
    ========================================================================== */
+/* Chocolate band behind both review sections, so they read as one block. The
+   brown is sampled from the hero photo. max-width: none makes .reviews
+   full-bleed like .featured-reviews already is; the grid below keeps the 1200px
+   column. Headings go white (14.65:1) and eyebrows yellow — pink measures
+   3.72:1 here, under the 4.5:1 small-text minimum, which is why the dark .why
+   section already uses yellow for the same job. The title's pink span stays:
+   at 32-48px it only needs 3:1. */
+.reviews {
+  background: #3A2318;
+  max-width: none;
+}
+/* Two selectors deep so it beats the `.section { padding: 80px 20px }` reset in
+   the 640px block, which comes later in the file. This half of the 220px void
+   between the two review sections — they share a background now, so their
+   stacked padding read as one dead gap rather than two section margins. */
+.section.reviews { padding-bottom: clamp(28px, 3.5vw, 44px); }
+.reviews .section-title,
+.featured-reviews .section-title {
+  color: #fff;
+}
+/* Requested black. Note this measures 1.43:1 against the #3A2318 band, well
+   under the 4.5:1 minimum. Scoped to this heading so the gallery title's pink
+   span is untouched. */
+.reviews .section-title .text-pink {
+  color: #000;
+}
+.reviews .section-eyebrow,
+.featured-reviews .section-eyebrow {
+  color: var(--yellow);
+}
+/* Cream rather than the glassy white-over-pink it was built for: at 55% over
+   this brown it composites to a muddy grey. */
+.featured-reviews .fr-card {
+  background: var(--cream-alt);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
 .reviews-grid {
+  max-width: 1200px;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 24px;
@@ -1393,11 +1432,12 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .featured-reviews {
   position: relative;
   max-width: none;
-  padding: 110px 24px 120px;
-  /* Flat cream — was a #FFE1EF band through the middle with two white radial
-     highlights over it. The highlights go too: they only registered against
-     the pink, and on cream they'd be an invisible white wash. */
-  background: var(--cream);
+  /* Top matches .reviews' new bottom padding — the other half of the 220px
+     void. Bottom is unchanged; it borders the CTA photo, not this band. */
+  padding: clamp(28px, 3.5vw, 44px) 24px 120px;
+  /* Chocolate, continuing the band from .reviews above. Set here rather than in
+     the grouped rule further up, which this would otherwise override. */
+  background: #3A2318;
   overflow: hidden;
 }
 
@@ -1422,7 +1462,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   50% { opacity: .9; transform: scale(1.15) rotate(20deg); }
 }
 
-.featured-reviews .section-title { margin-bottom: 48px; position: relative; }
+.featured-reviews .section-title { margin-bottom: clamp(20px, 2.4vw, 30px); position: relative; }
 
 /* ---- Carousel ---- */
 .fr-carousel {

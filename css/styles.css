@@ -451,15 +451,13 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   position: absolute;
   inset: 0;
   z-index: 1;
-  /* Neutral black rather than the old plum tint, and lighter with it: black
-     darkens more per unit alpha, so 0.55 here measures 4.78:1 on the brightest
-     point under the copy where the plum needed 0.62 for 5.4:1. It stays flat
-     across the copy column before fading — a plain ramp fails at the column's
-     right edge, where it has already fallen away and the photo's cream shows
-     through. 0.55 is the lightest black that still clears 4.5:1. */
+  /* Barely there now. The chocolate scene is near-black under the copy — white
+     text measures 8.95:1 over it with no scrim at all — so this is 0.3 purely
+     as headroom for the brighter cocoa splashes, not because the text needs
+     it. Earlier photos needed 0.55 and 0.62 here. */
   background: linear-gradient(100deg,
-    rgba(0, 0, 0, 0.55) 0%,
-    rgba(0, 0, 0, 0.55) 45%,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.3) 45%,
     rgba(0, 0, 0, 0) 72%);
 }
 
@@ -536,7 +534,10 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
      products down clear of the overlaid nav. No mask now — the photo no longer
      needs to melt into the blurred layer, it reaches the hero's foot itself. */
   .hero-swirl::after {
-    background: url("../images/hero-desserts.jpg") center bottom / auto 112% no-repeat;
+    /* 85% rather than centred: this scene is 2.02:1 and only about 44% of its
+       width fits a phone, and the cup sits across 45-99% of the frame. Centred
+       would show mostly empty black and clip the cup. */
+    background: url("../images/hero-desserts.jpg") 85% bottom / auto 112% no-repeat;
     -webkit-mask-image: none;
     mask-image: none;
   }

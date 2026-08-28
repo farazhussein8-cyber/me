@@ -267,7 +267,10 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 
 .brand { display: flex; align-items: center; flex-shrink: 0; }
 .brand-logo {
-  height: 60px;
+  /* 60px left the wordmark too small to read. There is room for it now: the
+     header row spans the viewport and the CTA is a 168px pill rather than the
+     old 203px filled button. */
+  height: 78px;
   width: auto;
   display: block;
   flex-shrink: 0;
@@ -946,7 +949,9 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
    Why Us
    ========================================================================== */
 .why {
-  background: var(--ink);
+  /* Black rather than --ink. Scoped here so the footer, which also uses --ink,
+     keeps its plum. */
+  background: #000;
   max-width: none;
   padding: 110px 24px;
 }
@@ -1347,7 +1352,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   /* logo.png is a wide 1717x916 file, not a compact mark — at the full
      60px header height its natural width doesn't leave room for the cart
      icon, order button and menu toggle on a phone-width row. */
-  .brand-logo { height: 52px; }
+  .brand-logo { height: 68px; }
   .header-actions { gap: 10px; }
   /* The wider logo would push the menu toggle off-screen (the row already
      overflowed slightly at 46px), so the row reclaims the space it needs

@@ -1099,6 +1099,13 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
    --cream-alt, matching the thick shakes band. The body text goes back to the
    base --ink-soft too: it was raised to --ink only because it measured 3.52:1
    over the sparkle artwork, which is no longer there. */
+/* Copy centred in its half. align-items as well as text-align: the panel is a
+   flex column, so text-align alone would centre the lines inside blocks that
+   are still pinned left by the paragraph's 26ch max-width. */
+.value-promo-love .value-promo-copy {
+  align-items: center;
+  text-align: center;
+}
 /* Scoped to this band so the churro band's copy keeps its current size. */
 /* Face and weight come from the shared rule above; this band keeps its own
    larger size. */
@@ -1265,7 +1272,10 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
    Footer
    ========================================================================== */
 .site-footer {
-  background: var(--ink);
+  /* Black rather than --ink, matching the .why section. The drip SVG above it
+     draws the footer's wavy top edge and is filled to match by hand in the
+     markup — both have to move together or the drip shows as a plum band. */
+  background: #000;
   position: relative;
   padding-top: 40px;
 }

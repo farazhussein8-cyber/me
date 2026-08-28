@@ -120,20 +120,25 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   box-shadow: 0 20px 36px -12px rgba(243, 35, 121, 0.65);
 }
 
-/* Raspberry treatment for the two order CTAs only — the header's "Order for
-   Pickup" and the hero's "Order Now". Targeted by their containers rather than
-   .btn-pink, which is shared with Explore Full Menu, Send Order on WhatsApp,
-   Leave Us a Google Review, Get Directions and Add to Cart. Each container
-   holds exactly one .btn-pink. Applies on both pages and at every width. */
-.header-actions .btn-pink,
-.hero-ctas .btn-pink {
-  background: #C91462;
-  color: #FFFFFF;
+/* Outlined pill for the header CTA, per the hero mockup. Overrides .btn's
+   padding and transparent 2px border. */
+.btn-pill {
+  gap: 10px;
+  padding: 12px 26px;
+  border: 1.5px solid var(--pink);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--pink);
+  box-shadow: none;
+  font-size: .9rem;
+  letter-spacing: .04em;
 }
-.header-actions .btn-pink:hover,
-.hero-ctas .btn-pink:hover {
-  background: #A80E4F;
+.btn-pill:hover {
+  background: var(--pink);
+  color: #fff;
+  transform: translateY(-2px);
 }
+.btn-pill-arrow { width: 15px; height: 15px; flex: none; }
 
 .btn-outline {
   background: rgba(255,255,255,.35);
@@ -231,6 +236,10 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .has-hero .site-header:not(.is-solid) .cart-toggle {
   color: #fff;
 }
+/* The active link stays pink even in the white-on-hero state. */
+.has-hero .site-header:not(.is-solid) .main-nav:not(.nav-open) a.is-active {
+  color: var(--pink);
+}
 .has-hero .site-header:not(.is-solid) .nav-toggle span {
   background: #fff;
 }
@@ -293,6 +302,9 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 }
 .main-nav a:hover { color: var(--pink); }
 .main-nav a:hover::after { transform: scaleX(1); }
+/* Current page, per the mockup: pink with the underline already drawn. */
+.main-nav a.is-active { color: var(--pink); }
+.main-nav a.is-active::after { transform: scaleX(1); }
 
 .header-actions { display: flex; align-items: center; gap: 16px; }
 
@@ -433,7 +445,9 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 
 .hero-swirl {
   background: var(--cream);
-  min-height: clamp(620px, 45vw, 960px);
+  /* Taller, to match the mockup's ~1.5:1 hero — at 1265px this lands near
+     840px, where the cup reads large rather than letterboxed. */
+  min-height: clamp(620px, 66vw, 900px);
   display: flex;
   align-items: center;
   padding: 150px 24px 120px;
@@ -465,6 +479,43 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   max-width: 560px;
   position: relative;
   z-index: 2;
+}
+
+/* Feature strip along the foot of the hero. Absolute so it doesn't disturb the
+   copy's vertical centring in the hero's flex row. */
+.hero-features {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 0 24px 34px;
+  margin: 0;
+}
+.hero-feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 2px 28px;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+.hero-feature:first-child { padding-left: 0; }
+.hero-feature + .hero-feature { border-left: 1px solid rgba(255, 255, 255, 0.18); }
+.hero-feature svg {
+  width: 26px;
+  height: 26px;
+  color: var(--pink);
+  flex: none;
 }
 
 .hero-wordmark {
@@ -510,7 +561,11 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
      `.hero { padding: ... }` rule in the 640px block. */
   .hero.hero-swirl {
     display: flex;
-    align-items: flex-end;
+    /* Column so the feature strip stacks under the copy rather than beside it;
+       stretch because in a column, flex-end would right-align the children. */
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: stretch;
     min-height: 0;
     background: var(--ink);
     /* No bottom padding here — it would sit outside .hero-swirl-copy, leaving a
@@ -569,6 +624,31 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   .hero-title { font-size: clamp(1.7rem, 5.6vw, 2.05rem); }
   .hero-wordmark { margin-left: 0; margin-right: 0; }
   .hero-swirl .hero-sub { margin: 0; }
+
+  /* Four across is far too tight on a phone, so the strip becomes a 2x2 grid
+     in normal flow under the copy. It carries its own dark wash: the copy's
+     gradient ends at the copy, and below that the strip would sit on the bare
+     photo. 0.72 continues from the gradient's 0.65 foot. */
+  .hero-features {
+    position: static;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: calc(100% + 40px);
+    margin: 0 -20px;
+    padding: 0;
+    background: rgba(0, 0, 0, 0.72);
+  }
+  .hero-feature,
+  .hero-feature:first-child {
+    padding: 12px 16px;
+    gap: 10px;
+    font-size: 0.66rem;
+    letter-spacing: 0.06em;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-left: 0;
+  }
+  .hero-feature:nth-child(odd) { border-right: 1px solid rgba(255, 255, 255, 0.12); }
+  .hero-feature svg { width: 20px; height: 20px; }
 }
 
 /* ==========================================================================
@@ -1276,15 +1356,16 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
      and the header stops covering as much of the hero. The logo is the tallest
      item in the row, so header height is 52px + this padding. */
   .header-inner { padding: 6px 14px 10px; gap: 12px; }
-  /* width: auto lets the label set the width; height pins the box. Global
-     border-box means the 9px vertical padding sits inside the 36px, so it
-     doesn't add to it. nowrap comes from .btn, so the label stays on one line. */
-  .header-actions .btn-pink {
+  /* Global border-box means the vertical padding sits inside the height rather
+     than adding to it. nowrap comes from .btn, so the label stays on one line. */
+  .header-actions .btn-pill {
     width: auto;
-    height: 36px;
-    padding: 9px 12px;
+    height: 34px;
+    padding: 0 13px;
+    gap: 7px;
     font-size: 10px;
   }
+  .btn-pill-arrow { width: 12px; height: 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

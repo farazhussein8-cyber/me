@@ -1153,15 +1153,22 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 /* ==========================================================================
    Reviews
    ========================================================================== */
-/* Chocolate band behind both review sections, so they read as one block. The
-   brown is sampled from the hero photo. max-width: none makes .reviews
-   full-bleed like .featured-reviews already is; the grid below keeps the 1200px
-   column. Headings go white (14.65:1) and eyebrows yellow — pink measures
-   3.72:1 here, under the 4.5:1 small-text minimum, which is why the dark .why
-   section already uses yellow for the same job. The title's pink span stays:
-   at 32-48px it only needs 3:1. */
+/* ==========================================================================
+   Reviews palette — cocoa ground, ivory cards, champagne and rose accents.
+   Colours only; layout and content are untouched. Both review sections share
+   the ground so they read as one band. max-width: none makes .reviews
+   full-bleed like .featured-reviews already is; the grid below keeps the
+   1200px column.
+   ========================================================================== */
+/* One continuous plum sweep behind both review sections, matching the
+   purple-pink CTA band below. The sections themselves stay transparent so the
+   gradient isn't restarted (and seamed) at their boundary. */
+.reviews-band {
+  background: linear-gradient(135deg, #180914 0%, #2B0B22 50%, #4A0D35 100%);
+}
+
 .reviews {
-  background: #3A2318;
+  background: transparent;
   max-width: none;
 }
 /* Two selectors deep so it beats the `.section { padding: 80px 20px }` reset in
@@ -1169,25 +1176,53 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
    between the two review sections — they share a background now, so their
    stacked padding read as one dead gap rather than two section margins. */
 .section.reviews { padding-bottom: clamp(28px, 3.5vw, 44px); }
+
 .reviews .section-title,
 .featured-reviews .section-title {
-  color: #fff;
+  color: #FFF7F2;
 }
-/* Requested black. Note this measures 1.43:1 against the #3A2318 band, well
-   under the 4.5:1 minimum. Scoped to this heading so the gallery title's pink
-   span is untouched. */
+/* Scoped to this heading so the gallery title's pink span is untouched. */
 .reviews .section-title .text-pink {
-  color: #000;
+  color: #E9A6B2;
 }
 .reviews .section-eyebrow,
 .featured-reviews .section-eyebrow {
-  color: var(--yellow);
+  color: #D6B078;
 }
-/* Cream rather than the glassy white-over-pink it was built for: at 55% over
-   this brown it composites to a muddy grey. */
+
+/* The card and card-text colours are set on their own rules further down rather
+   than overridden here — those come later in the file at equal specificity, so
+   a block here would lose. .fr-card is the exception: two classes beats one. */
 .featured-reviews .fr-card {
-  background: var(--cream-alt);
-  border-color: rgba(255, 255, 255, 0.25);
+  background: #F8EFE5;
+  border-color: rgba(59, 41, 39, 0.1);
+}
+
+/* The one primary CTA in the band — bright pink is reserved for it so the
+   plum reads as the field, not another accent. Scoped, so the pink gradient
+   stays on every other .btn-pink on the page. */
+.reviews-band .btn-pink {
+  background: #E91E63;
+  box-shadow: 0 14px 30px -14px rgba(233, 30, 99, 0.75);
+}
+/* The secondary buttons default to a 35%-white face with dark --ink text. On
+   the plum that composites to a muddy mauve and the label lands at 2.97:1 —
+   under the 4.5:1 it needs. A warm-white ghost puts the text straight on the
+   gradient (14.17:1) and reads far more premium. */
+.reviews-band .btn-outline {
+  background: transparent;
+  border-color: rgba(255, 247, 242, 0.5);
+  color: #FFF7F2;
+  backdrop-filter: none;
+}
+.reviews-band .btn-outline:hover {
+  background: rgba(255, 247, 242, 0.12);
+  border-color: #FFF7F2;
+}
+
+.reviews-band .btn-pink:hover {
+  background: #C2185B;
+  box-shadow: 0 20px 36px -12px rgba(233, 30, 99, 0.7);
 }
 
 .reviews-grid {
@@ -1198,8 +1233,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   gap: 24px;
 }
 .review-card {
-  background: var(--cream-alt);
-  border: 1px solid rgba(36, 21, 53, 0.08);
+  background: #F8EFE5;
+  border: 1px solid rgba(59, 41, 39, 0.1);
   border-radius: var(--radius-lg);
   box-shadow: 0 12px 30px rgba(36, 21, 53, 0.06);
   padding: 32px 28px;
@@ -1214,11 +1249,11 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 2.6rem;
-  color: var(--pink);
+  color: #D96C86;
 }
-.review-score span { font-size: 1.2rem; color: var(--ink-soft); font-weight: 500; }
-.review-source { color: var(--ink-soft); font-size: .9rem; margin-top: 8px; }
-.review-stars { color: var(--yellow); font-size: 1.3rem; letter-spacing: .1em; margin-top: 16px; text-shadow: 0 1px 0 rgba(0,0,0,.08); }
+.review-score span { font-size: 1.2rem; color: #3B2927; font-weight: 500; }
+.review-source { color: #3B2927; font-size: .9rem; margin-top: 8px; }
+.review-stars { color: #C89B55; font-size: 1.3rem; letter-spacing: .1em; margin-top: 16px; text-shadow: 0 1px 0 rgba(0,0,0,.08); }
 .review-card-quote {
   background: var(--cream-alt);
   color: var(--ink);
@@ -1244,7 +1279,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   z-index: 1;
 }
 .review-card-quote p:first-child { font-size: 1.05rem; font-style: italic; line-height: 1.5; margin-bottom: 14px; }
-.review-card-quote .review-source { color: var(--ink); margin-top: 0; }
+.review-card-quote .review-source { color: #3B2927; margin-top: 0; }
 
 /* ==========================================================================
    CTA
@@ -1435,9 +1470,9 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   /* Top matches .reviews' new bottom padding — the other half of the 220px
      void. Bottom is unchanged; it borders the CTA photo, not this band. */
   padding: clamp(28px, 3.5vw, 44px) 24px 120px;
-  /* Chocolate, continuing the band from .reviews above. Set here rather than in
-     the grouped rule further up, which this would otherwise override. */
-  background: #3A2318;
+  /* Transparent so the .reviews-band gradient shows through unbroken. Set here
+     rather than in the grouped rule further up, which this would override. */
+  background: transparent;
   overflow: hidden;
 }
 
@@ -1507,7 +1542,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 }
 
 .fr-stars {
-  color: var(--yellow);
+  color: #C89B55;
   font-size: 1.05rem;
   letter-spacing: .12em;
   margin-bottom: 14px;
@@ -1515,7 +1550,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 }
 
 .fr-text {
-  color: var(--ink);
+  color: #3B2927;
   font-size: .96rem;
   line-height: 1.6;
   flex: 1;
@@ -1527,7 +1562,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 
 .fr-meta { display: flex; flex-direction: column; gap: 4px; }
 .fr-name { font-family: var(--font-display); font-weight: 600; color: var(--pink-deep); font-size: .98rem; }
-.fr-sub { display: flex; align-items: center; gap: 6px; color: var(--ink-soft); font-size: .8rem; }
+.fr-sub { display: flex; align-items: center; gap: 6px; color: #3B2927; font-size: .8rem; }
 
 .fr-g-badge {
   display: inline-flex;

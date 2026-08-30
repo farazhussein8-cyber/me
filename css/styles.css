@@ -24,6 +24,15 @@
   --font-display: 'Fredoka', sans-serif;
   --font-body: 'Plus Jakarta Sans', sans-serif;
 
+  /* Section rhythm. The page previously ran one value (110px, 80px on phones)
+     on six of eight sections, so spacing could not signal that two sections
+     are one argument or that another is an aside. Three steps, used by
+     meaning: normal separation, a supporting section, and the joint where two
+     sections read as a single block. */
+  --space-section: clamp(72px, 8vw, 110px);
+  --space-section-tight: clamp(48px, 5vw, 72px);
+  --space-joint: clamp(28px, 3.2vw, 44px);
+
   --radius-lg: 28px;
   --radius-md: 18px;
   --radius-pill: 999px;
@@ -66,7 +75,15 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   border-radius: 6px;
 }
 
-.section { padding: 110px 24px; max-width: 1200px; margin: 0 auto; }
+.section {
+  padding: var(--space-section) 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  /* The header is fixed on the home page, so every in-page anchor parked its
+     own heading behind it (measured: h2 at y=101 under a header ending at
+     y=107). Clears the tallest header state. */
+  scroll-margin-top: 92px;
+}
 
 .section-eyebrow {
   font-family: var(--font-display);
@@ -588,9 +605,12 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .hero-title {
   font-family: 'Fraunces', serif;
   font-optical-sizing: auto;
-  font-size: clamp(2.2rem, 4.2vw, 3.4rem);
+  /* Was clamp(2.2rem, 4.2vw, 3.4rem) — 54px at 1280 against section headings
+     at 48px, a 13% lead, and it lost outright to the promo band's h3 at 77px.
+     The page's title element has to be the largest display type on it. */
+  font-size: clamp(2.6rem, 6.4vw, 5.25rem);
   font-weight: 700;
-  line-height: 1.18;
+  line-height: 1.06;
   letter-spacing: -0.01em;
   color: #fff;
   text-shadow: 0 4px 24px rgba(18, 9, 26, 0.4);
@@ -682,7 +702,9 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
       rgba(0, 0, 0, 0.12) 70%,
       rgba(0, 0, 0, 0) 100%);
   }
-  .hero-title { font-size: clamp(1.7rem, 5.6vw, 2.05rem); }
+  /* Was clamp(1.7rem, 5.6vw, 2.05rem) = 27.2px at 390, smaller than all seven
+     section h2s at 32px. Capped so "made just for you" still holds one line. */
+  .hero-title { font-size: clamp(2.3rem, 8.6vw, 2.75rem); }
   .hero-wordmark { margin-left: 0; margin-right: 0; }
   .hero-swirl .hero-sub { margin: 0; }
 
@@ -1040,7 +1062,14 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   background: rgba(255,255,255,.12);
   transform: translateY(-4px);
 }
-.why-icon { font-size: 1.8rem; margin-bottom: 14px; }
+.why-icon {
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin-bottom: 16px;
+  color: var(--pink);
+}
+.why-icon svg { width: 100%; height: 100%; }
 .why-card h3 { color: #fff; font-size: 1.05rem; margin-bottom: 8px; }
 .why-card p { color: rgba(255,255,255,.8); font-size: .9rem; line-height: 1.5; }
 
@@ -1288,6 +1317,10 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   /* Photo leads on a stacked layout so the band still opens on the dessert. */
   .value-promo-media { order: -1; }
   .value-promo-media img { height: auto; }
+  /* Phones only. At its desktop floor this ran 46px here — larger than the
+     page's own h1, so a promo subhead outranked the shop's name. Desktop,
+     where the size was asked for, is untouched and still reaches 77px. */
+  .value-promo-love .value-promo-title { font-size: clamp(2rem, 4.6vw, 2.4rem); }
 }
 
 /* ==========================================================================
@@ -1460,10 +1493,13 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   align-items: stretch;
 }
 .location-card {
-  background: var(--cream-alt);
+  /* --cream-alt is the same value as the section behind it, so this card was
+     invisible except for a 5px pink left border doing the work a container
+     should do. A hairline rule and real padding group it instead. */
+  background: #fff;
+  border: 1px solid rgba(36, 21, 53, .08);
   border-radius: var(--radius-lg);
   padding: 36px;
-  border-left: 5px solid var(--pink);
 }
 .location-card h3 { color: var(--pink-deep); margin-bottom: 18px; font-size: 1.6rem; }
 .location-line { color: var(--ink-soft); line-height: 1.7; font-size: .98rem; margin-bottom: 8px; }
@@ -1509,7 +1545,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .footer-contact a { color: var(--pink); font-weight: 600; }
 
 .footer-links { display: flex; gap: 60px; }
-.footer-links h4 {
+.footer-links h3 {
   color: var(--yellow);
   font-size: .85rem;
   text-transform: uppercase;
@@ -1552,11 +1588,17 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
     transform: translateY(-8px);
     opacity: 0;
     pointer-events: none;
-    transition: transform .25s ease, opacity .25s ease;
+    /* opacity alone left all six links in the tab order: the first six Tab
+       presses landed on nothing visible. visibility takes them out and still
+       animates, unlike display. */
+    visibility: hidden;
+    transition: transform .25s ease, opacity .25s ease, visibility 0s linear .25s;
   }
   .main-nav.nav-open {
     transform: translateY(0);
     opacity: 1;
+    visibility: visible;
+    transition: transform .25s ease, opacity .25s ease, visibility 0s;
     pointer-events: auto;
   }
   .nav-toggle { display: flex; }
@@ -1568,7 +1610,11 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 }
 
 @media (max-width: 640px) {
-  .section { padding: 80px 20px; }
+  /* Only the inline padding needs a phone value now; the block padding is a
+     clamp that already scales. The old fixed 80px was also why #social and
+     #hours — which set their own padding outside this rule — kept desktop
+     spacing on a phone while every denser section shrank. */
+  .section { padding-inline: 20px; }
   .why-grid { grid-template-columns: 1fr; }
   .footer-inner { flex-direction: column; }
   .hero { padding: 130px 20px 100px; }
@@ -1595,6 +1641,17 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
     font-size: 10px;
   }
   .btn-pill-arrow { width: 12px; height: 12px; }
+}
+
+/* At 320px the header row measured 330px against a 320px viewport, so the cart
+   dropped out of the row and the hamburger clipped off the right edge —
+   body's overflow-x: clip was hiding the symptom. Reclaiming the gaps and the
+   logo's excess height brings the row back inside. */
+@media (max-width: 360px) {
+  .header-inner { padding: 6px 10px 10px; gap: 8px; }
+  .header-actions { gap: 6px; }
+  .brand-logo { height: 58px; }
+  .header-actions .btn-pill { padding: 0 10px; font-size: 9.5px; gap: 5px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1765,7 +1822,10 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .social {
   position: relative;
   max-width: none;
-  padding: 110px 24px 120px;
+  /* Sized as the aside it is. At 110/120 it took 1,068px for 39 words and two
+     outbound links — more height than the section carrying 1,871 words of real
+     customer reviews — and it kept desktop spacing on phones. */
+  padding: var(--space-section-tight) 24px;
   /* Flat cream — was a #FFE1EF band through the middle with two white radial
      highlights over it. The highlights go too: they only registered against
      the pink, and on cream they'd be an invisible white wash. */
@@ -1908,9 +1968,14 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 /* ==========================================================================
    Opening Hours
    ========================================================================== */
+/* Where you are and when you're open are one lookup, so the two sections are
+   closed to a joint rather than separated by a full section gap. This was
+   110px + 100px = 210px of dead space between them — the same stacked-padding
+   void the review band had. Bottom stays generous; it borders the footer. */
+.section.locations { padding-bottom: var(--space-joint); }
 .hours {
   max-width: none;
-  padding: 100px 24px 120px;
+  padding: var(--space-joint) 24px var(--space-section);
   /* Flat cream — was a gradient fading into #FFE7F1, which read as a pink glow
      at the foot of the section. */
   background: var(--cream);
@@ -1943,7 +2008,9 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  /* Was clamp(1.6rem, 3vw, 2.1rem) — the only h2 on the page smaller than the
+     section norm, on the single most looked-up fact the shop has. */
+  font-size: clamp(1.9rem, 3.4vw, 2.6rem);
   color: var(--pink-deep);
   margin: 0;
 }

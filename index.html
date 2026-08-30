@@ -92,6 +92,7 @@
       <a href="/menu">Menu</a>
       <a href="#why">Why Us</a>
       <a href="#reviews">Reviews</a>
+      <a href="#hours">Hours</a>
       <a href="#locations">Contact</a>
     </nav>
 
@@ -175,28 +176,46 @@
   <section class="section why" id="why">
     <div class="why-inner">
       <div class="why-copy">
-        <p class="section-eyebrow section-eyebrow-light">The Frosty Haven Difference</p>
         <h2 class="section-title section-title-light">Premium ingredients. <br>Zero compromises.</h2>
         <p class="why-lede">Every batch is churned in-house, in small runs, so flavor never gets diluted for scale. Here's what that means for you.</p>
       </div>
+      <!-- Drawn icons in the same 24x24 / stroke-1.8 vocabulary as the hero
+           feature strip. These were 🍦🌱🎨💛: emoji render in each platform's
+           own art style, so four of them never form one set. -->
       <div class="why-grid">
         <div class="why-card">
-          <div class="why-icon">🍦</div>
+          <span class="why-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 6.4a2 2 0 0 1 4 0"/><path d="M8.8 9.4a3.2 3.2 0 0 1 6.4 0"/><path d="M7.8 12.4h8.4"/><path d="M8.6 12.4 12 20.6l3.4-8.2"/>
+            </svg>
+          </span>
           <h3>Churned Fresh</h3>
           <p>Small-batch flavours made fresh daily.</p>
         </div>
         <div class="why-card">
-          <div class="why-icon">🌱</div>
+          <span class="why-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 4C10 4 4 9 4 16c0 2 1 4 1 4s7-1 11-5c3-3 4-11 4-11Z"/><path d="M5 20 14 11"/>
+            </svg>
+          </span>
           <h3>Real Ingredients</h3>
           <p>Real fruit, real cream, and real cocoa—nothing artificial.</p>
         </div>
         <div class="why-card">
-          <div class="why-icon">🎨</div>
+          <span class="why-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3.4 4.4 7 12 10.6 19.6 7 12 3.4Z"/><path d="M4.4 12 12 15.6 19.6 12"/><path d="M4.4 17 12 20.6 19.6 17"/>
+            </svg>
+          </span>
           <h3>Over-The-Top Creations</h3>
           <p>Loaded cookies, frosty nachos, and unforgettable desserts.</p>
         </div>
         <div class="why-card">
-          <div class="why-icon">💛</div>
+          <span class="why-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20s-7-4.4-7-9a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 4.6-7 9-7 9Z"/>
+            </svg>
+          </span>
           <h3>Made With Love</h3>
           <p>Delicious desserts, made with care.</p>
         </div>
@@ -206,7 +225,6 @@
 
   <!-- ===== GALLERY ===== -->
   <section class="section gallery" id="gallery">
-    <p class="section-eyebrow">Straight From the Shop</p>
     <h2 class="section-title">The <span class="text-pink">Frosty Haven</span> Experience</h2>
 
     <!-- Every dessert below was photographed against the shop's own flower
@@ -284,7 +302,6 @@
   <div class="reviews-band">
   <!-- ===== REVIEWS ===== -->
   <section class="section reviews" id="reviews">
-    <p class="section-eyebrow">What People Are Saying</p>
     <h2 class="section-title">Loved around <span class="text-pink">Palmerston North</span></h2>
     <div class="reviews-grid">
       <div class="review-card">
@@ -313,7 +330,6 @@
     <span class="fr-sparkle" aria-hidden="true">&#10022;</span>
     <span class="fr-sparkle" aria-hidden="true">&#10022;</span>
 
-    <p class="section-eyebrow">Straight From Google</p>
     <h2 class="section-title">Loved by Our Customers 💗</h2>
 
     <div class="fr-carousel" id="frCarousel">
@@ -359,7 +375,6 @@
     <span class="social-sparkle" aria-hidden="true">&#10022;</span>
     <span class="social-sparkle" aria-hidden="true">&#10022;</span>
 
-    <p class="section-eyebrow">Stay Sweet With Us</p>
     <h2 class="section-title">Follow the Sweetness 🍓</h2>
     <p class="social-subtitle">See our latest desserts, new flavours and behind-the-scenes treats on Instagram &amp; TikTok.</p>
 
@@ -392,14 +407,18 @@
 
   <!-- ===== LOCATIONS ===== -->
   <section class="section locations" id="locations">
-    <p class="section-eyebrow">Come Say Hi</p>
     <h2 class="section-title">Find us in <span class="text-pink">Palmerston North</span></h2>
     <div class="locations-layout">
       <div class="location-card location-card-main">
         <h3>Frosty Haven</h3>
         <p class="location-line">📍 202A Featherston Street, Palmerston North Central, Palmerston North 4410</p>
         <p class="location-line">📞 <a href="tel:0211523246">021 152 3246</a></p>
-        <p class="location-line">🕑 Open until 9:30pm most days · Saturdays from 11:30am</p>
+        <!-- Was "Open until 9:30pm most days · Saturdays from 11:30am". Both
+             halves were untrue: three of the six open days close at 7:30pm,
+             and Sunday opens at 11:30 as well as Saturday. Closing times vary
+             by day, so this states only what holds every week and sends people
+             to the table rather than paraphrasing it. -->
+        <p class="location-line">🕑 Open Tuesday to Sunday, closed Mondays · <a href="#hours">See full hours</a></p>
         <p class="location-note">Busiest around 2pm — most visits run about 15 minutes.</p>
         <div class="location-actions">
           <a href="https://www.google.com/maps/search/?api=1&query=202A+Featherston+Street+Palmerston+North+Central+Palmerston+North+4410" target="_blank" rel="noopener" class="btn btn-pink">Get Directions</a>
@@ -494,14 +513,15 @@
     </div>
     <div class="footer-links">
       <div>
-        <h4>Explore</h4>
+        <h3>Explore</h3>
         <a href="/menu">Menu</a>
         <a href="#why">Why Us</a>
         <a href="#gallery">Gallery</a>
-        <a href="#locations">Locations</a>
+        <a href="#hours">Hours</a>
+        <a href="#locations">Find Us</a>
       </div>
       <div>
-        <h4>Follow</h4>
+        <h3>Follow</h3>
         <a href="https://www.instagram.com/frostyhaven.nz" target="_blank" rel="noopener">Instagram</a>
         <a href="https://www.tiktok.com/@frostyhaven.nz" target="_blank" rel="noopener">TikTok</a>
       </div>

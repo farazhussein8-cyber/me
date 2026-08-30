@@ -1066,6 +1066,88 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   display: block;
 }
 
+/* ---- Shop grid ----
+   Seven real photographs from the shop, sized to the page rather than dropped
+   into cards. No new colour or background: the pictures are already saturated
+   pink, and the two dark sections either side of this one mean a third dark
+   field would flatten the whole scroll. Square corners and a hairline gap
+   (the site's own choice for gallery imagery) so it reads as one block. */
+.shopgrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  max-width: 1400px;
+  margin: clamp(36px, 5vw, 60px) auto 0;
+}
+
+.shopgrid-tile {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  /* Matches the source photographs, so cover barely crops. */
+  aspect-ratio: 3 / 4;
+  background: var(--ink);
+  border-radius: 0;
+}
+/* No aspect-ratio of its own: it stretches to the row the portraits set, which
+   lands it at ~3:2 — within a hair of the photo's native 1.48. */
+.shopgrid-tile-wide {
+  grid-column: span 2;
+  aspect-ratio: auto;
+}
+
+.shopgrid-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s cubic-bezier(.16, 1, .3, 1);
+}
+.shopgrid-tile:hover img,
+.shopgrid-tile:focus-visible img { transform: scale(1.04); }
+
+/* Scrim only where the type sits. A full-tile overlay would mute the
+   photographs, which are the whole point of the section. */
+.shopgrid-label {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 44px 18px 16px;
+  background: linear-gradient(to top,
+    rgba(10, 4, 12, 0.82) 0%,
+    rgba(10, 4, 12, 0.62) 38%,
+    rgba(10, 4, 12, 0) 100%);
+  transition: background .35s ease;
+}
+.shopgrid-tile:hover .shopgrid-label,
+.shopgrid-tile:focus-visible .shopgrid-label {
+  background: linear-gradient(to top,
+    rgba(10, 4, 12, 0.9) 0%,
+    rgba(10, 4, 12, 0.72) 44%,
+    rgba(10, 4, 12, 0.08) 100%);
+}
+.shopgrid-name {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.02rem, 1.35vw, 1.35rem);
+  line-height: 1.15;
+  color: #fff;
+  text-wrap: balance;
+}
+.shopgrid-tile-wide .shopgrid-name { font-size: clamp(1.1rem, 1.7vw, 1.6rem); }
+
+@media (max-width: 1000px) {
+  .shopgrid { grid-template-columns: repeat(3, 1fr); }
+  /* Full width at three columns: spanning two would leave a single portrait
+     stranded beside a landscape twice its width. */
+  .shopgrid-tile-wide { grid-column: span 3; aspect-ratio: 3 / 2; }
+}
+
+@media (max-width: 700px) {
+  .shopgrid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .shopgrid-tile-wide { grid-column: span 2; aspect-ratio: 3 / 2; }
+  .shopgrid-label { padding: 34px 12px 12px; }
+}
+
 /* ---- Value promo band ---- */
 .value-promo {
   display: grid;

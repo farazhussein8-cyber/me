@@ -3,11 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Menu — Frosty Haven</title>
+<title>Menu — Frosty Haven, Palmerston North</title>
+<meta name="description" content="The full Frosty Haven menu: loaded cups, Flurrs, lava cake, açaí bowls, frosty nachos, loaded cookies and brownies, thick shakes and drinks. Made to order in-store on Featherston Street.">
+<link rel="canonical" href="https://frosty-haven-website.vercel.app/menu">
+<meta name="theme-color" content="#FFF6E9">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Frosty Haven">
+<meta property="og:locale" content="en_NZ">
+<meta property="og:url" content="https://frosty-haven-website.vercel.app/menu">
+<meta property="og:title" content="The Frosty Haven Menu">
+<meta property="og:description" content="Loaded cups, Flurrs, lava cake, açaí bowls, frosty nachos, thick shakes and more. Made to order in-store in Palmerston North.">
+<meta property="og:image" content="https://frosty-haven-website.vercel.app/images/loaded-cup-hero.webp">
+<meta property="og:image:alt" content="A Frosty Haven loaded cup with soft serve, chocolate drizzle, churro, banana and strawberry">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
+
+<!-- See index.html: `is-loading` is cleared by JS, so without JS the page would
+     never become visible. The category bar filters via JS too; without it every
+     category is already shown, so the tabs would be inert decoration. -->
+<noscript><style>
+  body.is-loading { opacity: 1; }
+  .cart-toggle, .nav-toggle, .menu-cat-bar { display: none !important; }
+</style></noscript>
 </head>
 <body class="is-loading">
 
@@ -27,7 +50,7 @@
     </nav>
 
     <div class="header-actions">
-      <button class="cart-toggle" id="cartToggle" aria-label="View cart" aria-expanded="false">
+      <button class="cart-toggle" id="cartToggle" aria-label="View pickup list" aria-expanded="false" aria-controls="cartPanel">
         <svg class="cart-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
           <path d="M3 6h18"/>
@@ -45,16 +68,23 @@
       </button>
     </div>
 
-    <div class="cart-panel" id="cartPanel" hidden>
-      <h3>Your Order</h3>
+    <!-- Not a checkout. See index.html. -->
+    <div class="cart-panel" id="cartPanel" hidden aria-labelledby="cartPanelTitle">
+      <p class="cart-panel-title" id="cartPanelTitle">Your pickup list</p>
       <ul class="cart-items" id="cartItems"></ul>
-      <p class="cart-empty" id="cartEmpty">Your cart is empty.</p>
-      <div class="cart-total" id="cartTotal" hidden>
-        <span>Total</span>
-        <strong id="cartTotalAmount">$0.00</strong>
+
+      <div class="cart-empty" id="cartEmpty">
+        <p class="cart-empty-line">Nothing on your list yet.</p>
+        <p class="cart-empty-note">Most of the menu is made to order in-store. Anything you can add ahead is marked below.</p>
+        <!-- A plain #cat-shakes anchor would scroll to a section the category
+             filter has hidden, so this activates that tab instead. -->
+        <button type="button" class="btn btn-pink cart-empty-action" data-cat-target="cat-shakes">See what you can add</button>
       </div>
-      <a href="#" target="_blank" rel="noopener" class="btn btn-pink cart-checkout" id="cartCheckout">Send Order on WhatsApp</a>
-      <a href="tel:0211523246" class="cart-call-fallback">or call us instead</a>
+
+      <p class="cart-note" id="cartNote" hidden>We'll confirm your total when you message. Nothing is paid for here.</p>
+      <a href="#" target="_blank" rel="noopener" class="btn btn-pink cart-checkout" id="cartCheckout" hidden>Send list on WhatsApp</a>
+      <a href="tel:0211523246" class="cart-call-fallback">Call 021 152 3246</a>
+      <p class="cart-status" id="cartStatus" role="status" aria-live="polite"></p>
     </div>
   </div>
 </header>
@@ -286,7 +316,7 @@
             </div>
             <div class="menu-product-footer">
               <span class="menu-product-price">$9.00</span>
-              <button type="button" class="btn btn-pink btn-sm add-to-cart-btn" data-item="Thick Milkshake">Add to Cart</button>
+              <button type="button" class="btn btn-pink btn-sm add-to-cart-btn" data-item="Thick Milkshake">Add to list</button>
             </div>
           </div>
         </article>

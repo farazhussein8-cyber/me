@@ -346,18 +346,29 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   position: absolute;
   top: calc(100% + 12px);
   right: 24px;
-  width: 300px;
+  /* Fixed 300px overflowed the left edge below ~330px. */
+  width: min(320px, calc(100vw - 32px));
+  /* A long list would otherwise run off the bottom of a fixed header. */
+  max-height: calc(100dvh - 120px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
   background: var(--cream-alt);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-soft);
   padding: 20px;
   z-index: 200;
 }
-.cart-panel h3 {
-  font-size: 1.1rem;
+/* A <p>, not a heading: the panel sits at the top of the DOM, so an <h3> here
+   made the document outline open on the cart rather than the page title. */
+.cart-panel-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--ink);
   margin-bottom: 12px;
 }
-.cart-items { list-style: none; margin-bottom: 14px; }
+.cart-items { list-style: none; }
+.cart-items:not(:empty) { margin-bottom: 14px; }
 .cart-item {
   display: flex;
   justify-content: space-between;
@@ -367,47 +378,80 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   border-bottom: 1px solid rgba(36,21,53,.08);
   font-size: .9rem;
 }
-.cart-item-info strong { display: block; color: var(--ink); }
+/* min-width lets the flex child shrink; a long product name wraps instead of
+   pushing the remove button out of the panel. */
+.cart-item-info { min-width: 0; }
+.cart-item-info strong {
+  display: block;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
 .cart-item-info span { color: var(--ink-soft); font-size: .82rem; }
 .cart-item-qty {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: 6px;
+  margin-top: 8px;
 }
 .cart-item-qty .qty-btn {
-  width: 22px;
-  height: 22px;
-  font-size: .85rem;
+  width: 30px;
+  height: 30px;
+  font-size: .95rem;
   border: 1px solid var(--pink);
+}
+.cart-item-qty .qty-btn:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}
+.cart-item-qty .qty-btn:disabled:hover {
+  background: transparent;
+  color: var(--pink);
 }
 .cart-item-qty span {
   font-family: var(--font-display);
   font-weight: 700;
   color: var(--ink);
-  font-size: .85rem;
+  font-size: .9rem;
+  min-width: 1ch;
+  text-align: center;
 }
 .cart-item-remove {
+  flex: none;
   background: none;
   border: none;
-  color: var(--pink);
+  color: var(--pink-deep);
   font-weight: 700;
   cursor: pointer;
-  font-size: 1rem;
-  padding: 4px;
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 6px;
+  border-radius: 8px;
 }
-.cart-empty { color: var(--ink-soft); font-size: .9rem; margin-bottom: 14px; }
-.cart-total {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0 16px;
-  font-family: var(--font-display);
+.cart-item-remove:hover { background: rgba(187, 14, 99, .09); }
+
+/* Empty state carries its own way forward rather than dead-ending. */
+.cart-empty[hidden] { display: none; }
+.cart-empty-line {
+  color: var(--ink);
+  font-weight: 600;
   font-size: .95rem;
-  color: var(--ink-soft);
 }
-.cart-total strong { color: var(--pink); font-size: 1.15rem; }
-.cart-total[hidden] { display: none; }
+.cart-empty-note {
+  color: var(--ink-soft);
+  font-size: .84rem;
+  line-height: 1.5;
+  margin: 6px 0 14px;
+}
+.cart-empty-action { display: flex; width: 100%; }
+
+.cart-note {
+  color: var(--ink-soft);
+  font-size: .8rem;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+.cart-note[hidden] { display: none; }
+
 .cart-checkout { display: flex; width: 100%; }
 .cart-checkout[hidden] { display: none; }
 .cart-call-fallback {
@@ -417,8 +461,22 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   font-size: .82rem;
   color: var(--ink-soft);
   text-decoration: underline;
+  text-underline-offset: 2px;
 }
-.cart-call-fallback:hover { color: var(--pink); }
+.cart-call-fallback:hover { color: var(--pink-deep); }
+
+/* Announces list changes to screen readers without showing a duplicate count. */
+.cart-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
 
 .nav-toggle {
   display: none;

@@ -3,11 +3,80 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Frosty Haven — Handcrafted Ice Cream</title>
+<title>Frosty Haven — Loaded Cups, Flurrs &amp; Thick Shakes in Palmerston North</title>
+<meta name="description" content="Small-batch desserts made in-house on Featherston Street, Palmerston North. Loaded cups, Flurrs, frosty nachos, açaí bowls and thick shakes. Halal. Open six days.">
+<link rel="canonical" href="https://frosty-haven-website.vercel.app/">
+<meta name="theme-color" content="#241535">
+
+<!-- Link previews: the shop's argument is visual, so every shared URL carries a photo. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Frosty Haven">
+<meta property="og:locale" content="en_NZ">
+<meta property="og:url" content="https://frosty-haven-website.vercel.app/">
+<meta property="og:title" content="Frosty Haven — Loaded Cups, Flurrs &amp; Thick Shakes">
+<meta property="og:description" content="Small-batch desserts made in-house on Featherston Street, Palmerston North. Halal. Open six days.">
+<meta property="og:image" content="https://frosty-haven-website.vercel.app/images/promo-milkshake-trio.jpg">
+<meta property="og:image:width" content="1672">
+<meta property="og:image:height" content="941">
+<meta property="og:image:alt" content="Three Frosty Haven thick shakes topped with whipped cream and strawberry, chocolate and caramel sauce">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;600&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
+
+<!-- The page fades in from `body.is-loading`, which only JS clears. Without JS
+     that leaves a permanently blank page, so restore it here. The two toggles
+     do nothing without JS either, so they go rather than sit there inert. -->
+<noscript><style>
+  body.is-loading { opacity: 1; }
+  .cart-toggle, .nav-toggle { display: none !important; }
+</style></noscript>
+
+<!-- Hours repeated in machine-readable form so Google can answer "are they open?"
+     in the knowledge panel. Mirrors the table in #hours exactly, including the
+     Friday split and the Monday closure. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "IceCreamShop",
+  "name": "Frosty Haven",
+  "url": "https://frosty-haven-website.vercel.app/",
+  "image": "https://frosty-haven-website.vercel.app/images/promo-milkshake-trio.jpg",
+  "telephone": "+64211523246",
+  "hasMenu": "https://frosty-haven-website.vercel.app/menu",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "202A Featherston Street",
+    "addressLocality": "Palmerston North",
+    "addressRegion": "Manawatū-Whanganui",
+    "postalCode": "4410",
+    "addressCountry": "NZ"
+  },
+  "sameAs": [
+    "https://www.instagram.com/frostyhaven.nz",
+    "https://www.tiktok.com/@frostyhaven.nz"
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "reviewCount": "62",
+    "bestRating": "5"
+  },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday",    "opens": "11:30", "closes": "19:30" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday",   "opens": "11:00", "closes": "19:30" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "11:00", "closes": "19:30" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Thursday",  "opens": "11:00", "closes": "21:30" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Friday",    "opens": "11:00", "closes": "12:30" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Friday",    "opens": "13:30", "closes": "21:30" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday",  "opens": "11:30", "closes": "21:30" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Monday",    "opens": "00:00", "closes": "00:00" }
+  ]
+}
+</script>
 </head>
 <body class="is-loading has-hero">
 
@@ -27,7 +96,7 @@
     </nav>
 
     <div class="header-actions">
-      <button class="cart-toggle" id="cartToggle" aria-label="View cart" aria-expanded="false">
+      <button class="cart-toggle" id="cartToggle" aria-label="View pickup list" aria-expanded="false" aria-controls="cartPanel">
         <svg class="cart-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
           <path d="M3 6h18"/>
@@ -45,16 +114,22 @@
       </button>
     </div>
 
-    <div class="cart-panel" id="cartPanel" hidden>
-      <h3>Your Order</h3>
+    <!-- Not a checkout. Nothing is priced or paid for here — the shop confirms
+         the total when the message arrives, so the panel never shows a figure. -->
+    <div class="cart-panel" id="cartPanel" hidden aria-labelledby="cartPanelTitle">
+      <p class="cart-panel-title" id="cartPanelTitle">Your pickup list</p>
       <ul class="cart-items" id="cartItems"></ul>
-      <p class="cart-empty" id="cartEmpty">Your cart is empty.</p>
-      <div class="cart-total" id="cartTotal" hidden>
-        <span>Total</span>
-        <strong id="cartTotalAmount">$0.00</strong>
+
+      <div class="cart-empty" id="cartEmpty">
+        <p class="cart-empty-line">Nothing on your list yet.</p>
+        <p class="cart-empty-note">Most of the menu is made to order in-store. Anything you can add ahead is marked on the menu.</p>
+        <a href="/menu" class="btn btn-pink cart-empty-action">Browse the menu</a>
       </div>
-      <a href="#" target="_blank" rel="noopener" class="btn btn-pink cart-checkout" id="cartCheckout">Send Order on WhatsApp</a>
-      <a href="tel:0211523246" class="cart-call-fallback">or call us instead</a>
+
+      <p class="cart-note" id="cartNote" hidden>We'll confirm your total when you message. Nothing is paid for here.</p>
+      <a href="#" target="_blank" rel="noopener" class="btn btn-pink cart-checkout" id="cartCheckout" hidden>Send list on WhatsApp</a>
+      <a href="tel:0211523246" class="cart-call-fallback">Call 021 152 3246</a>
+      <p class="cart-status" id="cartStatus" role="status" aria-live="polite"></p>
     </div>
   </div>
 </header>

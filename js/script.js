@@ -160,101 +160,186 @@ document.querySelectorAll('.size-options').forEach((group) => {
   });
 });
 
+/* ==========================================================================
+   Pickup list
+
+   Deliberately not a checkout. 17 of the 18 products are marked "In-store only"
+   or "Ask in-store" on the menu, so no price exists to total — the old cart
+   summed the missing ones to "$0.00" and presented that as an order value.
+   This builds a list of names and quantities, hands it to WhatsApp, and lets
+   the shop quote it. No figure is ever shown.
+   ========================================================================== */
 const cartToggle = document.getElementById('cartToggle');
 const cartPanel = document.getElementById('cartPanel');
 const cartBadge = document.getElementById('cartBadge');
 const cartItemsEl = document.getElementById('cartItems');
 const cartEmptyEl = document.getElementById('cartEmpty');
+const cartNoteEl = document.getElementById('cartNote');
 const cartCheckoutBtn = document.getElementById('cartCheckout');
-const cartTotalEl = document.getElementById('cartTotal');
-const cartTotalAmountEl = document.getElementById('cartTotalAmount');
+const cartStatusEl = document.getElementById('cartStatus');
 
-let cart = JSON.parse(localStorage.getItem('frostyHavenCart') || '[]');
+const CART_KEY = 'frostyHavenCart';
+const WHATSAPP_NUMBER = '64211523246';
+const MAX_QTY = 20;
 
-function saveCart() {
-  localStorage.setItem('frostyHavenCart', JSON.stringify(cart));
+/* Safari's private mode throws on both read and write, and the stored value is
+   user-editable. Either would take down every listener below it in this file —
+   the size buttons, the nav toggle, the page fade — so neither is trusted. */
+function readCart() {
+  let raw;
+  try {
+    raw = localStorage.getItem(CART_KEY);
+  } catch {
+    return [];
+  }
+  if (!raw) return [];
+
+  let parsed;
+  try {
+    parsed = JSON.parse(raw);
+  } catch {
+    return [];
+  }
+  if (!Array.isArray(parsed)) return [];
+
+  // Entries saved before this rewrite carry a `price`; it is dropped on read.
+  return parsed
+    .filter((item) => item && typeof item.name === 'string' && item.name)
+    .map((item) => ({
+      name: item.name.slice(0, 80),
+      size: typeof item.size === 'string' ? item.size.slice(0, 40) : '',
+      qty: Math.min(MAX_QTY, Math.max(1, Math.floor(Number(item.qty)) || 1)),
+    }));
 }
 
-function renderCart() {
-  cartItemsEl.innerHTML = '';
-  const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
-
-  if (cart.length === 0) {
-    cartBadge.hidden = true;
-    cartEmptyEl.hidden = false;
-    cartCheckoutBtn.hidden = true;
-    cartTotalEl.hidden = true;
-  } else {
-    cartBadge.hidden = false;
-    cartBadge.textContent = String(totalCount);
-    cartEmptyEl.hidden = true;
-    cartCheckoutBtn.hidden = false;
-    cartTotalEl.hidden = false;
-
-    let total = 0;
-    cart.forEach((item, index) => {
-      const price = item.price || 0;
-      const qty = item.qty || 1;
-      total += price * qty;
-      const li = document.createElement('li');
-      li.className = 'cart-item';
-      li.innerHTML = `
-        <div class="cart-item-info">
-          <strong>${item.name}</strong>
-          <span>${item.size} · $${price.toFixed(2)} each</span>
-          <div class="cart-item-qty">
-            <button type="button" class="qty-btn cart-qty-minus" aria-label="Decrease quantity">&minus;</button>
-            <span>${qty}</span>
-            <button type="button" class="qty-btn cart-qty-plus" aria-label="Increase quantity">+</button>
-          </div>
-        </div>
-        <button type="button" class="cart-item-remove" aria-label="Remove ${item.name}">&times;</button>
-      `;
-      li.querySelector('.cart-qty-minus').addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (item.qty <= 1) {
-          cart.splice(index, 1);
-        } else {
-          item.qty -= 1;
-        }
-        saveCart();
-        renderCart();
-      });
-      li.querySelector('.cart-qty-plus').addEventListener('click', (e) => {
-        e.stopPropagation();
-        item.qty += 1;
-        saveCart();
-        renderCart();
-      });
-      li.querySelector('.cart-item-remove').addEventListener('click', (e) => {
-        e.stopPropagation();
-        cart.splice(index, 1);
-        saveCart();
-        renderCart();
-      });
-      cartItemsEl.appendChild(li);
-    });
-    cartTotalAmountEl.textContent = `$${total.toFixed(2)}`;
-    updateWhatsAppLink(total);
+function saveCart() {
+  try {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  } catch {
+    // Quota or private mode. The list still works for this visit.
   }
 }
 
-const WHATSAPP_NUMBER = '64211523246';
+let cart = readCart();
 
-function updateWhatsAppLink(total) {
-  const lines = cart.map((item) => {
-    const qty = item.qty || 1;
-    const lineTotal = (item.price || 0) * qty;
-    return `- ${item.name} (${item.size}) x${qty} — $${lineTotal.toFixed(2)}`;
+function itemLabel(item) {
+  return item.size ? `${item.name} (${item.size})` : item.name;
+}
+
+function renderCart() {
+  cartItemsEl.replaceChildren();
+  const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+  const isEmpty = cart.length === 0;
+
+  cartBadge.hidden = isEmpty;
+  cartEmptyEl.hidden = !isEmpty;
+  cartNoteEl.hidden = isEmpty;
+  cartCheckoutBtn.hidden = isEmpty;
+
+  if (isEmpty) {
+    cartStatusEl.textContent = 'Your pickup list is empty.';
+    return;
+  }
+
+  cartBadge.textContent = String(totalCount);
+  cartStatusEl.textContent =
+    totalCount === 1 ? '1 item on your pickup list.' : `${totalCount} items on your pickup list.`;
+
+  cart.forEach((item, index) => {
+    const li = document.createElement('li');
+    li.className = 'cart-item';
+
+    const info = document.createElement('div');
+    info.className = 'cart-item-info';
+
+    // textContent throughout: the names come back from localStorage, which the
+    // visitor can edit, so nothing here is ever parsed as markup.
+    const name = document.createElement('strong');
+    name.textContent = item.name;
+    info.appendChild(name);
+
+    if (item.size) {
+      const size = document.createElement('span');
+      size.textContent = item.size;
+      info.appendChild(size);
+    }
+
+    const qtyWrap = document.createElement('div');
+    qtyWrap.className = 'cart-item-qty';
+
+    const minus = document.createElement('button');
+    minus.type = 'button';
+    minus.className = 'qty-btn';
+    minus.textContent = '−';
+    minus.setAttribute('aria-label', `Remove one ${itemLabel(item)}`);
+    minus.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (item.qty <= 1) cart.splice(index, 1);
+      else item.qty -= 1;
+      saveCart();
+      renderCart();
+    });
+
+    const count = document.createElement('span');
+    count.textContent = String(item.qty);
+
+    const plus = document.createElement('button');
+    plus.type = 'button';
+    plus.className = 'qty-btn';
+    plus.textContent = '+';
+    plus.setAttribute('aria-label', `Add another ${itemLabel(item)}`);
+    plus.disabled = item.qty >= MAX_QTY;
+    plus.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (item.qty >= MAX_QTY) return;
+      item.qty += 1;
+      saveCart();
+      renderCart();
+    });
+
+    qtyWrap.append(minus, count, plus);
+    info.appendChild(qtyWrap);
+
+    const remove = document.createElement('button');
+    remove.type = 'button';
+    remove.className = 'cart-item-remove';
+    remove.textContent = '×';
+    remove.setAttribute('aria-label', `Remove ${itemLabel(item)} from your list`);
+    remove.addEventListener('click', (e) => {
+      e.stopPropagation();
+      cart.splice(index, 1);
+      saveCart();
+      renderCart();
+    });
+
+    li.append(info, remove);
+    cartItemsEl.appendChild(li);
   });
+
+  updateWhatsAppLink();
+}
+
+function updateWhatsAppLink() {
   const message = [
-    'Hi Frosty Haven! I\'d like to order:',
+    "Hi Frosty Haven! I'd like to order for pickup:",
     '',
-    ...lines,
+    ...cart.map((item) => `- ${itemLabel(item)} x${item.qty}`),
     '',
-    `Total: $${total.toFixed(2)}`,
+    'Could you confirm the total? Thanks!',
   ].join('\n');
   cartCheckoutBtn.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+}
+
+function openCart() {
+  cartPanel.hidden = false;
+  cartToggle.setAttribute('aria-expanded', 'true');
+}
+
+function closeCart({ returnFocus = false } = {}) {
+  if (cartPanel.hidden) return;
+  cartPanel.hidden = true;
+  cartToggle.setAttribute('aria-expanded', 'false');
+  if (returnFocus) cartToggle.focus();
 }
 
 document.querySelectorAll('.add-to-cart-btn').forEach((btn) => {
@@ -262,35 +347,55 @@ document.querySelectorAll('.add-to-cart-btn').forEach((btn) => {
     e.stopPropagation();
     const container = btn.closest('.menu-product-body');
     const name = btn.dataset.item;
-    const activeSize = container.querySelector('.size-btn-active');
-    const size = activeSize ? activeSize.dataset.size : 'Medium';
-    const price = activeSize ? Number(activeSize.dataset.price) : 0;
-    const qty = 1;
+    const activeSize = container ? container.querySelector('.size-btn-active') : null;
+    const size = activeSize ? activeSize.dataset.size : '';
 
     const existing = cart.find((item) => item.name === name && item.size === size);
     if (existing) {
-      existing.qty += qty;
+      // Rapid repeat taps stop at the cap rather than climbing forever.
+      existing.qty = Math.min(MAX_QTY, existing.qty + 1);
     } else {
-      cart.push({ name, size, price, qty });
+      cart.push({ name, size, qty: 1 });
     }
 
     saveCart();
     renderCart();
-    cartPanel.hidden = false;
-    cartToggle.setAttribute('aria-expanded', 'true');
+    openCart();
+  });
+});
+
+// The menu's category filter hides every section but the active one, so the
+// empty state activates the tab rather than scrolling to something hidden.
+document.querySelectorAll('[data-cat-target]').forEach((btn) => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const tab = document.querySelector(`.menu-cat-tab[data-target="${btn.dataset.catTarget}"]`);
+    closeCart();
+    if (!tab) return;
+    tab.click();
+    tab.scrollIntoView({ block: 'nearest' });
   });
 });
 
 cartToggle.addEventListener('click', () => {
-  const expanded = cartToggle.getAttribute('aria-expanded') === 'true';
-  cartPanel.hidden = expanded;
-  cartToggle.setAttribute('aria-expanded', String(!expanded));
+  if (cartToggle.getAttribute('aria-expanded') === 'true') closeCart();
+  else openCart();
 });
 
 document.addEventListener('click', (e) => {
-  if (!cartPanel.hidden && !cartPanel.contains(e.target) && !cartToggle.contains(e.target)) {
-    cartPanel.hidden = true;
-    cartToggle.setAttribute('aria-expanded', 'false');
+  if (!cartPanel.contains(e.target) && !cartToggle.contains(e.target)) closeCart();
+});
+
+// Escape closes whichever is open and hands focus back to the control that
+// opened it, so a mis-tap is never a dead end.
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'Escape') return;
+  if (!cartPanel.hidden) {
+    closeCart({ returnFocus: true });
+  } else if (mainNav.classList.contains('nav-open')) {
+    mainNav.classList.remove('nav-open');
+    navToggle.setAttribute('aria-expanded', 'false');
+    navToggle.focus();
   }
 });
 

@@ -21,7 +21,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 
 <!-- See index.html: `is-loading` is cleared by JS, so without JS the page would
@@ -46,6 +46,7 @@
       <a href="/menu" class="is-active" aria-current="page">Menu</a>
       <a href="/#why">Why Us</a>
       <a href="/#reviews">Reviews</a>
+      <a href="/#hours">Hours</a>
       <a href="/#locations">Contact</a>
     </nav>
 
@@ -93,8 +94,11 @@
 
   <!-- ===== MENU ===== -->
   <section class="section flavors menu-page" id="menu">
-    <p class="section-eyebrow">On The Menu · Everything Halal</p>
     <h2 class="section-title">Treats worth <span class="text-pink">melting</span> for</h2>
+    <!-- The halal fact was carried by a kicker above the heading; it is the
+         only place it appears on the site, so it moves into a lede rather
+         than disappearing with the kicker. -->
+    <p class="section-lede">Everything on the menu is halal, and made to order in-store.</p>
 
     <div class="menu-cat-bar" id="menuCatBar">
       <button type="button" class="menu-cat-arrow menu-cat-arrow-left" id="menuCatArrowLeft" aria-label="Scroll categories left" tabindex="-1">

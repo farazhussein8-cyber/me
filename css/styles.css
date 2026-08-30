@@ -24,6 +24,23 @@
   --font-display: 'Fredoka', sans-serif;
   --font-body: 'Plus Jakarta Sans', sans-serif;
 
+  /* Text roles. The file held 39 distinct font-sizes, 16 of them inside a
+     6.7px band with a median step of 0.42px — below the threshold where a
+     size difference reads as a different job. These are the steps that
+     actually separate, named for what they do rather than how big they are. */
+  --text-micro: 0.6875rem;  /* 11px — the functional floor, nothing below */
+  --text-meta:  0.8125rem;  /* 13px — bylines, captions, fine print */
+  --text-small: 0.9375rem;  /* 15px — secondary body */
+  --text-body:  1rem;       /* 16px */
+  --text-lead:  1.125rem;   /* 18px — card titles, lead paragraphs */
+  --text-sub:   1.375rem;   /* 22px — sub-headings, product names */
+
+  /* Plus Jakarta Sans wants 1.7 for prose; its `normal` is only 1.25. Every
+     cream body role already sets 1.7 and every dark-ground one inherited
+     normal — 26% less leading exactly where light-on-dark needs more. */
+  --leading-prose: 1.7;
+  --leading-dark: 1.65;
+
   /* Section rhythm. The page previously ran one value (110px, 80px on phones)
      on six of eight sections, so spacing could not signal that two sections
      are one argument or that another is an aside. Three steps, used by
@@ -85,22 +102,22 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   scroll-margin-top: 92px;
 }
 
-.section-eyebrow {
-  font-family: var(--font-display);
-  font-weight: 600;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  font-size: .8rem;
-  color: var(--pink);
-  text-align: center;
-  margin-bottom: 14px;
-}
-.section-eyebrow-light { color: var(--yellow); }
-
 .section-title {
   font-size: clamp(2rem, 4.2vw, 3rem);
   text-align: center;
   margin-bottom: 56px;
+}
+/* A heading followed by a lede: the sentence the kicker above it used to
+   pretend to be. Sits close to its heading, so the 56px below the title is
+   collapsed when a lede follows. */
+.section-title:has(+ .section-lede) { margin-bottom: 14px; }
+.section-lede {
+  max-width: 56ch;
+  margin: 0 auto 48px;
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: var(--text-lead);
+  line-height: var(--leading-prose);
 }
 .section-title-light { color: #fff; text-align: left; margin-bottom: 20px; }
 
@@ -348,7 +365,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   color: #fff;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: .68rem;
+  font-size: var(--text-micro);
   min-width: 18px;
   height: 18px;
   border-radius: 999px;
@@ -723,10 +740,12 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   }
   .hero-feature,
   .hero-feature:first-child {
-    padding: 12px 16px;
-    gap: 10px;
-    font-size: 0.66rem;
-    letter-spacing: 0.06em;
+    padding: 12px 14px;
+    gap: 9px;
+    /* Was 0.66rem = 10.56px. White uppercase over a photograph, read outdoors
+       at a glance, has no business below the 11px floor. */
+    font-size: var(--text-micro);
+    letter-spacing: 0.05em;
     border-top: 1px solid rgba(255, 255, 255, 0.12);
     border-left: 0;
   }
@@ -882,7 +901,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   bottom: 10px;
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: .68rem;
+  font-size: var(--text-micro);
   letter-spacing: .03em;
   color: var(--ink-soft);
   background: rgba(255,255,255,.85);
@@ -898,7 +917,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: .04em;
-  font-size: .68rem;
+  font-size: var(--text-micro);
   color: var(--pink-deep);
   background: rgba(255,255,255,.9);
   padding: 5px 10px;
@@ -911,7 +930,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   flex: 1;
   padding: 18px;
 }
-.menu-product-name { font-size: 1.1rem; margin-bottom: 8px; }
+.menu-product-name { font-size: var(--text-sub); line-height: 1.2; margin-bottom: 8px; }
 .menu-product-desc {
   color: var(--ink-soft);
   font-size: .88rem;
@@ -996,7 +1015,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .menu-product-note {
   font-size: .82rem;
   color: var(--ink-soft);
-  font-style: italic;
 }
 
 .qty-btn {
@@ -1036,7 +1054,14 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   padding: 110px 24px;
 }
 .why-inner { max-width: 1200px; margin: 0 auto; }
-.why-lede { color: rgba(255,255,255,.85); font-size: 1.05rem; max-width: 420px; }
+/* Measure in ch, not px: at a fixed 420px this held the same 34ch line from
+   390 to 1280, which is what happens when measure was never a variable. */
+.why-lede {
+  color: rgba(255,255,255,.85);
+  font-size: var(--text-lead);
+  line-height: var(--leading-dark);
+  max-width: 48ch;
+}
 
 .why-inner {
   display: grid;
@@ -1070,7 +1095,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   color: var(--pink);
 }
 .why-icon svg { width: 100%; height: 100%; }
-.why-card h3 { color: #fff; font-size: 1.05rem; margin-bottom: 8px; }
+.why-card h3 { color: #fff; font-size: var(--text-lead); letter-spacing: -0.005em; margin-bottom: 10px; }
 .why-card p { color: rgba(255,255,255,.8); font-size: .9rem; line-height: 1.5; }
 
 /* ==========================================================================
@@ -1451,7 +1476,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   position: relative;
   z-index: 1;
 }
-.review-card-quote p:first-child { font-size: 1.05rem; font-style: italic; line-height: 1.5; margin-bottom: 14px; }
+.review-card-quote p:first-child { font-size: 1.05rem; line-height: 1.5; margin-bottom: 14px; }
 .review-card-quote .review-source { color: #3B2927; margin-top: 0; }
 
 /* ==========================================================================
@@ -1478,7 +1503,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 }
 .cta p {
   color: rgba(255,255,255,.9);
-  font-size: 1.1rem;
+  font-size: var(--text-lead);
+  line-height: var(--leading-dark);
   margin-bottom: 36px;
 }
 .cta-actions { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; }
@@ -1504,7 +1530,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .location-card h3 { color: var(--pink-deep); margin-bottom: 18px; font-size: 1.6rem; }
 .location-line { color: var(--ink-soft); line-height: 1.7; font-size: .98rem; margin-bottom: 8px; }
 .location-line a { color: var(--pink-deep); font-weight: 600; }
-.location-note { color: var(--ink-soft); font-size: .88rem; font-style: italic; opacity: .8; margin: 14px 0 24px; }
+.location-note { color: var(--ink-soft); font-size: .88rem; opacity: .8; margin: 14px 0 24px; }
 .location-actions { display: flex; gap: 14px; flex-wrap: wrap; }
 .location-map {
   min-height: 320px;
@@ -1555,7 +1581,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .footer-links a {
   display: block;
   color: rgba(255,255,255,.7);
-  font-size: .92rem;
+  font-size: var(--text-small);
+  line-height: var(--leading-dark);
   margin-bottom: 10px;
   transition: color .2s ease;
 }
@@ -1563,8 +1590,10 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 
 .footer-copy {
   text-align: center;
-  color: rgba(255,255,255,.4);
-  font-size: .82rem;
+  /* .4 measured 3.66:1 on black, under the 4.5:1 floor PRODUCT.md names. */
+  color: rgba(255,255,255,.62);
+  font-size: var(--text-meta);
+  line-height: var(--leading-dark);
   padding: 24px 24px 30px;
   border-top: 1px solid rgba(255,255,255,.08);
   margin: 0 24px;
@@ -1651,7 +1680,12 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   .header-inner { padding: 6px 10px 10px; gap: 8px; }
   .header-actions { gap: 6px; }
   .brand-logo { height: 58px; }
-  .header-actions .btn-pill { padding: 0 10px; font-size: 9.5px; gap: 5px; }
+  /* Font size stays at the 10px this button was explicitly specified at — the
+     width comes back from padding, gap and the arrow instead. A previous pass
+     took the label to 9.5px, which both undercut that spec and fell further
+     below the legibility floor. */
+  .header-actions .btn-pill { padding: 0 9px; gap: 4px; }
+  .btn-pill-arrow { width: 10px; height: 10px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1758,7 +1792,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .fr-text::after { content: "\201D"; }
 
 .fr-meta { display: flex; flex-direction: column; gap: 4px; }
-.fr-name { font-family: var(--font-display); font-weight: 600; color: var(--pink-deep); font-size: .98rem; }
+.fr-name { font-family: var(--font-display); font-weight: 600; color: var(--pink-deep); font-size: var(--text-meta); letter-spacing: .02em; text-transform: uppercase; }
 .fr-sub { display: flex; align-items: center; gap: 6px; color: #3B2927; font-size: .8rem; }
 
 .fr-g-badge {

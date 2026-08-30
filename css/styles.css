@@ -8,9 +8,32 @@
   --turquoise-deep: #17B6B8;
   --mint: #8CF08A;
   --yellow: #FFE94D;
-  --ink: #241535;
-  --ink-soft: #4A3A5C;
-  --cream: #FFF6E9;
+
+  /* ---- Background system ----
+     Three grounds, used by meaning rather than by section: cream for the
+     sections that carry reading and product, plum for the two that are the
+     brand talking about itself, and near-black where the page closes. The
+     dark family is one hue at three depths, so a dark run reads as one field
+     deepening rather than as three different colours. Pink stays an accent —
+     it appears in hairlines, tints and marks, never as a section ground. */
+  --plum-950: #150713;  /* near-black: CTA, footer */
+  --plum-900: #1D0A16;  /* main dark ground */
+  --plum-800: #290D20;  /* secondary plum, the lighter end of a dark ramp */
+  --blush: #EAB3C0;     /* accent: hairlines, tints, marks on dark */
+  --pink-accent: #E9668D;
+
+  --cream: #F8EFE6;
+  /* Raised surfaces on cream. --cream is the page ground, so a card painted
+     with it has no edge; this is a half-step lighter, which is all a card
+     needs to separate without a border doing the work. */
+  --surface: #FFFBF6;
+
+  --ink: #24151D;       /* text on light grounds */
+  --ink-soft: #5C4650;
+  --on-dark: #FFF7F2;   /* text on plum */
+  --on-dark-soft: rgba(255, 247, 242, 0.82);
+  --hairline-dark: rgba(36, 21, 29, 0.08);   /* rules on cream */
+  --hairline-light: rgba(255, 247, 242, 0.10); /* rules on plum */
 
   --gradient-logo: linear-gradient(135deg, var(--turquoise) 0%, var(--mint) 52%, var(--yellow) 100%);
   --gradient-pink: linear-gradient(135deg, var(--pink) 0%, var(--pink-deep) 100%);
@@ -53,7 +76,7 @@
   --radius-md: 18px;
   --radius-pill: 999px;
 
-  --shadow-soft: 0 20px 40px -20px rgba(36, 21, 53, 0.25);
+  --shadow-soft: 0 20px 40px -20px rgba(29, 10, 22, 0.22);
   --shadow-pink: 0 14px 30px -10px rgba(243, 35, 121, 0.55);
 }
 
@@ -118,7 +141,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   font-size: var(--text-lead);
   line-height: var(--leading-prose);
 }
-.section-title-light { color: #fff; text-align: left; margin-bottom: 20px; }
+.section-title-light { color: var(--on-dark); text-align: left; margin-bottom: 20px; }
 
 .text-pink { color: var(--pink); }
 
@@ -217,9 +240,9 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(255, 246, 233, 0.85);
+  background: rgba(248, 239, 230, 0.86);
   backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(36, 21, 53, 0.06);
+  border-bottom: 1px solid var(--hairline-dark);
 }
 
 /* Home page only: the header lifts out of flow and sits over the hero, so the
@@ -254,9 +277,9 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   background: #fff;
 }
 .has-hero .site-header.is-solid {
-  background: rgba(255, 246, 233, 0.85);
+  background: rgba(248, 239, 230, 0.86);
   backdrop-filter: blur(14px);
-  border-bottom-color: rgba(36, 21, 53, 0.06);
+  border-bottom-color: var(--hairline-dark);
 }
 
 .header-inner {
@@ -385,7 +408,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   align-items: flex-start;
   gap: 10px;
   padding: 10px 0;
-  border-bottom: 1px solid rgba(36,21,53,.08);
+  border-bottom: 1px solid var(--hairline-dark);
   font-size: .9rem;
 }
 /* min-width lets the flex child shrink; a long product name wraps instead of
@@ -568,10 +591,19 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
      text measures 8.95:1 over it with no scrim at all — so this is 0.3 purely
      as headroom for the brighter cocoa splashes, not because the text needs
      it. Earlier photos needed 0.55 and 0.62 here. */
+  /* Plum-tinted rather than neutral black, so the scrim belongs to the same
+     dark family as .why below it instead of reading as a grey wash. Same
+     strengths as before — this is a hue change, not a heavier scrim. */
   background: linear-gradient(100deg,
-    rgba(0, 0, 0, 0.3) 0%,
-    rgba(0, 0, 0, 0.3) 45%,
-    rgba(0, 0, 0, 0) 72%);
+    rgba(21, 7, 19, 0.32) 0%,
+    rgba(21, 7, 19, 0.32) 45%,
+    rgba(21, 7, 19, 0) 72%);
+}
+/* The hero hands over to the plum of .why. A short plum settle along its foot
+   means the photo resolves into that ground rather than meeting it on a hard
+   edge — 110px, behind the feature strip, so it never touches the copy. */
+.hero-swirl::after {
+  box-shadow: inset 0 -110px 80px -80px var(--plum-900);
 }
 
 .hero-swirl-copy {
@@ -656,7 +688,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
     justify-content: flex-end;
     align-items: stretch;
     min-height: 0;
-    background: var(--ink);
+    background: var(--plum-900);
     /* No bottom padding here — it would sit outside .hero-swirl-copy, leaving a
        band at the hero's foot where the copy's scrim has ended and the blurred
        backdrop still shows as a warm strip. The same 32px lives on the copy's
@@ -704,11 +736,11 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
        this could come back from 0.85 to 0.62 and still measure 6.2:1 — the
        photo now reads through behind the text instead of being blacked out. */
     background: linear-gradient(to top,
-      rgba(0, 0, 0, 0.65) 0%,
-      rgba(0, 0, 0, 0.62) 25%,
-      rgba(0, 0, 0, 0.36) 45%,
-      rgba(0, 0, 0, 0.12) 70%,
-      rgba(0, 0, 0, 0) 100%);
+      rgba(21, 7, 19, 0.68) 0%,
+      rgba(21, 7, 19, 0.64) 25%,
+      rgba(21, 7, 19, 0.38) 45%,
+      rgba(21, 7, 19, 0.13) 70%,
+      rgba(21, 7, 19, 0) 100%);
   }
   /* Was clamp(1.7rem, 5.6vw, 2.05rem) = 27.2px at 390, smaller than all seven
      section h2s at 32px. Capped so "made just for you" still holds one line. */
@@ -726,7 +758,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
     width: calc(100% + 40px);
     margin: 0 -20px;
     padding: 0;
-    background: rgba(0, 0, 0, 0.72);
+    background: rgba(21, 7, 19, 0.74);
   }
   .hero-feature,
   .hero-feature:first-child {
@@ -757,7 +789,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   background: var(--cream);
   padding: 10px 0;
   margin: 0 -24px 48px;
-  border-bottom: 1px solid rgba(36, 21, 53, 0.08);
+  border-bottom: 1px solid var(--hairline-dark);
 }
 
 .menu-categories {
@@ -809,7 +841,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   height: 34px;
   border-radius: 50%;
   border: none;
-  background: #fff;
+  background: var(--surface);
   color: var(--ink-soft);
   box-shadow: var(--shadow-soft);
   cursor: pointer;
@@ -845,7 +877,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .menu-product-card {
   display: flex;
   flex-direction: column;
-  background: var(--cream);
+  background: var(--surface);
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-soft);
@@ -1037,9 +1069,11 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
    Why Us
    ========================================================================== */
 .why {
-  /* Black rather than --ink. Scoped here so the footer, which also uses --ink,
-     keeps its plum. */
-  background: #000;
+  /* Plum rather than flat black. It carries the brand's own claim, so it gets
+     the main dark ground; the near-black is saved for the page's close. The
+     ramp is one hue two steps apart and runs over the whole section, so it
+     reads as depth rather than as a gradient. */
+  background: linear-gradient(180deg, var(--plum-900) 0%, var(--plum-800) 100%);
   max-width: none;
   /* Was a hardcoded 110px 24px, which the spacing-token pass missed — leaving
      this the one section that kept desktop padding on a phone, the exact bug
@@ -1050,7 +1084,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 /* Measure in ch, not px: at a fixed 420px this held the same 34ch line from
    390 to 1280, which is what happens when measure was never a variable. */
 .why-lede {
-  color: rgba(255,255,255,.85);
+  color: var(--on-dark-soft);
   font-size: var(--text-lead);
   line-height: var(--leading-dark);
   max-width: 48ch;
@@ -1070,14 +1104,14 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 }
 
 .why-card {
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.1);
+  background: rgba(255, 247, 242, 0.05);
+  border: 1px solid var(--hairline-light);
   border-radius: var(--radius-md);
   padding: 26px 24px;
   transition: background .3s ease, transform .3s ease;
 }
 .why-card:hover {
-  background: rgba(255,255,255,.12);
+  background: rgba(255, 247, 242, 0.10);
   transform: translateY(-4px);
 }
 .why-icon {
@@ -1088,8 +1122,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   color: var(--pink);
 }
 .why-icon svg { width: 100%; height: 100%; }
-.why-card h3 { color: #fff; font-size: var(--text-lead); letter-spacing: -0.005em; margin-bottom: 10px; }
-.why-card p { color: rgba(255,255,255,.8); font-size: .9rem; line-height: 1.5; }
+.why-card h3 { color: var(--on-dark); font-size: var(--text-lead); letter-spacing: -0.005em; margin-bottom: 10px; }
+.why-card p { color: var(--on-dark-soft); font-size: .9rem; line-height: 1.5; }
 
 /* ==========================================================================
    Gallery
@@ -1114,7 +1148,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   overflow: hidden;
   /* Matches the source photographs, so cover barely crops. */
   aspect-ratio: 3 / 4;
-  background: var(--ink);
+  background: var(--plum-900);
   border-radius: 0;
 }
 /* No aspect-ratio of its own: it stretches to the row the portraits set, which
@@ -1140,17 +1174,17 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   inset: auto 0 0 0;
   padding: 44px 18px 16px;
   background: linear-gradient(to top,
-    rgba(10, 4, 12, 0.82) 0%,
-    rgba(10, 4, 12, 0.62) 38%,
-    rgba(10, 4, 12, 0) 100%);
+    rgba(21, 7, 19, 0.82) 0%,
+    rgba(21, 7, 19, 0.62) 38%,
+    rgba(21, 7, 19, 0) 100%);
   transition: background .35s ease;
 }
 .shopgrid-tile:hover .shopgrid-label,
 .shopgrid-tile:focus-visible .shopgrid-label {
   background: linear-gradient(to top,
-    rgba(10, 4, 12, 0.9) 0%,
-    rgba(10, 4, 12, 0.72) 44%,
-    rgba(10, 4, 12, 0.08) 100%);
+    rgba(21, 7, 19, 0.9) 0%,
+    rgba(21, 7, 19, 0.72) 44%,
+    rgba(21, 7, 19, 0.08) 100%);
 }
 .shopgrid-name {
   display: block;
@@ -1194,7 +1228,27 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 }
 /* Two selectors deep so it still wins over the `.section` padding reset
    inside the max-width: 640px block further down the file. */
-.section.gallery { padding-bottom: 0; }
+.section.gallery {
+  padding-bottom: 0;
+  position: relative;
+}
+/* Cream sections that follow a dark one open on a blush-warmed cream and
+   settle to the page ground within 160px. It is a half-step of warmth, not a
+   visible gradient — enough that the eye leaves the plum through a fade rather
+   than over a cut. On the pseudo-element rather than the section itself
+   because .section is capped at 1200px: painted on the box, the fade would
+   stop at the column edges and show as two vertical seams on a wide screen. */
+.section.gallery::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: calc(50% - 50vw);
+  width: 100vw;
+  height: 160px;
+  background: linear-gradient(180deg, #F1E4DC 0%, var(--cream) 100%);
+  z-index: -1;
+  pointer-events: none;
+}
 .value-promo-copy {
   /* Warm cream rather than transparent: it's the closest palette token to the
      churro photo's beige, so the two halves still read as one band. The text
@@ -1246,22 +1300,13 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
    sampled from that photo, so the contained photo's edges sit on a matching
    field instead of a letterbox. */
 .value-promo-love {
-  /* The vertical layer is the photo's own right-edge column, sampled at five
-     heights, so at the 50% panel boundary the band matches the photo exactly
-     and the joint disappears. The horizontal layer above it then darkens
-     toward the right, which is what the original banner does behind its
-     headline. */
-  background:
-    linear-gradient(to right,
-      rgba(10, 0, 5, 0) 50%,
-      rgba(10, 0, 5, 0.45) 82%,
-      rgba(10, 0, 5, 0.62) 100%),
-    linear-gradient(to bottom,
-      #1E010C 3%,
-      #3A0518 30%,
-      #370316 50%,
-      #2B0312 70%,
-      #2A020F 97%);
+  /* This was a crimson gradient sampled from a plum studio photo that has
+     since been replaced: the panel now holds a warm wooden-table shot, whose
+     edges measure cream and oak, so the crimson matched nothing and read as a
+     third dark band in a row. Cream with a blush settle at the foot instead —
+     the photo's own warmth, and it keeps the pair of promo bands light so the
+     dark run doesn't start until the reviews. */
+  background: linear-gradient(180deg, var(--cream) 0%, #F4E6DE 100%);
 }
 /* This panel has no backdrop of its own — it falls back to the base rule's
    --cream, matching the thick shakes band. The body text goes back to the
@@ -1336,7 +1381,13 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
    purple-pink CTA band below. The sections themselves stay transparent so the
    gradient isn't restarted (and seamed) at their boundary. */
 .reviews-band {
-  background: linear-gradient(135deg, #180914 0%, #2B0B22 50%, #4A0D35 100%);
+  /* Was #180914 → #2B0B22 → #4A0D35: the last stop is a violet, which is the
+     one hue the brand doesn't own. The sweep is now the plum ramp's own two
+     steps, still on 135deg so it lifts across the pair of sections, and it
+     lands one step above the CTA below — reviews, CTA, footer descend to
+     black rather than each picking their own dark. */
+  background: linear-gradient(135deg, var(--plum-900) 0%, var(--plum-800) 62%, #2E0F24 100%);
+  border-top: 1px solid var(--hairline-light);
 }
 
 .reviews {
@@ -1351,18 +1402,18 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 
 .reviews .section-title,
 .featured-reviews .section-title {
-  color: #FFF7F2;
+  color: var(--on-dark);
 }
 /* Scoped to this heading so the gallery title's pink span is untouched. */
 .reviews .section-title .text-pink {
-  color: #E9A6B2;
+  color: var(--blush);
 }
 /* The card and card-text colours are set on their own rules further down rather
    than overridden here — those come later in the file at equal specificity, so
    a block here would lose. .fr-card is the exception: two classes beats one. */
 .featured-reviews .fr-card {
-  background: #F8EFE5;
-  border-color: rgba(59, 41, 39, 0.1);
+  background: var(--cream);
+  border-color: var(--hairline-dark);
 }
 
 /* The one primary CTA in the band — bright pink is reserved for it so the
@@ -1379,12 +1430,12 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .reviews-band .btn-outline {
   background: transparent;
   border-color: rgba(255, 247, 242, 0.5);
-  color: #FFF7F2;
+  color: var(--on-dark);
   backdrop-filter: none;
 }
 .reviews-band .btn-outline:hover {
   background: rgba(255, 247, 242, 0.12);
-  border-color: #FFF7F2;
+  border-color: var(--on-dark);
 }
 
 .reviews-band .btn-pink:hover {
@@ -1400,10 +1451,10 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   gap: 24px;
 }
 .review-card {
-  background: #F8EFE5;
-  border: 1px solid rgba(59, 41, 39, 0.1);
+  background: var(--cream);
+  border: 1px solid var(--hairline-dark);
   border-radius: var(--radius-lg);
-  box-shadow: 0 12px 30px rgba(36, 21, 53, 0.06);
+  box-shadow: 0 12px 30px rgba(21, 7, 19, 0.10);
   padding: 32px 28px;
   text-align: center;
   display: flex;
@@ -1416,10 +1467,10 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 2.6rem;
-  color: #D96C86;
+  color: var(--pink-accent);
 }
-.review-score span { font-size: 1.2rem; color: #3B2927; font-weight: 500; }
-.review-source { color: #3B2927; font-size: .9rem; margin-top: 8px; }
+.review-score span { font-size: 1.2rem; color: var(--ink); font-weight: 500; }
+.review-source { color: var(--ink); font-size: .9rem; margin-top: 8px; }
 .review-stars { color: #C89B55; font-size: 1.3rem; letter-spacing: .1em; margin-top: 16px; text-shadow: 0 1px 0 rgba(0,0,0,.08); }
 .review-card-quote {
   background: var(--cream);
@@ -1436,7 +1487,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   font-family: var(--font-display);
   font-size: 6rem;
   line-height: 1;
-  color: rgba(243, 35, 121, 0.12);
+  color: rgba(233, 102, 141, 0.16);
   z-index: 0;
   pointer-events: none;
 }
@@ -1446,7 +1497,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   z-index: 1;
 }
 .review-card-quote p:first-child { font-size: 1.05rem; line-height: 1.5; margin-bottom: 14px; }
-.review-card-quote .review-source { color: #3B2927; margin-top: 0; }
+.review-card-quote .review-source { color: var(--ink); margin-top: 0; }
 
 /* ==========================================================================
    CTA
@@ -1458,7 +1509,14 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
      on the old gradient that was guaranteed by the colour itself. The photo
      is composed with its desserts at the edges and a dark centre, which is
      where .cta-inner sits. */
-  background: var(--ink) url("../images/cta-dessert-backdrop.jpg") center / cover no-repeat;
+  /* The near-black end of the ramp. The photo stays, under a plum scrim heavy
+     enough that the band reads as a colour first and a picture second — this
+     is the page's closing statement, not another product shot. --plum-950
+     sits behind both as the fallback if the image fails. */
+  background:
+    linear-gradient(180deg, rgba(21, 7, 19, 0.74) 0%, rgba(21, 7, 19, 0.88) 100%),
+    url("../images/cta-dessert-backdrop.jpg") center / cover no-repeat,
+    var(--plum-950);
   text-align: center;
   padding: 100px 24px;
   position: relative;
@@ -1466,12 +1524,12 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 }
 .cta-inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
 .cta h2 {
-  color: #fff;
+  color: var(--on-dark);
   font-size: clamp(2rem, 4.5vw, 2.8rem);
   margin-bottom: 16px;
 }
 .cta p {
-  color: rgba(255,255,255,.9);
+  color: var(--on-dark-soft);
   font-size: var(--text-lead);
   line-height: var(--leading-dark);
   margin-bottom: 36px;
@@ -1491,8 +1549,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   /* --cream is the same value as the section behind it, so this card was
      invisible except for a 5px pink left border doing the work a container
      should do. A hairline rule and real padding group it instead. */
-  background: #fff;
-  border: 1px solid rgba(36, 21, 53, .08);
+  background: var(--surface);
+  border: 1px solid var(--hairline-dark);
   border-radius: var(--radius-lg);
   padding: 36px;
 }
@@ -1517,10 +1575,10 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
    Footer
    ========================================================================== */
 .site-footer {
-  /* Black rather than --ink, matching the .why section. The drip SVG above it
-     draws the footer's wavy top edge and is filled to match by hand in the
-     markup — both have to move together or the drip shows as a plum band. */
-  background: #000;
+  /* Near-black plum, the bottom of the dark ramp. The drip SVG above it draws
+     the footer's wavy top edge and is filled to match by hand in the markup —
+     both have to move together or the drip shows as a band of the old black. */
+  background: var(--plum-950);
   position: relative;
   padding-top: 40px;
 }
@@ -1535,13 +1593,13 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   gap: 40px;
   flex-wrap: wrap;
 }
-.footer-brand p { color: rgba(255,255,255,.6); margin-top: 12px; max-width: 280px; font-size: .9rem; }
+.footer-brand p { color: rgba(255, 247, 242, .62); margin-top: 12px; max-width: 280px; font-size: .9rem; }
 .footer-contact { line-height: 1.7; }
 .footer-contact a { color: var(--pink); font-weight: 600; }
 
 .footer-links { display: flex; gap: 60px; }
 .footer-links h3 {
-  color: var(--yellow);
+  color: var(--blush);
   font-size: .85rem;
   text-transform: uppercase;
   letter-spacing: .06em;
@@ -1549,7 +1607,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 }
 .footer-links a {
   display: block;
-  color: rgba(255,255,255,.7);
+  color: rgba(255, 247, 242, .74);
   font-size: var(--text-small);
   line-height: var(--leading-dark);
   margin-bottom: 10px;
@@ -1560,11 +1618,11 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .footer-copy {
   text-align: center;
   /* .4 measured 3.66:1 on black, under the 4.5:1 floor PRODUCT.md names. */
-  color: rgba(255,255,255,.62);
+  color: rgba(255, 247, 242, .64);
   font-size: var(--text-meta);
   line-height: var(--leading-dark);
   padding: 24px 24px 30px;
-  border-top: 1px solid rgba(255,255,255,.08);
+  border-top: 1px solid var(--hairline-light);
   margin: 0 24px;
 }
 
@@ -1724,8 +1782,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .fr-card {
   flex: 0 0 auto;
   width: 320px;
-  background: rgba(255, 255, 255, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.75);
+  background: rgba(255, 251, 246, 0.62);
+  border: 1px solid rgba(255, 251, 246, 0.8);
   border-radius: var(--radius-lg);
   padding: 28px 26px;
   backdrop-filter: blur(16px) saturate(140%);
@@ -1750,7 +1808,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 }
 
 .fr-text {
-  color: #3B2927;
+  color: var(--ink);
   font-size: .96rem;
   line-height: 1.6;
   flex: 1;
@@ -1762,7 +1820,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 
 .fr-meta { display: flex; flex-direction: column; gap: 4px; }
 .fr-name { font-family: var(--font-display); font-weight: 600; color: var(--pink-deep); font-size: var(--text-meta); letter-spacing: .02em; text-transform: uppercase; }
-.fr-sub { display: flex; align-items: center; gap: 6px; color: #3B2927; font-size: .8rem; }
+.fr-sub { display: flex; align-items: center; gap: 6px; color: var(--ink); font-size: .8rem; }
 
 /* ---- See more toggle + collapse ---- */
 .fr-more-wrap { display: flex; justify-content: center; margin-bottom: 8px; position: relative; }
@@ -1816,8 +1874,9 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   padding: var(--space-section-tight) 24px;
   /* Flat cream — was a #FFE1EF band through the middle with two white radial
      highlights over it. The highlights go too: they only registered against
-     the pink, and on cream they'd be an invisible white wash. */
-  background: var(--cream);
+     the pink, and on cream they'd be an invisible white wash. It carries the
+     same blush lead-in as .gallery, since it also follows a dark section. */
+  background: linear-gradient(180deg, #F1E4DC 0%, var(--cream) 160px);
   overflow: hidden;
   text-align: center;
 }
@@ -1865,8 +1924,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   align-items: center;
   gap: 6px;
   padding: 44px 32px;
-  background: rgba(255, 255, 255, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.75);
+  background: rgba(255, 251, 246, 0.62);
+  border: 1px solid rgba(255, 251, 246, 0.8);
   border-radius: var(--radius-lg);
   backdrop-filter: blur(16px) saturate(140%);
   -webkit-backdrop-filter: blur(16px) saturate(140%);
@@ -1884,11 +1943,14 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   z-index: 0;
   filter: blur(30px);
 }
+/* Both hover glows were off-palette — the Instagram one resolved to violet at
+   its mid stop and the TikTok one opened on turquoise. They are the accent
+   pink and blush now, which is the only pink the backgrounds use. */
 .social-card-instagram::before {
-  background: radial-gradient(circle, rgba(240,60,150,.45) 0%, rgba(120,60,220,.35) 60%, transparent 75%);
+  background: radial-gradient(circle, rgba(233,102,141,.38) 0%, rgba(234,179,192,.30) 60%, transparent 75%);
 }
 .social-card-tiktok::before {
-  background: radial-gradient(circle, rgba(47,224,222,.4) 0%, rgba(243,35,121,.3) 60%, transparent 75%);
+  background: radial-gradient(circle, rgba(234,179,192,.36) 0%, rgba(233,102,141,.26) 60%, transparent 75%);
 }
 .social-card:hover {
   transform: translateY(-10px);
@@ -1946,8 +2008,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff;
+  background: rgba(255, 247, 242, 0.08);
+  color: var(--on-dark);
   transition: background .25s ease, transform .25s ease;
 }
 .footer-social-icon:hover { background: var(--gradient-pink); transform: translateY(-3px); }
@@ -1973,12 +2035,12 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   position: relative;
   max-width: 640px;
   margin: 0 auto;
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.85);
+  background: rgba(255, 251, 246, 0.74);
+  border: 1px solid rgba(255, 251, 246, 0.9);
   border-radius: var(--radius-lg);
   backdrop-filter: blur(18px) saturate(140%);
   -webkit-backdrop-filter: blur(18px) saturate(140%);
-  box-shadow: var(--shadow-soft), 0 0 60px -20px rgba(243, 35, 121, 0.35);
+  box-shadow: var(--shadow-soft), 0 0 60px -22px rgba(233, 102, 141, 0.28);
   padding: 40px 40px 28px;
 }
 
@@ -2018,7 +2080,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   color: #1c7a3e;
 }
 .hours-status-closed {
-  background: rgba(243, 35, 121, 0.1);
+  background: rgba(233, 102, 141, 0.14);
   color: var(--pink-deep);
 }
 
@@ -2029,7 +2091,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   justify-content: space-between;
   gap: 16px;
   padding: 13px 4px;
-  border-bottom: 1px solid rgba(36, 21, 53, 0.08);
+  border-bottom: 1px solid var(--hairline-dark);
 }
 .hours-row:last-child { border-bottom: none; }
 
@@ -2049,7 +2111,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   gap: 2px;
 }
 
-.hours-row-closed { background: rgba(243, 35, 121, 0.05); border-radius: var(--radius-md); }
+.hours-row-closed { background: rgba(234, 179, 192, 0.20); border-radius: var(--radius-md); }
 .hours-closed-tag {
   display: inline-block;
   font-family: var(--font-display);
@@ -2058,7 +2120,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   letter-spacing: .03em;
   text-transform: uppercase;
   color: var(--pink-deep);
-  background: rgba(243, 35, 121, 0.12);
+  background: rgba(233, 102, 141, 0.16);
   padding: 4px 12px;
   border-radius: var(--radius-pill);
 }

@@ -335,11 +335,9 @@
 
     const sub = document.createElement('span');
     sub.className = 'fr-sub';
-    const badge = document.createElement('span');
-    badge.className = 'fr-g-badge';
-    badge.setAttribute('aria-hidden', 'true');
-    badge.textContent = 'G';
-    sub.appendChild(badge);
+    // The four-quadrant "G" that used to sit here was an imitation of Google.s
+    // mark in the wrong typeface, aria-hidden, illegible at 15px, and repeated
+    // 59 times. The words beside it already say where the review came from.
     sub.appendChild(document.createTextNode(`Google Review · ${review.age}`));
     meta.appendChild(sub);
 

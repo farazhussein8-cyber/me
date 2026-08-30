@@ -124,26 +124,6 @@ mainNav.querySelectorAll('a').forEach((link) => {
   showCategory(tabs[0].dataset.target);
 })();
 
-const tiltPhoto = document.querySelector('.gallery-photo');
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-if (tiltPhoto && !reduceMotion) {
-  const maxTilt = 10;
-
-  tiltPhoto.addEventListener('mousemove', (e) => {
-    const rect = tiltPhoto.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width;
-    const y = (e.clientY - rect.top) / rect.height;
-    const rotateY = (x - 0.5) * maxTilt * 2;
-    const rotateX = (0.5 - y) * maxTilt * 2;
-    tiltPhoto.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
-  });
-
-  tiltPhoto.addEventListener('mouseleave', () => {
-    tiltPhoto.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-  });
-}
-
 document.querySelectorAll('.size-options').forEach((group) => {
   const buttons = group.querySelectorAll('.size-btn');
   const body = group.closest('.menu-product-body');

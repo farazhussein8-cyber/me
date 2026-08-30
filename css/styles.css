@@ -10,12 +10,7 @@
   --yellow: #FFE94D;
   --ink: #241535;
   --ink-soft: #4A3A5C;
-  /* One cream for every page surface. These were #FFFCF7 and #FFF6E9, close
-     enough to look like a mistake where they met — the promo copy panels sat
-     visibly warmer than the page behind them. Both are only ever used as a
-     background or a gradient stop, never as text or icon colour. */
   --cream: #FFF6E9;
-  --cream-alt: #FFF6E9;
 
   --gradient-logo: linear-gradient(135deg, var(--turquoise) 0%, var(--mint) 52%, var(--yellow) 100%);
   --gradient-pink: linear-gradient(135deg, var(--pink) 0%, var(--pink-deep) 100%);
@@ -28,7 +23,11 @@
      6.7px band with a median step of 0.42px — below the threshold where a
      size difference reads as a different job. These are the steps that
      actually separate, named for what they do rather than how big they are. */
-  --text-micro: 0.6875rem;  /* 11px — the functional floor, nothing below */
+  /* 11px is the functional floor. One deliberate exception exists: the mobile
+     header CTA is pinned at 10px by explicit instruction, and the detector
+     flags it on both pages. Documented here so the exception is visible
+     rather than looking like drift. */
+  --text-micro: 0.6875rem;  /* 11px */
   --text-meta:  0.8125rem;  /* 13px — bylines, captions, fine print */
   --text-small: 0.9375rem;  /* 15px — secondary body */
   --text-body:  1rem;       /* 16px */
@@ -211,29 +210,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 /* Sits in normal flow above the sticky header, so it scrolls away while the
    navbar still pins to the top. Full width comes from being a plain block at
    body level — no 100vw, which would overhang by the scrollbar width. */
-.announcement-bar {
-  /* Sampled from the supplied 1920x120 plum strip, which has no vertical
-     variation — so it reproduces exactly as a gradient and scales to any
-     width instead of shipping the PNG. Scoped to this bar only; --ink and
-     every other surface are untouched. */
-  background: linear-gradient(to right,
-    #1D0C1D 0%,
-    #2B1227 16%,
-    #3B1934 35%,
-    #441D3B 45%,
-    #481F3D 55%,
-    #3D1A34 78%,
-    #32142B 100%);
-  color: #fff;
-  text-align: center;
-  padding: 9px 16px;
-  font-family: var(--font-body);
-  font-size: clamp(0.78rem, 2.6vw, 0.875rem);
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  line-height: 1.35;
-}
-
 /* ==========================================================================
    Header
    ========================================================================== */
@@ -386,7 +362,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   max-height: calc(100dvh - 120px);
   overflow-y: auto;
   overscroll-behavior: contain;
-  background: var(--cream-alt);
+  background: var(--cream);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-soft);
   padding: 20px;
@@ -528,6 +504,34 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   background: var(--ink);
   transition: transform .25s ease, opacity .25s ease;
 }
+/* aria-expanded was wired correctly but had no visual counterpart — the bars
+   looked identical open and closed. The transition above was already written
+   for this and never used. */
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* Visible only on focus. First focusable element on both pages, ahead of the
+   six nav links. */
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: -100px;
+  z-index: 300;
+  /* 13px vertical clears the 44px target floor; at 10px it rendered 39px. */
+  padding: 13px 20px;
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-small);
+  transition: top .2s ease;
+}
+/* :focus, not :focus-visible — a skip link has to appear for any focus that
+   reaches it, including programmatic and assistive-technology focus, which
+   the :focus-visible heuristic does not always match. */
+.skip-link:focus { top: 12px; }
 
 /* ==========================================================================
    Hero
@@ -613,12 +617,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   flex: none;
 }
 
-.hero-wordmark {
-  width: min(300px, 80%);
-  height: auto;
-  margin-bottom: 22px;
-}
-
 .hero-title {
   font-family: 'Fraunces', serif;
   font-optical-sizing: auto;
@@ -644,13 +642,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   font-weight: 500;
   letter-spacing: 0.01em;
   line-height: 1.6;
-}
-
-.hero-ctas {
-  display: flex;
-  align-items: stretch;
-  gap: 18px;
-  flex-wrap: wrap;
 }
 
 @media (max-width: 860px) {
@@ -722,7 +713,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   /* Was clamp(1.7rem, 5.6vw, 2.05rem) = 27.2px at 390, smaller than all seven
      section h2s at 32px. Capped so "made just for you" still holds one line. */
   .hero-title { font-size: clamp(2.3rem, 8.6vw, 2.75rem); }
-  .hero-wordmark { margin-left: 0; margin-right: 0; }
   .hero-swirl .hero-sub { margin: 0; }
 
   /* Four across is far too tight on a phone, so the strip becomes a 2x2 grid
@@ -855,7 +845,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .menu-product-card {
   display: flex;
   flex-direction: column;
-  background: var(--cream-alt);
+  background: var(--cream);
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-soft);
@@ -872,7 +862,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   position: relative;
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  background: var(--cream-alt);
+  background: var(--cream);
 }
 .menu-product-photo img {
   width: 100%;
@@ -946,7 +936,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   display: flex;
   align-items: center;
   gap: 12px;
-  background: var(--cream-alt);
+  background: var(--cream);
   border: 1px solid rgba(243, 35, 121, 0.18);
   border-radius: var(--radius-md);
   padding: 10px 14px;
@@ -1051,7 +1041,10 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
      keeps its plum. */
   background: #000;
   max-width: none;
-  padding: 110px 24px;
+  /* Was a hardcoded 110px 24px, which the spacing-token pass missed — leaving
+     this the one section that kept desktop padding on a phone, the exact bug
+     that pass fixed for #social and #hours. */
+  padding: var(--space-section) 24px;
 }
 .why-inner { max-width: 1200px; margin: 0 auto; }
 /* Measure in ch, not px: at a fixed 420px this held the same 34ch line from
@@ -1101,25 +1094,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 /* ==========================================================================
    Gallery
    ========================================================================== */
-.gallery-photo {
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-soft);
-  border: 6px solid #fff;
-  outline: 1px solid rgba(36,21,53,.08);
-  transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
-  transition: transform .25s ease-out, box-shadow .25s ease-out;
-  will-change: transform;
-}
-.gallery-photo:hover {
-  box-shadow: 0 30px 60px -20px rgba(36, 21, 53, 0.35);
-}
-.gallery-photo img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
 /* ---- Shop grid ----
    Seven real photographs from the shop, sized to the page rather than dropped
    into cards. No new colour or background: the pictures are already saturated
@@ -1225,7 +1199,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   /* Warm cream rather than transparent: it's the closest palette token to the
      churro photo's beige, so the two halves still read as one band. The text
      goes dark to keep contrast — white on cream would be unreadable. */
-  background: var(--cream-alt);
+  background: var(--cream);
   color: var(--ink);
   padding: clamp(36px, 5vw, 64px);
   display: flex;
@@ -1233,7 +1207,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   justify-content: center;
 }
 /* The thick shakes panel has no backdrop of its own — it falls back to the
-   base rule's --cream-alt with dark type. The white text that went with the
+   base rule's --cream with dark type. The white text that went with the
    confetti artwork is dropped along with it; on a pale panel it would be
    invisible. */
 
@@ -1290,7 +1264,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
       #2A020F 97%);
 }
 /* This panel has no backdrop of its own — it falls back to the base rule's
-   --cream-alt, matching the thick shakes band. The body text goes back to the
+   --cream, matching the thick shakes band. The body text goes back to the
    base --ink-soft too: it was raised to --ink only because it measured 3.52:1
    over the sparkle artwork, which is no longer there. */
 /* Copy centred in its half. align-items as well as text-align: the panel is a
@@ -1383,11 +1357,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .reviews .section-title .text-pink {
   color: #E9A6B2;
 }
-.reviews .section-eyebrow,
-.featured-reviews .section-eyebrow {
-  color: #D6B078;
-}
-
 /* The card and card-text colours are set on their own rules further down rather
    than overridden here — those come later in the file at equal specificity, so
    a block here would lose. .fr-card is the exception: two classes beats one. */
@@ -1453,7 +1422,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .review-source { color: #3B2927; font-size: .9rem; margin-top: 8px; }
 .review-stars { color: #C89B55; font-size: 1.3rem; letter-spacing: .1em; margin-top: 16px; text-shadow: 0 1px 0 rgba(0,0,0,.08); }
 .review-card-quote {
-  background: var(--cream-alt);
+  background: var(--cream);
   color: var(--ink);
   text-align: left;
   position: relative;
@@ -1519,7 +1488,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   align-items: stretch;
 }
 .location-card {
-  /* --cream-alt is the same value as the section behind it, so this card was
+  /* --cream is the same value as the section behind it, so this card was
      invisible except for a 5px pink left border doing the work a container
      should do. A hairline rule and real padding group it instead. */
   background: #fff;
@@ -1794,21 +1763,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .fr-meta { display: flex; flex-direction: column; gap: 4px; }
 .fr-name { font-family: var(--font-display); font-weight: 600; color: var(--pink-deep); font-size: var(--text-meta); letter-spacing: .02em; text-transform: uppercase; }
 .fr-sub { display: flex; align-items: center; gap: 6px; color: #3B2927; font-size: .8rem; }
-
-.fr-g-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  font-family: var(--font-display);
-  font-size: .6rem;
-  font-weight: 700;
-  color: #fff;
-  background: conic-gradient(from 0deg, #4285F4 0deg 90deg, #34A853 90deg 180deg, #FBBC05 180deg 270deg, #EA4335 270deg 360deg);
-  flex-shrink: 0;
-}
 
 /* ---- See more toggle + collapse ---- */
 .fr-more-wrap { display: flex; justify-content: center; margin-bottom: 8px; position: relative; }
@@ -2115,49 +2069,3 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   .hours-time { text-align: left; }
 }
 
-/* ==========================================================================
-   Featured Desserts
-   ========================================================================== */
-.section.featured-desserts { max-width: 1400px; padding-top: 62px; padding-bottom: 40px; }
-.featured-desserts .section-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 600;
-  letter-spacing: 0;
-}
-
-.featured-desserts-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  margin-bottom: 44px;
-}
-
-.featured-dessert-card {
-  margin: 0;
-  aspect-ratio: 4 / 5;
-  border-radius: 0;
-  /* overflow stays: it's what makes the img's object-fit crop hold. */
-  overflow: hidden;
-  box-shadow: var(--shadow-soft);
-}
-.featured-dessert-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  pointer-events: none;
-}
-
-.featured-desserts-cta { display: flex; justify-content: center; }
-.featured-desserts-cta .btn {
-  text-transform: uppercase;
-  letter-spacing: .04em;
-}
-
-@media (max-width: 860px) {
-  .featured-desserts { padding-top: 46px; padding-bottom: 36px; }
-  .featured-desserts-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-}
